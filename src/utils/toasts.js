@@ -39,9 +39,9 @@ export const notifyCommentZap = (userData, data) =>
       theme: "dark",
     }
   );
-export const textToAllUsers = (text) =>
+export const textToAllUsers = (user,text) =>
   toast(
-    `АДМІНІСТРАТОР:
+    `${user}:
 
 
 
@@ -57,9 +57,9 @@ export const textToAllUsers = (text) =>
       theme: "dark",
     }
   );
-export const fromAdminToUser = (text) =>
+export const fromAdminToUser = (user,text) =>
   toast(
-    `АДМІНІСТРАТОР:
+    `${user}:
 
 
 
