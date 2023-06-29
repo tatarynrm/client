@@ -20,7 +20,10 @@ const AdminPanel = () => {
     e.preventDefault();
     e.stopPropagation();
     if (window.confirm("Відправити повідомлення усім активним користувачам?")) {
-      socket.emit("textToAllUsers", textToAllUsers);
+      socket.emit("textToAllUsers", {
+        textToAllUsers,
+        user:userData.PIP
+      });
     }
   };
   useEffect(() => {
@@ -33,6 +36,7 @@ const AdminPanel = () => {
       message: message,
       id: item.socketId,
       kod: item.userId,
+      user:userData.PIP
     });
   };
   return (

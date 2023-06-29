@@ -52,13 +52,14 @@ function App() {
   }, [socket]);
   useEffect(() => {
     socket.on("showTextToAllUsers", (data) => {
-      textToAllUsers(userData.PIP,data);
+   
+      textToAllUsers(data.user,data.textToAllUsers);
     });
   }, [socket]);
   useEffect(() => {
     socket.on("show_msg_from_admin", (data) => {
       if (userData?.KOD === data.kod) {
-        fromAdminToUser(userData?.PIP,data.message);
+        fromAdminToUser(data.user,data.message);
         directorSound();
       }
     });
