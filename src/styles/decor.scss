@@ -1,0 +1,51 @@
+.decor__line-div {
+  position: absolute;
+  background-color: var(--button-main);
+  height: 4px;
+  width: 100%;
+  left: 0;
+  top: -2px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.decor__line-div-zap-new {
+  position: absolute;
+  // background-color: var(--button-main);
+  background-color: rgb(20, 238, 20);
+  height: 6px;
+  width: 100%;
+  left: 0;
+  top: -2px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.decor__line-div-zap-30min {
+  position: absolute;
+  background-color: rgb(228, 203, 64);
+  height: 6px;
+  width: 100%;
+  left: 0;
+  top: -2px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.decor__line-div-zap-3hour {
+  position: absolute;
+  background-color: rgb(226, 75, 75);
+  height: 6px;
+  width: 100%;
+  left: 0;
+  top: -2px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.decor__div {
+  position: absolute;
+  background-color: var(--button-main);
+  height: 4px;
+  width: 100%;
+  left: 0;
+  top: -2px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}

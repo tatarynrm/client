@@ -1,0 +1,35 @@
+.carriers {
+  &__inner {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--body-color);
+  }
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  &__item {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem;
+    text-align: left;
+    border-bottom: 1px solid var(--button-main);
+    cursor: inherit;
+    color: var(--body-color);
+  }
+  &-item {
+    color: var(--body-color);
+    button {
+      color: var(--body-color);
+    }
+  }
+}

@@ -1,0 +1,68 @@
+.current__transportation {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  &-menu {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+  }
+  &-item {
+    position: relative;
+    width: 70%;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 30px;
+    text-align: center;
+    padding: 0.4rem;
+    border-radius: 4px;
+    box-shadow: 1px 3px 5px var(--button-main);
+    justify-content: space-between;
+    &-info {
+      display: flex;
+      flex-direction: column;
+      color: rgb(148, 142, 142);
+    }
+
+    &-author {
+      span {
+        color: rgb(148, 142, 142);
+        cursor: pointer;
+      }
+    }
+    &-text {
+      padding-bottom: 40px;
+    }
+    &-edit {
+      // display: none;
+      position: absolute;
+      // left: -150px;
+      top: -20px;
+    }
+    &-propsals {
+      // width: 120px;
+    }
+  }
+
+  &_item {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    margin: 0 auto;
+
+    .current__cargo {
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      gap: 30px;
+    }
+  }
+}
+
+.transportation__comments {
+  position: absolute;
+  bottom: 0;
+  left: 100px;
+}

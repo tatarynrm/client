@@ -1,0 +1,125 @@
+.header {
+  height: 10vh;
+  display: flex;
+  box-shadow: 1px 1px 10px var(--button-main);
+  font-size: 14px;
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.time {
+  // background-color: rgba(110, 195, 220, 0.4);
+  background-color: var(--button-main);
+  font-weight: bold;
+  padding: 0.4rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  cursor: not-allowed;
+}
+
+.header__avatar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--button-main);
+  border-radius: 50%;
+  cursor: pointer;
+  &:hover > &-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    gap: 10px;
+  }
+  &-options {
+    background-color: whitesmoke;
+    border-radius: 10px;
+    position: absolute;
+    top: 40px;
+    right: -20px;
+    padding: 10px;
+    width: 200px;
+    height: auto;
+    display: none;
+    z-index: 999;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .time {
+    display: none;
+    // display: block;
+  }
+  .header {
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    box-shadow: 1px 1px 10px var(--button-main);
+    &_avatar {
+      display: block;
+    }
+    &__wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+    &__logo {
+      // display: none;
+    }
+    &__menu {
+      // width: 90%;
+      // margin: 0 auto;
+      // height: 8vh;
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .time {
+    display: none;
+  }
+  .header {
+    height: 20vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    box-shadow: 1px 1px 10px var(--button-main);
+    &_avatar {
+      display: block;
+    }
+    &__wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+    &__logo {
+      // display: none;
+    }
+    &__menu {
+      // width: 90%;
+      margin: 0 auto;
+      height: 8vh;
+      display: none;
+
+      .menu__item {
+        // width: 20%;
+      }
+    }
+  }
+}

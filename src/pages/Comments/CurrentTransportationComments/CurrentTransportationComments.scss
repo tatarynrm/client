@@ -1,0 +1,14 @@
+.comments {
+  width: 70%;
+  margin: 0 auto;
+
+  .comment {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+
+    &__block {
+      width: 200px;
+    }
+  }
+}

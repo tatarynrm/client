@@ -1,0 +1,10 @@
+.closed__cargos {
+  margin: 0 auto;
+  margin-top: 20px;
+  .closed {
+    width: 100%;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+}

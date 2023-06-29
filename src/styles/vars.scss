@@ -1,0 +1,25 @@
+:root {
+  --button-main: rgb(76, 135, 202);
+  --color-white: white;
+  --color-black: black;
+  --body-background: white;
+  --body-color: black;
+  --link-color: navy;
+  --border-color: transparent;
+  --border: 1px solid var(var(--border-color));
+}
+
+[data-theme="dark"] {
+  --button-main: rgb(76, 135, 202);
+  --color-white: white;
+  --color-black: black;
+  --body-background: #282c34;
+  --body-color: white;
+  --link-color: cyan;
+  --border-color: white;
+  --border: 1px solid var(var(--border-color));
+}
+
+* {
+  transition: all 0.1s ease;
+}

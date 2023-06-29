@@ -1,0 +1,23 @@
+.home {
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .video {
+    height: 500px;
+  }
+  font-size: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+  .home {
+    &__inner {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+  }
+}

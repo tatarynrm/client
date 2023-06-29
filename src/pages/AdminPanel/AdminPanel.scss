@@ -1,0 +1,52 @@
+.admin {
+  &__inner {
+    margin-top: 20px;
+  }
+  &__nav {
+    display: flex;
+    gap: 10px;
+  }
+  .active__users {
+    color: var(--body-color);
+    > .user {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      color: var(--body-color);
+      padding: 0.4rem;
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+      background-color: var(--background-color);
+      border: var(--border);
+    }
+  }
+
+  .active__users-block {
+    display: flex;
+    gap: 10px;
+    padding: 0.4rem;
+    margin-top: 10px;
+    background-color: rgb(27, 199, 12);
+    border-radius: 10px;
+  }
+}
+.admin__send-message {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  textarea {
+    height: 50px;
+    width: 200px;
+    resize: none;
+  }
+}
+.admin__messages-to-users {
+  > form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  input {
+    height: 40px;
+  }
+}

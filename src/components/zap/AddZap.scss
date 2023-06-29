@@ -1,0 +1,42 @@
+.add__zap {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 500px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+
+  .form__control {
+    width: 100%;
+    input {
+      border: 2px solid var(--button-main);
+      outline: none;
+      border-radius: 0.4rem;
+      padding: 0.4rem;
+    }
+    textarea {
+      border: 2px solid var(--button-main);
+      outline: none;
+      width: 100%;
+      border-radius: 0.4rem;
+      padding: 0.4rem;
+      height: 100px;
+    }
+  }
+  .form__radio {
+    .form__control {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+
+      input {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+}
