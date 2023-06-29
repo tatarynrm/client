@@ -5,7 +5,7 @@ import socket from "../../utils/socket";
 import UsersActions from "../../components/admin_components/UsersActions";
 import { useSelector } from "react-redux";
 const AdminPanel = () => {
-  const userData = useSelector(state =state.auth.data);
+  const userData = useSelector(state => state.auth.data);
   const [textToAllUsers, setTextToAllUsers] = useState("");
   const [activeUsers, setActiveUsers] = useState();
 
