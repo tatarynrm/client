@@ -63,11 +63,11 @@ const Home = () => {
     <div className="home container">
       <div className="home__inner">
         <div>
-          {/* <h1>
+          <h1>
             Доброго дня {userData?.IMJA ? userData?.IMJA : "Користувач"} <br />{" "}
-          </h1> */}
+          </h1>
         </div>
-        <div className="news">
+        {/* <div className="news">
           <code>
             <h2>Додано оновлення заявок👇👇👇</h2>
             <p>
@@ -135,7 +135,7 @@ const Home = () => {
               url="https://youtu.be/S9VN2BenU4M"
             />
           </div>
-        </div>
+        </div> */}
       </div>
       {/* <Doughnut data={data} /> */}
     </div>

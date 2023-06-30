@@ -28,7 +28,7 @@ import ClosedCargos from "./pages/ClosedCargos/ClosedCargos";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import { ToastContainer } from "react-toastify";
 import { fromAdminToUser, textToAllUsers } from "./utils/toasts";
-import { directorSound } from "./helpers/audio";
+import { directorSound, msgToAllUsers } from "./helpers/audio";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +54,7 @@ function App() {
     socket.on("showTextToAllUsers", (data) => {
    
       textToAllUsers(data.user,data.textToAllUsers);
+      msgToAllUsers()
     });
   }, [socket]);
   useEffect(() => {

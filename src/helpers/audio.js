@@ -1,7 +1,5 @@
 import sound from "../assets/sounds/message.wav";
-import director from "../assets/sounds/director.wav";
-// import send from "../assets/sounds/wooh.wav";
-// import fcmess from "../assets/sounds/fcmess.wav";
+import push_sound from "../assets/sounds/message_all_users.mp3"
 
 export const beep = () => {
   let snd = new Audio(sound);
@@ -14,7 +12,12 @@ export const beepSend = () => {
   snd.play();
 };
 export const directorSound = () => {
-  let snd = new Audio(director);
+  let snd = new Audio(push_sound);
+  snd.volume = 1;
+  snd.play();
+};
+export const msgToAllUsers = () => {
+  let snd = new Audio(push_sound);
   snd.volume = 1;
   snd.play();
 };
