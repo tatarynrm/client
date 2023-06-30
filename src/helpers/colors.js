@@ -3,7 +3,7 @@ function generateRGBColor() {
   var red = getRandomNumber(0, 255);
   var green = getRandomNumber(0, 255);
   var blue = getRandomNumber(0, 255);
-  return "rgb(" + red + ", " + green + ", " + blue + ")";
+  return "rgba(" + red + ", " + green + ", " + blue + " , " + 0.4 + ")";
 }
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
