@@ -18,6 +18,8 @@ import refreshGIF from "../../assets/refresh__.gif";
 import commentsCountPNG from "../../assets/comments__count.png";
 import { fetchAllZap, fetchZap } from "../../redux/slices/zap";
 import { generateUniqueRGBColors } from "../../helpers/colors";
+import { todayDate } from "../../helpers/dates";
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 const Home = () => {
   const startOfMonth = moment().startOf("month").format("DD.MM.YYYY");
@@ -29,6 +31,8 @@ const Home = () => {
   const [uniqNames,setUniqNames] = useState([])
   const [rgb,setRgb] = useState([])
   const [arr,setArr] = useState([])
+  const [dateFrom,setDateFrom] = useState('')
+  const [dateError,setDateError] = useState(false)
   useEffect(() => {
     if (userData) {
       socket.emit("newUser", userData);
@@ -39,9 +43,9 @@ const Home = () => {
 //   }, [selectedTheme])
 
   useEffect(() => {
-    dispatch(fetchAllZap())
+    dispatch(fetchAllZap(todayDate))
   }, [])
-
+ 
 
 // useEffect(() => {
 // const unique = [...new Set(zap.map(item => {
@@ -49,9 +53,6 @@ const Home = () => {
 // }))]
 // setUniqNames(unique)
 // }, [zap])
-
-
-
 
 useEffect(() => {
 if (uniqNames) {
@@ -71,12 +72,14 @@ useEffect(()=>{
 setArr(result)
 },[zap])
 
+useEffect(()=>{
 
+},[zap])
   const data = {
     labels: arr.map(item => item.person),
     datasets: [
       {
-        label: "заявок",
+        label: "# Заявок",        
         data: arr.map(item => item.count),
         backgroundColor: rgb,
         borderColor: ["rgba(0,0,0,0.1)"],
@@ -84,6 +87,16 @@ setArr(result)
       },
     ],
   };
+
+  const showResultByDate = () =>{
+    if (dateFrom !== "") {
+      dispatch(fetchAllZap(dateFrom))
+      setDateError(false)
+    }else{
+        setDateError(true)
+    }
+   
+  }
   if (arr.length > 0 ) {
     return (
       <div className="home container">
@@ -93,11 +106,20 @@ setArr(result)
               Доброго дня {userData?.IMJA ? userData?.IMJA : "Користувач"} <br />{" "}
             </h1>
           </div>
+          <div className="date__zap-pick">
+<input type="date"  onChange={e=>{
+          setDateFrom(e.target.value)
+        }}  />
+        <button className="normal" onClick={showResultByDate}>Дивитись</button>
+        {dateError && <p style={{color:"red"}}>Оберіть дату</p> }
+        {dateFrom ? <span className="show__zap-from-date">Дані від {moment(dateFrom).format('ll')}</span> : null }
+
+</div>
         <div className="chart__container">
-          { rgb ? <Doughnut data={data}  options={{
+
+        { rgb ? <Doughnut data={data}  options={{
               color: 'gray' 
             }} /> : null }
-           
         </div>
         </div>
       </div>

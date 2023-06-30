@@ -14,17 +14,17 @@ import { SiAdminer } from "react-icons/si";
 
 export const navbar_menu = [
   // { label: "Чат", link: "/chat", icon: <FcAssistant /> },
-  {
-    label: "Новини",
-    link: "/",
-    icon: <FcNews />,
-    // submenu: [
-    //   { label: "Актуальні завантаження", link: "/current-transportation" },
-    //   { label: "Тендери", link: "/tenders" },
-    //   { label: "Закриті завантаження", link: "/closed-transportation" },
-    //   { label: "Запит ціни", link: "/transportation-price" },
-    // ],
-  },
+  // {
+  //   label: "Новини",
+  //   link: "/",
+  //   icon: <FcNews />,
+  //   // submenu: [
+  //   //   { label: "Актуальні завантаження", link: "/current-transportation" },
+  //   //   { label: "Тендери", link: "/tenders" },
+  //   //   { label: "Закриті завантаження", link: "/closed-transportation" },
+  //   //   { label: "Запит ціни", link: "/transportation-price" },
+  //   // ],
+  // },
   {
     label: "Документи",
     link: "/ict-files",

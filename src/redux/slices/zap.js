@@ -3,9 +3,9 @@ import axios from "../../utils/axios";
 
 export const fetchAllZap = createAsyncThunk(
   "cargos/fetchCargos",
-  async () => {
+  async (todayDate) => {
     try {
-      const { data } = await axios.get("/zap/all",);
+      const { data } = await axios.post("/zap/all",{todayDate:todayDate});
       return data;
     } catch (error) {
       console.log(error);

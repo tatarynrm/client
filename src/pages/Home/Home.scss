@@ -17,6 +17,22 @@
     width: 800px;
 
   }
+
+  .date__zap-pick{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+
+
+    input {
+      height: 40px;
+    }
+    .show__zap-from-date {
+      color: var(--body-color);
+      font-size: 25px;
+      margin-top: 20px;
+    }
+  }
 }
 
 @media screen and (max-width: 1200px) {
