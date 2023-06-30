@@ -1,14 +1,22 @@
 .home {
+  color: var(--body-color);
   &__inner {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    // flex-direction: column;
+    gap: 100px;
     margin-top: 20px;
   }
   .video {
     height: 500px;
   }
   font-size: 20px;
+
+  .chart__container{
+    color: var(--body-color);
+    // max-width: 800px;
+    width: 800px;
+
+  }
 }
 
 @media screen and (max-width: 1200px) {

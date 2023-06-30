@@ -1,6 +1,17 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "../../utils/axios";
 
+export const fetchAllZap = createAsyncThunk(
+  "cargos/fetchCargos",
+  async () => {
+    try {
+      const { data } = await axios.get("/zap/all",);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 export const fetchZap = createAsyncThunk(
   "cargos/fetchCargos",
   async (KOD_OS) => {

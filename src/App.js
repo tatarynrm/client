@@ -18,7 +18,7 @@ import Transportation from "./pages/Transportation/Transportation";
 import Carriers from "./pages/Carriers/Carriers";
 import axios from "./utils/axios";
 import LogisticWork from "./pages/LogisticWork/LogisticWork";
-import { fetchGroups, fetchZap } from "./redux/slices/zap";
+import { fetchAllZap, fetchGroups, fetchZap } from "./redux/slices/zap";
 import { editZap } from "./redux/slices/edit";
 import ZapEditForm from "./components/zap/ZapEditForm";
 import { io } from "socket.io-client";
@@ -40,6 +40,9 @@ function App() {
   useEffect(() => {
     dispatch(fetchAuthMe());
   }, []);
+  useEffect(() => {
+    dispatch(fetchZap(userData?.KOD))
+  }, [])
   useEffect(() => {
     if (userData) {
       socket.emit("newUser", userData);
@@ -65,8 +68,9 @@ function App() {
       }
     });
   }, [socket, userData]);
+
   return (
-    <>
+    <div className="main__app">
       <Header />
       <Routes>
         <Route exact path="/login" element={<Login />} />
@@ -104,7 +108,7 @@ function App() {
       {zapEditStatus ? <ZapEditForm /> : null}
       {/* <Footer /> */}
       <ToastContainer />
-    </>
+    </div>
   );
 }
 

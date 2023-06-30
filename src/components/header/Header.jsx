@@ -9,6 +9,7 @@ import HeaderNav from "./header_nav/HeaderNav";
 import HeaderLogo from "./header_logo/HeaderLogo";
 
 import HeaderTime from "./header_time/HeaderTime";
+import HeaderNotifications from "./header_push/HeaderNotifications";
 const Header = () => {
   const isAuth = useSelector(selectIsAuth);
   const userData = useSelector((state) => state.auth.data);
@@ -30,7 +31,9 @@ const Header = () => {
         <HeaderLogo />
         {token ? <HeaderTime /> : null}
         {token ? <HeaderNav /> : null}
+        {token ? <HeaderNotifications /> : null}
         {token ? <HeaderAvatar /> : null}
+       
       </div>
     </header>
   );
