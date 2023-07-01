@@ -7,6 +7,9 @@
   --link-color: navy;
   --border-color: transparent;
   --border: 1px solid var(var(--border-color));
+  --notification-background:rgb(15, 48, 87);
+  --notification-color:white;
+  --notification-item:rgb(15, 48, 87);
 }
 
 [data-theme="dark"] {
@@ -18,6 +21,9 @@
   --link-color: cyan;
   --border-color: white;
   --border: 1px solid var(var(--border-color));
+  --notification-background:white;
+  --notification-color:black;
+  --notification-item:rgb(245, 245, 245);
 }
 
 * {

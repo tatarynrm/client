@@ -31,6 +31,7 @@ import { useRef } from "react";
 import axios from "../../utils/axios";
 import { addReduxZap } from "../../redux/slices/zap";
 import { beep, beepSend } from "../../helpers/audio";
+import { fetchEvents } from "../../redux/slices/events";
 
 const LogisticWork = () => {
   const [searchFilter, setSearchFilter] = useState("");

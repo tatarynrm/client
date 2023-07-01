@@ -96,8 +96,8 @@ const Workers = () => {
                     item.IMJA.toUpperCase().includes(search);
             })
             .sort((a, b) => {
-              let fa = a.PRIZV.toLowerCase(),
-                fb = b.PRIZV.toLowerCase();
+              let fa = a.PRIZV?.toLowerCase(),
+                fb = b.PRIZV?.toLowerCase();
 
               if (fa < fb) {
                 return -1;

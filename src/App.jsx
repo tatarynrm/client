@@ -29,6 +29,8 @@ import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import { ToastContainer } from "react-toastify";
 import { fromAdminToUser, textToAllUsers } from "./utils/toasts";
 import { directorSound, msgToAllUsers } from "./helpers/audio";
+import { fetchEvents } from "./redux/slices/events";
+import NotificationPanel from "./components/notification_panel/NotificationPanel";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +39,9 @@ function App() {
   const userData = useSelector((state) => state.auth.data);
   const zapEditStatus = useSelector((state) => state.edit.zapEdit);
   const navigate = useNavigate();
+  const events = useSelector(state => state.events.events.items)
+  const eventsOpen = useSelector(state => state.edit.eventsOpen)
+
   useEffect(() => {
     dispatch(fetchAuthMe());
   }, []);
@@ -68,9 +73,21 @@ function App() {
       }
     });
   }, [socket, userData]);
+  // useEffect(()=>{
+  //   dispatch(fetchEvents(userData?.KOD))
+  //   },[])
+
+  useEffect(()=>{
+
+      userData && dispatch(fetchEvents(userData?.KOD))
+ 
+    },[userData])
 
   return (
     <div className="main__app">
+      {/* <div style={{backgroundColor:"lightcoral"}} className="admin__notification">
+        <span>Оновлення :.................</span>
+      </div> */}
       <Header />
       <Routes>
         <Route exact path="/login" element={<Login />} />

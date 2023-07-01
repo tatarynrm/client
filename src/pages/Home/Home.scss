@@ -26,6 +26,17 @@
 
     input {
       height: 40px;
+      background-color: var(--vackground-color);
+      color: var(--body-color);
+      outline: none;
+      border: 1px solid var(--body-color);
+      padding: 0.4rem;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      
+    }
+    input::placeholder {
+      color: var(--body-color);
     }
     .show__zap-from-date {
       color: var(--body-color);

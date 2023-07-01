@@ -19,6 +19,7 @@ import commentsCountPNG from "../../assets/comments__count.png";
 import { fetchAllZap, fetchZap } from "../../redux/slices/zap";
 import { generateUniqueRGBColors } from "../../helpers/colors";
 import { todayDate } from "../../helpers/dates";
+import { fetchEvents } from "../../redux/slices/events";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 const Home = () => {
@@ -38,21 +39,21 @@ const Home = () => {
       socket.emit("newUser", userData);
     }
   }, [userData]);
-//   useEffect(() => {
-
-//   }, [selectedTheme])
+  useEffect(()=>{
+    dispatch(fetchEvents(userData?.KOD))
+    },[])
 
   useEffect(() => {
     dispatch(fetchAllZap(todayDate))
   }, [])
  
 
-// useEffect(() => {
-// const unique = [...new Set(zap.map(item => {
-//   return item.PIP
-// }))]
-// setUniqNames(unique)
-// }, [zap])
+useEffect(() => {
+const unique = [...new Set(zap.map(item => {
+  return item.PIP
+}))]
+setUniqNames(unique)
+}, [zap])
 
 useEffect(() => {
 if (uniqNames) {
@@ -74,7 +75,7 @@ setArr(result)
 
 useEffect(()=>{
 
-},[zap])
+},[arr])
   const data = {
     labels: arr.map(item => item.person),
     datasets: [
