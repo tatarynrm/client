@@ -10,6 +10,8 @@
   --notification-background:rgb(15, 48, 87);
   --notification-color:white;
   --notification-item:rgb(15, 48, 87);
+  --burger-menu-bg:black;
+  --burger-menu-color:white;
 }
 
 [data-theme="dark"] {
@@ -24,6 +26,8 @@
   --notification-background:white;
   --notification-color:black;
   --notification-item:rgb(245, 245, 245);
+  --burger-menu-bg:black;
+  --burger-menu-color:white;
 }
 
 * {

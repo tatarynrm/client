@@ -137,6 +137,7 @@ function App() {
         <Route path="*" exact={true} element={<DoesntExist />} />
       </Routes>
       {zapEditStatus ? <ZapEditForm /> : null}
+      {eventsOpen && <NotificationPanel/> } 
       {/* <Footer /> */}
       <ToastContainer />
     </div>

@@ -40,3 +40,24 @@
     }
   }
 }
+@media screen and (max-width: 600px) { 
+.add__zap{
+  width: 100%;
+  textarea{
+    width: 90%;
+  }
+}
+.form__control {
+  width: 100%;
+  input{
+    width: 100%;
+    padding: 0rem;
+  }
+
+  textarea{
+    width: 90%;
+    padding: 0rem;
+  }
+}
+
+}

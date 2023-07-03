@@ -6,7 +6,6 @@
 }
 
 .menu__item {
-  // width: 170px;
   position: relative;
   padding: 0.2rem;
   background-color: transparent;
@@ -78,25 +77,40 @@
 
 
 @media screen and (max-width: 600px) {
+  .header {
+    width: 100%;
 
-  .header{
-
-    &__menu {
-      background-color: rgba($color: #000000, $alpha: 0.8);
+      &__menu {
+        background-color: var(--burger-menu-bg);
+        color: var(--burger-menu-color);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        position: absolute;
+        height: 100vh;
+        width: 100%;
+        top: 10vh;
+        left: -100%;
+        z-index: 99999999;
+     
+      }
+      &__menu.active {
+        top: 10vh;
+        left: 0;
+        color: var(--burger-menu-color);
+      }
+   
+    }
+    .menu__item {
+      color: var(--burger-menu-color);
+    }
+    
+    .logistic__work-nav {
       display: flex;
       flex-direction: column;
-      justify-content: start;
-      // gap: 10px;
-      position: absolute;
-      height: 100vh;
+      gap: 10px;
+     button {
       width: 100%;
-      top: 10vh;
-      left: -100%;
-      z-index: 99999999;
-    }
-    &__menu.active {
-      top: 10vh;
-      left: 0;
+     }
     }
   }
-}

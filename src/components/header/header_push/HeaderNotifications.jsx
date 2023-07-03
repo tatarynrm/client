@@ -16,7 +16,7 @@ const HeaderNotifications = () => {
   return (
     <div className='header__notifications'>
         <i onClick={()=> dispatch(eventsOpenChange()) } className='header__notification'><MdNotificationsNone/></i>
-  {eventsOpen && <NotificationPanel/> } 
+ 
     </div>
     
   )
