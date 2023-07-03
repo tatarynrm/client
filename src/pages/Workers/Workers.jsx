@@ -38,21 +38,24 @@ const Workers = () => {
     setSearchParams({});
     dispatch(fetchUsers());
   };
-  useEffect(() => {
-    switch (pageLocation) {
-      case "active":
-        dispatch(fetchActiveUsers());
-        setSearchParams({ filter: "active" });
-        break;
-      case "fired":
-        dispatch(fetchFiredUsers());
-        setSearchParams({ filter: "fired" });
-        break;
+  // useEffect(() => {
+  //   switch (pageLocation) {
+  //     case "active":
+  //       dispatch(fetchActiveUsers());
+  //       setSearchParams({ filter: "active" });
+  //       break;
+  //     case "fired":
+  //       dispatch(fetchFiredUsers());
+  //       setSearchParams({ filter: "fired" });
+  //       break;
 
-      default:
-        break;
-    }
-  }, []);
+  //     default:
+  //       break;
+  //   }
+  // }, []);
+useEffect(()=>{
+  dispatch(fetchActiveUsers())
+},[])
 
   return (
     <div className="workers container">
@@ -92,6 +95,7 @@ const Workers = () => {
               return search.toLowerCase() === ""
                 ? item
                 : item.PRIZV.toLowerCase().includes(search) ||
+                  item.PRIZV.toUpperCase().includes(search) ||
                     item.IMJA.toLowerCase().includes(search) ||
                     item.IMJA.toUpperCase().includes(search);
             })
