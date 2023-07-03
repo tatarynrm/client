@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { FcAssistant } from "react-icons/fc";
 import { useSelector } from "react-redux";
-const MenuItem = ({ item }) => {
+const MenuItem = ({ item ,setOpenBurger}) => {
   const userData = useSelector((state) => state.auth.data);
 
   return (
     <>
-      <Link to={item.link}>
+      <Link to={item.link} onClick={()=>setOpenBurger(false)}>
         <div className={item.submenu ? "menu__item submenu" : "menu__item"}>
           <div>{item.icon}</div>
           {item.label}

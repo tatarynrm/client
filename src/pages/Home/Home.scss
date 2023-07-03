@@ -14,7 +14,10 @@
   .chart__container{
     color: var(--body-color);
     // max-width: 800px;
-    width: 800px;
+    width: 600px;
+    canvas {
+      width: 100%;
+    }
 
   }
 
@@ -55,4 +58,21 @@
       margin-top: 20px;
     }
   }
+}
+@media screen and (max-width: 680px) {
+  .home {
+    &__inner {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .chart__container {
+      width: 300px;
+      canvas {
+        width: 100%;
+      }
+    }
+  }
+
 }

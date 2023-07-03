@@ -93,20 +93,7 @@ const ZapComments = ({ showComments, selectedZap }) => {
       }
     } catch (error) {}
   };
-  // useEffect(() => {
-  //   socket.on("showNewComment", (data) => {
-  //     dispatch(
-  //       addCommentRedux({
-  //         KOD_OS: data.pKodAuthor,
-  //         KOD_ZAP: data.pKodZap,
-  //         PRIM: data.pComment,
-  //         PIP: data.PIP,
-  //         DAT: Date.now(),
-  //         KOD: data.pKodComment,
-  //       })
-  //     );
-  //   });
-  // }, []);
+
   useEffect(() => {
     socket.on("deleteCommAllUsers", (data) => {
       dispatch(deleteReduxComments(data));

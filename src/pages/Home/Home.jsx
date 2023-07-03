@@ -108,7 +108,7 @@ useEffect(()=>{
             </h1>
           </div>
           <div className="date__zap-pick">
-<input type="date"  onChange={e=>{
+       <input type="date"  onChange={e=>{
           setDateFrom(e.target.value)
         }}  />
         <button className="normal" onClick={showResultByDate}>Дивитись</button>

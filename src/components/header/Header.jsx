@@ -10,13 +10,14 @@ import HeaderLogo from "./header_logo/HeaderLogo";
 
 import HeaderTime from "./header_time/HeaderTime";
 import HeaderNotifications from "./header_push/HeaderNotifications";
+import HeaderBurger from "./header_burger/HeaderBurger";
 const Header = () => {
   const isAuth = useSelector(selectIsAuth);
   const userData = useSelector((state) => state.auth.data);
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+const [openBurger,setOpenBurger] = useState(false)
   const onClickLogout = () => {
     if (window.confirm("Ви впенені що хочете вийти?")) {
       window.localStorage.removeItem("token");
@@ -24,15 +25,16 @@ const Header = () => {
       return navigate("/login");
     }
   };
-
+console.log(openBurger);
   return (
     <header className="header">
       <div className="header__wrapper container">
         <HeaderLogo />
         {token ? <HeaderTime /> : null}
-        {token ? <HeaderNav /> : null}
+        {token ? <HeaderNav openBurger={openBurger} setOpenBurger={setOpenBurger} /> : null}
         {token ? <HeaderNotifications /> : null}
         {token ? <HeaderAvatar /> : null}
+        {token ? <HeaderBurger openBurger={openBurger} setOpenBurger={setOpenBurger}/> : null}
        
       </div>
     </header>

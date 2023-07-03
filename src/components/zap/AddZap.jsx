@@ -45,6 +45,7 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
   };
 
   useEffect(() => {}, [zap]);
+  console.log(zav);
   return (
     <form onSubmit={handleSubmitAddZap} className="add__zap">
       <div className="form__control">
@@ -54,6 +55,7 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
           apiOptions={{
             language: "uk",
           }}
+      
           selectProps={{
             zav,
             onChange: setZav,

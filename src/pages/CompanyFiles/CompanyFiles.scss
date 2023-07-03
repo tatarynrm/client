@@ -32,3 +32,19 @@
     }
   }
 }
+
+@media screen and (max-width: 600px) {
+.company__files {
+  display: flex;
+  flex-direction: column;
+}
+
+.ict__docs {
+  display: flex;
+  flex-direction: column;
+}
+.docs__block {
+  flex-direction: column;
+}
+
+}
