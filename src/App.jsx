@@ -31,6 +31,7 @@ import { fromAdminToUser, textToAllUsers } from "./utils/toasts";
 import { directorSound, msgToAllUsers } from "./helpers/audio";
 import { fetchEvents } from "./redux/slices/events";
 import NotificationPanel from "./components/notification_panel/NotificationPanel";
+import { addCommentRedux } from "./redux/slices/comments";
 
 function App() {
   const dispatch = useDispatch();
@@ -82,7 +83,20 @@ function App() {
       userData && dispatch(fetchEvents(userData?.KOD))
  
     },[userData])
-
+  useEffect(() => {
+    socket.on("showNewComment", (data) => {
+      dispatch(
+        addCommentRedux({
+          KOD_OS: data.pKodAuthor,
+          KOD_ZAP: data.pKodZap,
+          PRIM: data.pComment,
+          PIP: data.PIP,
+          DAT: Date.now(),
+          KOD: data.pKodComment,
+        })
+      );
+    });
+  }, []);
   return (
     <div className="main__app">
       {/* <div style={{backgroundColor:"lightcoral"}} className="admin__notification">

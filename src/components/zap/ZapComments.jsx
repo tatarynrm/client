@@ -93,20 +93,20 @@ const ZapComments = ({ showComments, selectedZap }) => {
       }
     } catch (error) {}
   };
-  useEffect(() => {
-    socket.on("showNewComment", (data) => {
-      dispatch(
-        addCommentRedux({
-          KOD_OS: data.pKodAuthor,
-          KOD_ZAP: data.pKodZap,
-          PRIM: data.pComment,
-          PIP: data.PIP,
-          DAT: Date.now(),
-          KOD: data.pKodComment,
-        })
-      );
-    });
-  }, []);
+  // useEffect(() => {
+  //   socket.on("showNewComment", (data) => {
+  //     dispatch(
+  //       addCommentRedux({
+  //         KOD_OS: data.pKodAuthor,
+  //         KOD_ZAP: data.pKodZap,
+  //         PRIM: data.pComment,
+  //         PIP: data.PIP,
+  //         DAT: Date.now(),
+  //         KOD: data.pKodComment,
+  //       })
+  //     );
+  //   });
+  // }, []);
   useEffect(() => {
     socket.on("deleteCommAllUsers", (data) => {
       dispatch(deleteReduxComments(data));
@@ -153,6 +153,7 @@ const ZapComments = ({ showComments, selectedZap }) => {
           {comments.length > 0 ? (
             commentsToShow
               .sort((a, b) => a.KOD - b.KOD)
+              .filter(item => item.KOD_ZAP === selectedZap.KOD)
               .map((item, idx) => {
                 return (
                   <React.Fragment key={idx}>
