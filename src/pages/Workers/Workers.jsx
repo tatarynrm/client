@@ -75,9 +75,9 @@ useEffect(()=>{
           userData?.KOD === 24011 ||
           userData?.KOD === 4611 ? (
             <>
-              <button onClick={showActiveUsers}>Діючі</button>
-              <button onClick={showFiredUsers}>Звільнені</button>
-              <button onClick={resetUsersFilter}>Скинути фільтр</button>
+              <button className="normal" onClick={showActiveUsers}>Діючі</button>
+              <button className="normal" onClick={showFiredUsers}>Звільнені</button>
+              <button className="normal" onClick={resetUsersFilter}>Скинути фільтр</button>
             </>
           ) : null}
           <input
