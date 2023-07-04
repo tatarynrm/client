@@ -65,30 +65,30 @@ const LogisticWork = () => {
     });
   }, []);
 
-  useEffect(() => {
-    const date = new Date();
-    date.toISOString();
-    socket.on("showNewZap", (data) => {
-      dispatch(
-        addReduxZap({
-          DAT: date,
-          KOD_GROUP: data.pKodGroup,
-          KOD_OS: data.pKodAuthor,
-          ZAV: data.pZav,
-          ROZV: data.pRozv,
-          ZAPTEXT: data.pZapText,
-          KOD: data.ZAPKOD,
-          PIP: data.PIP,
-          COUNTCOMM: 0,
-          COUNTNEWCOMM: 0,
-          ISNEW: 1,
-          KOD: data.ZAP_KOD,
-        })
-      );
-      notifyNewZap(userData, data);
-      beepSend();
-    });
-  }, [socket]);
+  // useEffect(() => {
+  //   const date = new Date();
+  //   date.toISOString();
+  //   socket.on("showNewZap", (data) => {
+  //     dispatch(
+  //       addReduxZap({
+  //         DAT: date,
+  //         KOD_GROUP: data.pKodGroup,
+  //         KOD_OS: data.pKodAuthor,
+  //         ZAV: data.pZav,
+  //         ROZV: data.pRozv,
+  //         ZAPTEXT: data.pZapText,
+  //         KOD: data.ZAPKOD,
+  //         PIP: data.PIP,
+  //         COUNTCOMM: 0,
+  //         COUNTNEWCOMM: 0,
+  //         ISNEW: 1,
+  //         KOD: data.ZAP_KOD,
+  //       })
+  //     );
+  //     notifyNewZap(userData, data);
+  //     beepSend();
+  //   });
+  // }, [socket]);
   const showComments = async (item) => {
     setCommentsClass((value) => !value);
     setSelectedZap(item);

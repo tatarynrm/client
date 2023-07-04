@@ -8,7 +8,7 @@ import {
   selectIsAuth,
 } from "../../../redux/slices/auth";
 import { useNavigate } from "react-router-dom";
-
+import DarkMode from "../../darkMode/DarkMode";
 const LoginForm = () => {
   const [showPass, setShowPass] = useState(false);
   const [formData, setFormData] = useState({});
@@ -75,7 +75,8 @@ const LoginForm = () => {
           </i>
         )}
       </div>
-      <button>Увійти</button>
+      <button className="normal">Увійти</button>
+      <DarkMode/>
     </form>
   );
 };

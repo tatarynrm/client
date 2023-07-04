@@ -2,6 +2,7 @@ import React from "react";
 import { ReactComponent as Sun } from "./Sun.svg";
 import { ReactComponent as Moon } from "./Moon.svg";
 import "./DarkMode.scss";
+import { useEffect } from "react";
 
 const DarkMode = () => {
   const setDarkMode = () => {
@@ -20,6 +21,7 @@ const DarkMode = () => {
     if (e.target.checked) setDarkMode();
     else setLightMode();
   };
+
   return (
     <div className="dark_mode">
       <input

@@ -18,7 +18,7 @@ import Transportation from "./pages/Transportation/Transportation";
 import Carriers from "./pages/Carriers/Carriers";
 import axios from "./utils/axios";
 import LogisticWork from "./pages/LogisticWork/LogisticWork";
-import { fetchAllZap, fetchGroups, fetchZap } from "./redux/slices/zap";
+import { addReduxZap, fetchAllZap, fetchGroups, fetchZap } from "./redux/slices/zap";
 import { editZap } from "./redux/slices/edit";
 import ZapEditForm from "./components/zap/ZapEditForm";
 import { io } from "socket.io-client";
@@ -27,8 +27,8 @@ import CompanyFiles from "./pages/CompanyFiles/CompanyFiles";
 import ClosedCargos from "./pages/ClosedCargos/ClosedCargos";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import { ToastContainer } from "react-toastify";
-import { fromAdminToUser, textToAllUsers } from "./utils/toasts";
-import { directorSound, msgToAllUsers } from "./helpers/audio";
+import { fromAdminToUser, notifyNewZap, textToAllUsers } from "./utils/toasts";
+import { beepSend, directorSound, msgToAllUsers } from "./helpers/audio";
 import { fetchEvents } from "./redux/slices/events";
 import NotificationPanel from "./components/notification_panel/NotificationPanel";
 import { addCommentRedux } from "./redux/slices/comments";
@@ -97,6 +97,31 @@ function App() {
       );
     });
   }, []);
+
+  useEffect(() => {
+    const date = new Date();
+    date.toISOString();
+    socket.on("showNewZap", (data) => {
+      dispatch(
+        addReduxZap({
+          DAT: date,
+          KOD_GROUP: data.pKodGroup,
+          KOD_OS: data.pKodAuthor,
+          ZAV: data.pZav,
+          ROZV: data.pRozv,
+          ZAPTEXT: data.pZapText,
+          KOD: data.ZAPKOD,
+          PIP: data.PIP,
+          COUNTCOMM: 0,
+          COUNTNEWCOMM: 0,
+          ISNEW: 1,
+          KOD: data.ZAP_KOD,
+        })
+      );
+      notifyNewZap(userData, data);
+      beepSend();
+    });
+  }, [socket]);
   return (
     <div className="main__app">
       {/* <div style={{backgroundColor:"lightcoral"}} className="admin__notification">
