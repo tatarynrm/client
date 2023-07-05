@@ -24,6 +24,7 @@ const AdminPanel = () => {
         textToAllUsers,
         user:userData.PIP
       });
+      setMessage('')
     }
   };
   useEffect(() => {
@@ -38,7 +39,9 @@ const AdminPanel = () => {
       kod: item.userId,
       user:userData.PIP
     });
+    setTextToAllUsers('')
   };
+
   return (
     <div className="admin container">
       <div className="admin__inner">
@@ -60,7 +63,7 @@ const AdminPanel = () => {
                   value={textToAllUsers}
                 />
               </div>
-              <button className="normal">Відправити</button>
+              <button className="normal">Надіслати усім</button>
             </form>
           </div>
         </div>

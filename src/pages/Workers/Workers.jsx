@@ -25,6 +25,8 @@ const Workers = () => {
   const [search, setSearch] = useState("");
   const filterLocation = location.search.split("=");
   const pageLocation = filterLocation[filterLocation.length - 1];
+  const filterLocationPage = location.pathname.split('/');
+  const pageLocationPage = filterLocationPage[filterLocationPage.length - 1];
   const userData = useSelector((state) => state.auth.data);
   const showActiveUsers = () => {
     setSearchParams({ filter: "active" });
@@ -95,9 +97,12 @@ useEffect(()=>{
               return search.toLowerCase() === ""
                 ? item
                 : item.PRIZV.toLowerCase().includes(search) ||
+                  item.PRIZV.charAt(0).toUpperCase().includes(search) ||
                   item.PRIZV.toUpperCase().includes(search) ||
+                  item.PRIZV.toUpperCase().contains(search) ||
                     item.IMJA.toLowerCase().includes(search) ||
-                    item.IMJA.toUpperCase().includes(search);
+                    item.IMJA.toUpperCase().includes(search) ||
+                    item.IMJA.charAt(0).toUpperCase().includes(search) 
             })
             .sort((a, b) => {
               let fa = a.PRIZV?.toLowerCase(),
