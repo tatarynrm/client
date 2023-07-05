@@ -99,7 +99,7 @@ useEffect(()=>{
                 : item.PRIZV.toLowerCase().includes(search) ||
                   item.PRIZV.charAt(0).toUpperCase().includes(search) ||
                   item.PRIZV.toUpperCase().includes(search) ||
-                  item.PRIZV.toUpperCase().contains(search) ||
+                  item.PRIZV.toUpperCase().includes(search) ||
                     item.IMJA.toLowerCase().includes(search) ||
                     item.IMJA.toUpperCase().includes(search) ||
                     item.IMJA.charAt(0).toUpperCase().includes(search) 
