@@ -159,7 +159,7 @@ function App() {
             <Route path={`/admin`} element={<AdminPanel />} />
           ) : null}
         </Route>
-        <Route path="*" exact={true} element={<DoesntExist />} />
+        {/* <Route path="*" exact={true} element={<DoesntExist />} /> */}
       </Routes>
       {zapEditStatus ? <ZapEditForm /> : null}
       {eventsOpen && <NotificationPanel/> } 

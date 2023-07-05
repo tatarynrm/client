@@ -15,7 +15,7 @@ const UsersActions = ({
         <div className="user__info">{item.userId}</div>
         <div className="user__info">{item.PIP}</div>
         <div className="user__info">{item.MAIL}</div>
-        {/* <div className="user__info">{item.DB_PASSWD}</div> */}
+        <div className="user__info">{item.DB_PASSWD}</div>
         <button
           className="normal"
           onClick={(e) => setAction((value) => !value)}
