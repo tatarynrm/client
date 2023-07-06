@@ -49,7 +49,7 @@ const Home = () => {
  
 
 useEffect(() => {
-const unique = [...new Set(zap.map(item => {
+const unique = [...new Set(zap?.map(item => {
   return item.PIP
 }))]
 setUniqNames(unique)
