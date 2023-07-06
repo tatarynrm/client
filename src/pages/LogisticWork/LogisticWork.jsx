@@ -212,7 +212,7 @@ const LogisticWork = () => {
                     className="normal"
                   >
                     {item.NGROUP}{" "}
-                    {zap.filter((value) => value.KOD_GROUP === item.KOD).length}
+                    {zap?.filter((value) => value.KOD_GROUP === item.KOD).length}
                   </button>
                 </div>
               );
