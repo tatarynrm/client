@@ -6,7 +6,10 @@ const instance = axios.create({
   baseURL: "http://api.ict.lviv.ua",
   // baseURL: "http://0.0.0.0:8800",
   // ..
-
+  headers: { 
+    'Access-Control-Allow-Origin' : '*',
+    'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+  },
 });
 // this is comment
 instance.interceptors.request.use((config) => {
