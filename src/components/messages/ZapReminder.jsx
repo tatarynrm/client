@@ -7,30 +7,39 @@ import "moment/locale/uk";
 const ZapReminder = () => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState(null);
+  const [yes,setYes] = useState(false)
   const userData = useSelector((state) => state.auth.data);
   const zap = useSelector((state) => state.zap.zap.items);
   const myZap = zap.filter((item) => item.KOD_OS === userData?.KOD);
+  const checkZapLifeTime = () => {
+    const someZap = myZap?.some((item) => {
+      let ol;
+       ol = Date.now() - moment(item.DAT).valueOf() > 86400000;
+       if (ol === true) {
+        setYes(true)
+       }
+    });
+  };
+  useEffect(()=>{
+    checkZapLifeTime()
+  },[userData,myZap])
   useEffect(() => {
-    const checkZapLifeTime = () => {
-      const someZap = myZap?.some((item) => {
-        const ol = Date.now() - moment(item.DAT).valueOf() > 86400000;
-        console.log(ol);
-        if (ol === true) {
-            setInterval(()=>{
-                setOpen(true)
-            },300000) 
-        }
-      });
-    };
-    checkZapLifeTime();
-  }, [userData,myZap]);
+ if (yes === true) {
+    setTimeout(()=>{
+        setOpen(true)
+    },600000)
+ }
+  }, [yes]);
   return (
     <>
       <Modal
         title={`Повідомлення від ${data?.user}`}
         centered
         open={open}
-        onOk={() => setOpen(false)}
+        onOk={() => {
+            setOpen(false);
+            setYes(false)
+        }}
         // onCancel={() => setOpen(false)}
         width={1000}
         cancelButtonProps={{

@@ -23,7 +23,7 @@ const MessageFromAdmin = () => {
   return (
     <>
       <Modal
-        title={`Повідомлення від ${data?.user}`}
+        title={`Системне повідомлення`}
         centered
         open={open}
         onOk={() => setOpen(false)}
