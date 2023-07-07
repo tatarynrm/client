@@ -33,6 +33,7 @@ import { fetchEvents } from "./redux/slices/events";
 import NotificationPanel from "./components/notification_panel/NotificationPanel";
 import { addCommentRedux } from "./redux/slices/comments";
 import MessageFromAdmin from "./components/messages/MessageFromAdmin";
+import ZapReminder from "./components/messages/ZapReminder";
 
 function App() {
   const dispatch = useDispatch();
@@ -168,6 +169,7 @@ function App() {
       {/* <Footer /> */}
       <ToastContainer />
       <MessageFromAdmin/>
+      <ZapReminder/>
     </div>
   );
 }

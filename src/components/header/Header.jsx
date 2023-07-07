@@ -25,7 +25,6 @@ const [openBurger,setOpenBurger] = useState(false)
       return navigate("/login");
     }
   };
-console.log(openBurger);
   return (
     <header className="header">
       <div className="header__wrapper container">
