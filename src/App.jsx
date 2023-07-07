@@ -32,6 +32,7 @@ import { beepSend, directorSound, msgToAllUsers } from "./helpers/audio";
 import { fetchEvents } from "./redux/slices/events";
 import NotificationPanel from "./components/notification_panel/NotificationPanel";
 import { addCommentRedux } from "./redux/slices/comments";
+import MessageFromAdmin from "./components/messages/MessageFromAdmin";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ function App() {
   const navigate = useNavigate();
   const events = useSelector(state => state.events.events.items)
   const eventsOpen = useSelector(state => state.edit.eventsOpen)
+  const [messageAdminState,setMessageAdminState] = useState(true)
 
   useEffect(() => {
     dispatch(fetchAuthMe());
@@ -165,6 +167,7 @@ function App() {
       {eventsOpen && <NotificationPanel/> } 
       {/* <Footer /> */}
       <ToastContainer />
+      <MessageFromAdmin/>
     </div>
   );
 }

@@ -134,7 +134,25 @@ const LogisticWork = () => {
       }
     });
   }, []);
-
+  const containerProp = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    }
+  }
+    
+  const itemProp = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  }
   return (
     <div className="logistic logistic__work container">
       <div className="logistic__work-nav">
@@ -227,6 +245,13 @@ const LogisticWork = () => {
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
+        // initial={{ scale: 0 }}
+        // animate={{ rotate: 360, scale: 1 }}
+        // transition={{
+        //   type: "spring",
+        //   stiffness: 260,
+        //   damping: 20
+        // }}
         className="zap__list"
       >
         {zap ? (

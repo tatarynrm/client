@@ -92,7 +92,9 @@
         top: 10vh;
         left: -100%;
         z-index: 99999999;
-     
+        &.active {
+          background-color: red;
+        }
       }
       &__menu.active {
         top: 10vh;

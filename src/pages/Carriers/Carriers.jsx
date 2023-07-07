@@ -11,7 +11,6 @@ const Carriers = () => {
         try {
           const { data } = await axios.post("/ur/all", { search: search });
           setCarriers(data);
-          console.log(data);
         } catch (error) {
           console.log(error);
         }

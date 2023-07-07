@@ -19,7 +19,6 @@ const CurrentTransportationItem = () => {
     };
     getOneDownload(id);
   }, []);
-  console.log(donwload);
   return (
     <div className="current__transportation_item container">
       <GoBack />

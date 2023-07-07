@@ -26,7 +26,6 @@ const LoginForm = () => {
   const signIn = async (e) => {
     e.preventDefault();
     const data = await dispatch(fetchAuth(formData));
-    console.log(data);
     if (!data.payload || data.payload.length === 0) {
       return alert("Не вдалось авторизуватись");
     }

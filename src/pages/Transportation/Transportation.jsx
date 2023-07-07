@@ -13,7 +13,6 @@ const Transportation = () => {
   const userData = useSelector((state) => state.auth.data);
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-  console.log(cargos.items);
   useEffect(() => {
     dispatch(fetchCargos());
   }, []);

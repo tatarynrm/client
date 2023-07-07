@@ -13,6 +13,10 @@ a {
   color: inherit;
   cursor: pointer !important;
 }
+a.active {
+  background-color: rgba(76, 135, 202,0.7);
+  border-radius: 4px;
+}
 .center__div {
   width: 100%;
   display: flex;
@@ -20,4 +24,17 @@ a {
   flex-direction: column;
   align-items: center;
   height: 80vh;
+}
+.ant-modal-close{
+  display: none;
+}
+.ant-modal-title{
+  color: var(--button-main) !important;
+  font-size: 20px !important;
+}
+
+.ant-modal-body {
+  p {
+    font-size: 40px !important;
+  }
 }

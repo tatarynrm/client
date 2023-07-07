@@ -8,7 +8,6 @@ const HeaderNotifications = () => {
     const userData = useSelector(state => state.auth.data)
     const event = useSelector(state => state.events.items)
     const eventsOpen = useSelector(state => state.edit.eventsOpen)
-    console.log('...eventsOpen',eventsOpen);
     const dispatch = useDispatch()
     useEffect(()=>{
 

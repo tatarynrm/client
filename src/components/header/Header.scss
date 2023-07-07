@@ -53,7 +53,7 @@
     width: 200px;
     height: auto;
     display: none;
-    z-index: 999;
+    z-index: 99999999999;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   }
 }
@@ -102,7 +102,15 @@
     box-shadow: 1px 1px 10px var(--button-main);
     &__avatar {
       display: block;
-      display: none;
+    
+
+      &-icon {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
     }
     &__wrapper {
       width: 100%;
@@ -123,6 +131,10 @@
       .menu__item {
         // width: 20%;
       }
+    }
+
+    &__avatar-options {
+      // display: block;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FcAssistant } from "react-icons/fc";
 import { useSelector } from "react-redux";
 const MenuItem = ({ item ,setOpenBurger}) => {
@@ -6,7 +6,7 @@ const MenuItem = ({ item ,setOpenBurger}) => {
 
   return (
     <>
-      <Link to={item.link} onClick={()=>setOpenBurger(false)}>
+      <NavLink to={item.link} onClick={()=>setOpenBurger(false)}>
         <div className={item.submenu ? "menu__item submenu" : "menu__item"}>
           <div>{item.icon}</div>
           {item.label}
@@ -24,7 +24,7 @@ const MenuItem = ({ item ,setOpenBurger}) => {
             </div>
           )}
         </div>
-      </Link>
+      </NavLink>
     </>
   );
 };

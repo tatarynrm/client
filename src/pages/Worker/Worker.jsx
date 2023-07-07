@@ -15,7 +15,6 @@ const Worker = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(users.items);
   useEffect(() => {
     dispatch(fetchUserById(id));
   }, []);
@@ -23,7 +22,7 @@ const Worker = () => {
     const getZASas = async (id) => {
       try {
         const { data } = await axios.get(`zas/${id}`);
-        console.log(data);
+  
         setZas(data);
       } catch (error) {
         console.log(error);
