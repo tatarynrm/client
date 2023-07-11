@@ -81,6 +81,7 @@ const ZapComments = ({ showComments, selectedZap }) => {
             pComment: comment,
             zapAuthor: selectedZap.KOD_OS,
             pKodComment: data.data.outBinds.pKodCom,
+            telegramId:selectedZap.TELEGRAMID
           });
           socket.emit("myZapComment", {
             PIP: userData?.PIP,
