@@ -7,7 +7,7 @@ import HeaderAvatar from "./header_avatar/HeaderAvatar";
 import Button from "../button/Button";
 import HeaderNav from "./header_nav/HeaderNav";
 import HeaderLogo from "./header_logo/HeaderLogo";
-
+import mainLogo from '../../assets/main__logo.png'
 import HeaderTime from "./header_time/HeaderTime";
 import HeaderNotifications from "./header_push/HeaderNotifications";
 import HeaderBurger from "./header_burger/HeaderBurger";
@@ -29,6 +29,7 @@ const [openBurger,setOpenBurger] = useState(false)
     <header className="header">
       <div className="header__wrapper container">
         <HeaderLogo />
+  
         {token ? <HeaderTime /> : null}
         {token ? <HeaderNav openBurger={openBurger} setOpenBurger={setOpenBurger} /> : null}
         {token ? <HeaderNotifications /> : null}
