@@ -10,7 +10,7 @@ const ZapReminder = () => {
   const [yes,setYes] = useState(false)
   const userData = useSelector((state) => state.auth.data);
   const zap = useSelector((state) => state.zap.zap.items);
-  const myZap = zap.filter((item) => item.KOD_OS === userData?.KOD);
+  const myZap = zap?.filter((item) => item.KOD_OS === userData?.KOD);
   const checkZapLifeTime = () => {
     const someZap = myZap?.some((item) => {
       let ol;

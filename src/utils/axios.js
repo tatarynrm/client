@@ -1,10 +1,10 @@
 import axios from "axios";
 const instance = axios.create({
-  // baseURL: "http://192.168.5.180:8800",
+  baseURL: "http://192.168.5.180:8800",
     // baseURL: "http://localhost:8800",
   // baseURL: "http://ict.lviv.ua/api",
   // baseURL: "http://api.ict.lviv.ua",
-  baseURL: "https://api.ict.lviv.ua",
+  // baseURL: "http://api.ict.lviv.ua",
   // baseURL: "http://0.0.0.0:8800",
   // 
   // ..
