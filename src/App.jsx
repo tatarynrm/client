@@ -18,7 +18,12 @@ import Transportation from "./pages/Transportation/Transportation";
 import Carriers from "./pages/Carriers/Carriers";
 import axios from "./utils/axios";
 import LogisticWork from "./pages/LogisticWork/LogisticWork";
-import { addReduxZap, fetchAllZap, fetchGroups, fetchZap } from "./redux/slices/zap";
+import {
+  addReduxZap,
+  fetchAllZap,
+  fetchGroups,
+  fetchZap,
+} from "./redux/slices/zap";
 import { editZap } from "./redux/slices/edit";
 import ZapEditForm from "./components/zap/ZapEditForm";
 import { io } from "socket.io-client";
@@ -34,6 +39,7 @@ import NotificationPanel from "./components/notification_panel/NotificationPanel
 import { addCommentRedux } from "./redux/slices/comments";
 import MessageFromAdmin from "./components/messages/MessageFromAdmin";
 import ZapReminder from "./components/messages/ZapReminder";
+import { TbBrandTelegram } from "react-icons/tb";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,16 +48,16 @@ function App() {
   const userData = useSelector((state) => state.auth.data);
   const zapEditStatus = useSelector((state) => state.edit.zapEdit);
   const navigate = useNavigate();
-  const events = useSelector(state => state.events.events.items)
-  const eventsOpen = useSelector(state => state.edit.eventsOpen)
-  const [messageAdminState,setMessageAdminState] = useState(true)
+  const events = useSelector((state) => state.events.events.items);
+  const eventsOpen = useSelector((state) => state.edit.eventsOpen);
+  const [messageAdminState, setMessageAdminState] = useState(true);
 
   useEffect(() => {
     dispatch(fetchAuthMe());
   }, []);
   useEffect(() => {
-    dispatch(fetchZap(userData?.KOD))
-  }, [])
+    dispatch(fetchZap(userData?.KOD));
+  }, []);
   useEffect(() => {
     if (userData) {
       socket.emit("newUser", userData);
@@ -64,15 +70,14 @@ function App() {
   }, [socket]);
   useEffect(() => {
     socket.on("showTextToAllUsers", (data) => {
-   
-      textToAllUsers(data.user,data.textToAllUsers);
-      msgToAllUsers()
+      textToAllUsers(data.user, data.textToAllUsers);
+      msgToAllUsers();
     });
   }, [socket]);
   useEffect(() => {
     socket.on("show_msg_from_admin", (data) => {
       if (userData?.KOD === data.kod) {
-        fromAdminToUser(data.user,data.message);
+        fromAdminToUser(data.user, data.message);
         directorSound();
       }
     });
@@ -81,11 +86,9 @@ function App() {
   //   dispatch(fetchEvents(userData?.KOD))
   //   },[])
 
-  useEffect(()=>{
-
-      userData && dispatch(fetchEvents(userData?.KOD))
- 
-    },[userData])
+  useEffect(() => {
+    userData && dispatch(fetchEvents(userData?.KOD));
+  }, [userData]);
   useEffect(() => {
     socket.on("showNewComment", (data) => {
       dispatch(
@@ -129,47 +132,52 @@ function App() {
     <div className="main__app">
       {/* <div style={{backgroundColor:"lightcoral"}} className="admin__notification">
         <span>Оновлення :.................</span>
-      </div> */}
+      </div> */}{" "}
       <Header />
-      <Routes>
-        <Route exact path="/login" element={<Login />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="/" element={<Home />} />
-          {/* {userData?.ISDIR === 1 ? (
+      <div className="main__content">
+        <Routes>
+          <Route exact path="/login" element={<Login />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/" element={<Home />} />
+            {/* {userData?.ISDIR === 1 ? (
             <> */}
-          <Route path="/workers" element={<Workers />} />
-          <Route path={`/workers/:id`} element={<Worker />} />{" "}
-          {/* </>
+            <Route path="/workers" element={<Workers />} />
+            <Route path={`/workers/:id`} element={<Worker />} />{" "}
+            {/* </>
           ) : null} */}
-          {/* <Route path={`/chat`} element={<Chat />} /> */}
-          {/* <Route path={`/transportation`} element={<Transportation />} /> */}
-          <Route path={`/carriers`} element={<Carriers />} />
-          <Route path={`/logistic-work`} element={<LogisticWork />} />
-          <Route path={`/ict-files`} element={<CompanyFiles />} />
-          <Route path={`/closed-cargos`} element={<ClosedCargos />} />
-          {/* <Route
+            {/* <Route path={`/chat`} element={<Chat />} /> */}
+            {/* <Route path={`/transportation`} element={<Transportation />} /> */}
+            <Route path={`/carriers`} element={<Carriers />} />
+            <Route path={`/logistic-work`} element={<LogisticWork />} />
+            <Route path={`/ict-files`} element={<CompanyFiles />} />
+            <Route path={`/closed-cargos`} element={<ClosedCargos />} />
+            {/* <Route
             path={`/current-transportation`}
             element={<CurrentTransportation />}
           /> */}
-          {/* <Route
+            {/* <Route
             path={`/current-transportation/:id`}
             element={<CurrentTransportationItem />}
           /> */}
-          {userData?.ISDIR === 1 ||
-          userData?.KOD === 38231 ||
-          userData?.KOD === 24011 ||
-          userData?.KOD === 4611 ? (
-            <Route path={`/admin`} element={<AdminPanel />} />
-          ) : null}
-        </Route>
-        {/* <Route path="*" exact={true} element={<DoesntExist />} /> */}
-      </Routes>
-      {zapEditStatus ? <ZapEditForm /> : null}
-      {eventsOpen && <NotificationPanel/> } 
+            {userData?.ISDIR === 1 ||
+            userData?.KOD === 38231 ||
+            userData?.KOD === 24011 ||
+            userData?.KOD === 4611 ? (
+              <Route path={`/admin`} element={<AdminPanel />} />
+            ) : null}
+          </Route>
+          {/* <Route path="*" exact={true} element={<DoesntExist />} /> */}
+        </Routes>
+        {zapEditStatus ? <ZapEditForm /> : null}
+        {eventsOpen && <NotificationPanel />}
+        <ToastContainer />
+        <MessageFromAdmin />
+        <ZapReminder />
+        <div title="Технічна підтримка" className="telegram__chat" >
+          <a target="_blank" href="https://t.me/I_Dont_Have_A_Phone_Number"><TbBrandTelegram /></a>
+        </div>
+      </div>
       {/* <Footer /> */}
-      <ToastContainer />
-      <MessageFromAdmin/>
-      <ZapReminder/>
     </div>
   );
 }

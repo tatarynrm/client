@@ -38,3 +38,30 @@ a.active {
     font-size: 40px !important;
   }
 }
+
+
+
+.telegram__chat {
+  font-size: 40px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 60px;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 0.3rem;
+  width: 40px;
+  height: 40px;
+  svg {
+    fill: var(--button-main)
+  }
+}
+
+
+.main__content {
+  min-height: 80vh;
+}
