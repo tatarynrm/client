@@ -11,16 +11,17 @@ const ZapReminder = () => {
   const userData = useSelector((state) => state.auth.data);
   const zap = useSelector((state) => state.zap.zap.items);
   const myZap = zap?.filter((item) => item.KOD_OS === userData?.KOD);
-  const checkZapLifeTime = () => {
-    const someZap = myZap?.some((item) => {
-      let ol;
-       ol = Date.now() - moment(item.DAT).valueOf() > 86400000;
-       if (ol === true) {
-        setYes(true)
-       }
-    });
-  };
   useEffect(()=>{
+   
+    const checkZapLifeTime = () => {
+      const someZap = myZap?.some((item) => {
+        let ol;
+         ol = Date.now() - moment(item.DAT).valueOf() > 86400000;
+         if (ol === true) {
+          setYes(true)
+         }
+      });
+    };
     checkZapLifeTime()
   },[userData,myZap])
   useEffect(() => {
