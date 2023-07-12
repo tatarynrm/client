@@ -19,7 +19,7 @@ const LoginForm = () => {
   function setTokenDelete() {
     return setTimeout(() => {
       window.localStorage.removeItem("token");
-    }, 10000);
+    }, 25000000 );
   }
   const showPassword = () => {
     setShowPass((prev) => !prev);
