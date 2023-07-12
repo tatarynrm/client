@@ -16,6 +16,11 @@ const LoginForm = () => {
   const isAuth = useSelector(selectIsAuth);
   const token = window.localStorage.getItem("token");
   const navigate = useNavigate();
+  function setTokenDelete() {
+    return setTimeout(() => {
+      window.localStorage.removeItem("token");
+    }, 10000);
+  }
   const showPassword = () => {
     setShowPass((prev) => !prev);
   };
@@ -32,12 +37,6 @@ const LoginForm = () => {
     if (data.payload.token) {
       dispatch(fetchAuthMe());
       window.localStorage.setItem("token", data.payload.token);
-
-      function setTokenDelete() {
-        return setTimeout(() => {
-          window.localStorage.removeItem("token");
-        }, 7200000);
-      }
       setTokenDelete();
     }
   };
