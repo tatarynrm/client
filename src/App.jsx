@@ -40,6 +40,7 @@ import { addCommentRedux } from "./redux/slices/comments";
 import MessageFromAdmin from "./components/messages/MessageFromAdmin";
 import ZapReminder from "./components/messages/ZapReminder";
 import { TbBrandTelegram } from "react-icons/tb";
+import Carrier from "./pages/Carriers/Carrier";
 
 function App() {
   const dispatch = useDispatch();
@@ -148,6 +149,7 @@ function App() {
             {/* <Route path={`/chat`} element={<Chat />} /> */}
             {/* <Route path={`/transportation`} element={<Transportation />} /> */}
             <Route path={`/carriers`} element={<Carriers />} />
+            <Route path={`/carriers/:id`} element={<Carrier />} />
             <Route path={`/logistic-work`} element={<LogisticWork />} />
             <Route path={`/ict-files`} element={<CompanyFiles />} />
             <Route path={`/closed-cargos`} element={<ClosedCargos />} />

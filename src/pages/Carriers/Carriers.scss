@@ -33,3 +33,22 @@
     }
   }
 }
+
+
+.carrier__item {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--body-color);
+  flex-direction: column;
+}
+.carrier__dog{
+  display: flex;
+  gap: 10px;
+  >div {
+    width: 200px;
+  }
+
+}

@@ -1,6 +1,7 @@
 import "./Carriers.scss";
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
+import { Link } from "react-router-dom";
 
 const Carriers = () => {
   const [carriers, setCarriers] = useState([]);
@@ -38,7 +39,9 @@ const Carriers = () => {
                 return (
                   <div className="carriers__item" key={idx}>
                     <p className="">{item.NDOV}</p>
-                    <button className="normal">Докладна інформація</button>
+                    <Link to={`/carriers/${item.KOD}`}>
+                      <button>Докладна інформація</button>
+                    </Link>
                   </div>
                 );
               })

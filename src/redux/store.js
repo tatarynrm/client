@@ -6,15 +6,16 @@ import { zapReducer } from "./slices/zap";
 import { commentsReducer } from "./slices/comments";
 import { editReducer } from "./slices/edit";
 import { eventsReducer } from "./slices/events";
+import { urReducer } from "./slices/ur";
 const store = configureStore({
   reducer: {
     users: userReducer,
-    // cargos: cargosReducer,
     auth: authReducer,
     zap: zapReducer,
     comments: commentsReducer,
     edit: editReducer,
-    events:eventsReducer
+    events:eventsReducer,
+    ur:urReducer
   },
 });
 

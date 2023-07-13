@@ -15,25 +15,32 @@ const Worker = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const total = zas?.reduce((sum, cur) => sum + cur.SUMA, 0);
+  // const totalSum = zas?.reduce((acc, next) => {
+  //   return acc.SUMA + next.SUMA;
+  // }, 0);
+  const getZASas = async (id) => {
+    try {
+      const { data } = await axios.get(`zas/${id}`);
+      setZas(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     dispatch(fetchUserById(id));
-  }, []);
+  }, [id]);
+
   useEffect(() => {
-    const getZASas = async (id) => {
-      try {
-        const { data } = await axios.get(`zas/${id}`);
-  
-        setZas(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getZASas(id);
-  }, []);
-  const totalSum = zas?.reduce((acc, next) => {
-    return acc.SUMA + next.SUMA;
-  }, 0);
-  const total = zas?.reduce((sum, cur) => sum + cur.SUMA, 0);
+
+    if (id.length > 0) {
+      getZASas(id);
+    }
+   
+  }, [id]);
+
+  useEffect(()=>{},[id,users])
+  console.log(id);
   return (
     <div className="worker">
       <button className="go__back danger" onClick={() => navigate(-1)}>
@@ -41,7 +48,7 @@ const Worker = () => {
       </button>
       <h2>Інформація про працівника</h2>
 
-      {users.items.length < 1 ? null : (
+      {id && users?.items.length < 1 ? null : (
         <div className={`worker__${id} worker__manager`}>
           <h3>{users.items.PIPFULL}</h3>
 
