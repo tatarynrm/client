@@ -87,9 +87,9 @@ function App() {
   //   dispatch(fetchEvents(userData?.KOD))
   //   },[])
 
-  useEffect(() => {
-    userData && dispatch(fetchEvents(userData?.KOD));
-  }, [userData]);
+  // useEffect(() => {
+  //   userData && dispatch(fetchEvents(userData?.KOD));
+  // }, [userData]);
   useEffect(() => {
     socket.on("showNewComment", (data) => {
       dispatch(

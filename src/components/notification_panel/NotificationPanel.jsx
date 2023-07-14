@@ -22,7 +22,9 @@ const NotificationPanel = () => {
       setButtonFilter("")
     }
 
-
+    useEffect(() => {
+      userData && dispatch(fetchEvents(userData?.KOD));
+    }, [userData]);
   return (
 <div className='notifications__panel'> 
 <input className='notifications__panel-search' value={searchFilter} onChange={e=> setSearchFilter(e.target.value)} type="text" placeholder='Пошук: Код заявки,Автор'  />
