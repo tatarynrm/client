@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "../../utils/axios";
 
 export const fetchAllZap = createAsyncThunk(
-  "cargos/fetchCargos",
+  "cargos/fetchAllZap",
   async (todayDate) => {
     try {
       const { data } = await axios.post("/zap/all",{todayDate:todayDate});
@@ -13,10 +13,10 @@ export const fetchAllZap = createAsyncThunk(
   }
 );
 export const fetchZap = createAsyncThunk(
-  "cargos/fetchCargos",
+  "cargos/fetchZap",
   async (KOD_OS) => {
     try {
-      const { data } = await axios.post("/zap", { KOD_OS: KOD_OS });
+      const { data } = await axios.post("/zap", {KOD_OS});
       return data;
     } catch (error) {
       console.log(error);
@@ -24,7 +24,7 @@ export const fetchZap = createAsyncThunk(
   }
 );
 export const fetchZapById = createAsyncThunk(
-  "cargos/fetchCargoById",
+  "cargos/fetchZapById",
   async (id) => {
     try {
       const data = await axios.get(`/zap/${id}`);
@@ -86,7 +86,6 @@ const zapSlice = createSlice({
     refreshReduxZap: (state, action) => {
       const id = action.payload;
       const dateZap = state.zap.items.find((item) => item.KOD === id);
-
       if (dateZap) {
         const date = new Date();
         date.toISOString();
@@ -106,6 +105,18 @@ const zapSlice = createSlice({
     },
   },
   extraReducers: {
+    [fetchAllZap.pending]: (state) => {
+      state.zap.items = [];
+      state.zap.status = "loading";
+    },
+    [fetchAllZap.fulfilled]: (state, action) => {
+      state.zap.items = action.payload;
+      state.zap.status = "loaded";
+    },
+    [fetchAllZap.rejected]: (state) => {
+      state.zap.items = [];
+      state.zap.status = "error";
+    },
     [fetchZap.pending]: (state) => {
       state.zap.items = [];
       state.zap.status = "loading";
