@@ -9,7 +9,6 @@ const instance = axios.create({
     // baseURL: "http://localhost:8800",
   baseURL: "https://api.ict.lviv.ua",
 
-  
 });
 // this is comment
 instance.interceptors.request.use((config) => {
