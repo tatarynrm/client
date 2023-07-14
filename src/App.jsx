@@ -56,9 +56,9 @@ function App() {
   useEffect(() => {
     dispatch(fetchAuthMe());
   }, []);
-  useEffect(() => {
-    dispatch(fetchZap(userData?.KOD));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchZap(userData?.KOD));
+  // }, []);
   useEffect(() => {
     if (userData) {
       socket.emit("newUser", userData);
