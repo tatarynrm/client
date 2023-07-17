@@ -1,4 +1,10 @@
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Workers from "./pages/Workers/Workers";
 import Worker from "./pages/Worker/Worker";
@@ -52,7 +58,8 @@ function App() {
   const events = useSelector((state) => state.events.events.items);
   const eventsOpen = useSelector((state) => state.edit.eventsOpen);
   const [messageAdminState, setMessageAdminState] = useState(true);
-
+  const location = useLocation();
+  console.log(location);
   useEffect(() => {
     dispatch(fetchAuthMe());
   }, []);
@@ -175,9 +182,13 @@ function App() {
         <ToastContainer />
         <MessageFromAdmin />
         <ZapReminder />
-        <div title="Технічна підтримка" className="telegram__chat" >
-          <a target="_blank" href="https://t.me/I_Dont_Have_A_Phone_Number"><TbBrandTelegram /></a>
-        </div>
+        {location.pathname === "/logistic-work" && (
+          <div title="Технічна підтримка" className="telegram__chat">
+            <a target="_blank" href="https://t.me/I_Dont_Have_A_Phone_Number">
+              <TbBrandTelegram />
+            </a>
+          </div>
+        )}
       </div>
       {/* <Footer /> */}
     </div>

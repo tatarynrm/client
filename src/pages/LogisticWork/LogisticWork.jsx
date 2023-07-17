@@ -51,6 +51,7 @@ const LogisticWork = () => {
   const zapAddSlice = useSelector((state) => state.edit.zapAddSlice);
   const [myZapSelect, setMyZapSelect] = useState(false);
   const [editZap, setEditZap] = useState(false);
+  const [activeUsers,setActiveUsers] = useState(null)
   const showAddZap = () => {
     setAddZap((value) => !value);
   };
@@ -64,7 +65,15 @@ const LogisticWork = () => {
       dispatch(changeCommentsCount(data.pKodZap));
     });
   }, []);
-
+useEffect(()=>{
+socket.emit('activeUsers');
+},[socket])
+useEffect(()=>{
+socket.on('showActiveUsers',data =>{
+  setActiveUsers(data)
+})
+},[socket])
+console.log(activeUsers);
   // useEffect(() => {
   //   const date = new Date();
   //   date.toISOString();
@@ -155,6 +164,9 @@ const LogisticWork = () => {
   }
   return (
     <div className="logistic logistic__work container">
+              <div className="active__users-length">
+          <p>Користувачів на сайті: <span>{activeUsers?.length}</span> </p>
+        </div>
       <div className="logistic__work-nav">
         <button onClick={() => dispatch(editZapAddSlice())} className="normal">
           {zapAddSlice ? "Приховати" : "Добавити вантаж"}
@@ -174,6 +186,7 @@ const LogisticWork = () => {
             type="text"
             placeholder="Пошук: місто,прізвище"
           />
+          
         </div>
         {myZapSelect ? (
           <button

@@ -40,7 +40,6 @@ const Worker = () => {
   }, [id]);
 
   useEffect(()=>{},[id,users])
-  console.log(id);
   return (
     <div className="worker">
       <button className="go__back danger" onClick={() => navigate(-1)}>
@@ -52,10 +51,10 @@ const Worker = () => {
         <div className={`worker__${id} worker__manager`}>
           <h3>{users.items.PIPFULL}</h3>
 
-          {/* {moment(users.items.NARDAT).format("ll")} */}
-          <p>Дата народження: {users.items.NARDAT}</p>
-          <p>{users.items.DB_P}</p>
-          <p>Працює з {users.items.WORKDAT}</p>
+          <p>Дата народження: {moment(users.items.NARDAT).format("ll")}</p>
+          {/* <p>Дата народження: {users.items.NARDAT}</p> */}
+          {/* <p>{users.items.DB_P}</p> */}
+          <p>Працює з {users.items.WORKDAT ? moment(users.items.WORKDAT).format('ll') : "Інформація не внесена"}</p>
           <p>Місто нанродження: {users.items.NAR}</p>
           <p>
             Освітній заклад:{" "}
@@ -74,8 +73,8 @@ const Worker = () => {
             )}
           </p>
           <p>
-            Прописка:
-            {users.items.PROP == null ? (
+            Прописка:{" "}
+             {users.items.PROP == null ? (
               <span style={{ backgroundColor: "red" }}>
                 Інформація не внесена
               </span>
@@ -86,7 +85,7 @@ const Worker = () => {
           <p>ІПН: {users.items.IPN}</p>
           <p>Проживання: {users.items.ZH}</p>
           {users.items.ZVILDAT == null ? (
-            <p style={{ backgroundColor: "lightgreen" }}>Діючий праццівник</p>
+            <p style={{ backgroundColor: "lightgreen",padding:"0.4rem",borderRadius:"10px" }}>Діючий праццівник</p>
           ) : (
             <p style={{ backgroundColor: "red" }}>
               Дата звільнення: {users.items.ZVILDAT}

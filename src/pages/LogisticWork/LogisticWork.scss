@@ -242,3 +242,18 @@
   }
 
 }
+
+
+.active__users-length{
+  position: absolute;
+  top: 30px;
+  left: 50% - 5%;
+  color: var(--body-color);
+
+  span {
+    background-color: green;
+    padding: 0.2rem;
+    border-radius: 10px;
+    cursor: context-menu!important;    
+  }
+}
