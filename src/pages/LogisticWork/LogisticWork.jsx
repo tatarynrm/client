@@ -32,6 +32,7 @@ import axios from "../../utils/axios";
 import { addReduxZap } from "../../redux/slices/zap";
 import { beep, beepSend } from "../../helpers/audio";
 import { fetchEvents } from "../../redux/slices/events";
+import ActiveUsersList from "../../components/users/ActiveUsersList";
 
 const LogisticWork = () => {
   const [searchFilter, setSearchFilter] = useState("");
@@ -51,7 +52,8 @@ const LogisticWork = () => {
   const zapAddSlice = useSelector((state) => state.edit.zapAddSlice);
   const [myZapSelect, setMyZapSelect] = useState(false);
   const [editZap, setEditZap] = useState(false);
-  const [activeUsers,setActiveUsers] = useState(null)
+  const [activeUsers, setActiveUsers] = useState(null);
+  const [showActiveUsers,setShowActiveUsers] = useState(false)
   const showAddZap = () => {
     setAddZap((value) => !value);
   };
@@ -65,39 +67,15 @@ const LogisticWork = () => {
       dispatch(changeCommentsCount(data.pKodZap));
     });
   }, []);
-useEffect(()=>{
-socket.emit('activeUsers');
-},[socket])
-useEffect(()=>{
-socket.on('showActiveUsers',data =>{
-  setActiveUsers(data)
-})
-},[socket])
-console.log(activeUsers);
-  // useEffect(() => {
-  //   const date = new Date();
-  //   date.toISOString();
-  //   socket.on("showNewZap", (data) => {
-  //     dispatch(
-  //       addReduxZap({
-  //         DAT: date,
-  //         KOD_GROUP: data.pKodGroup,
-  //         KOD_OS: data.pKodAuthor,
-  //         ZAV: data.pZav,
-  //         ROZV: data.pRozv,
-  //         ZAPTEXT: data.pZapText,
-  //         KOD: data.ZAPKOD,
-  //         PIP: data.PIP,
-  //         COUNTCOMM: 0,
-  //         COUNTNEWCOMM: 0,
-  //         ISNEW: 1,
-  //         KOD: data.ZAP_KOD,
-  //       })
-  //     );
-  //     notifyNewZap(userData, data);
-  //     beepSend();
-  //   });
-  // }, [socket]);
+  useEffect(() => {
+    socket.emit("activeUsers");
+  }, [socket]);
+  useEffect(() => {
+    socket.on("showActiveUsers", (data) => {
+      setActiveUsers(data);
+    });
+  }, [socket]);
+
   const showComments = async (item) => {
     setCommentsClass((value) => !value);
     setSelectedZap(item);
@@ -150,23 +128,26 @@ console.log(activeUsers);
       scale: 1,
       transition: {
         delayChildren: 0.3,
-        staggerChildren: 0.2
-      }
-    }
-  }
-    
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
   const itemProp = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
-      opacity: 1
-    }
-  }
+      opacity: 1,
+    },
+  };
   return (
     <div className="logistic logistic__work container">
-              <div className="active__users-length">
-          <p>Користувачів на сайті: <span>{activeUsers?.length}</span> </p>
-        </div>
+      <div className="active__users-length">
+        <p>
+          Користувачів на сайті: <button onClick={()=>setShowActiveUsers(value=>!value)} className="normal">{showActiveUsers ? "Приховати": "Дивитись"}{activeUsers?.length}</button>{" "}
+        </p>
+   {showActiveUsers &&      <ActiveUsersList users={activeUsers}/>}
+      </div>
       <div className="logistic__work-nav">
         <button onClick={() => dispatch(editZapAddSlice())} className="normal">
           {zapAddSlice ? "Приховати" : "Добавити вантаж"}
@@ -186,7 +167,6 @@ console.log(activeUsers);
             type="text"
             placeholder="Пошук: місто,прізвище"
           />
-          
         </div>
         {myZapSelect ? (
           <button
@@ -243,7 +223,10 @@ console.log(activeUsers);
                     className="normal"
                   >
                     {item.NGROUP}{" "}
-                    {zap?.filter((value) => value.KOD_GROUP === item.KOD).length}
+                    {
+                      zap?.filter((value) => value.KOD_GROUP === item.KOD)
+                        .length
+                    }
                   </button>
                 </div>
               );
