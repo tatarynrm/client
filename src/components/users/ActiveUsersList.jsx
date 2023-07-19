@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react'
 import "./ActiveUsersList.scss"
 const ActiveUsersList = ({users}) => {
-    const [activeUsers,setActiveUsers] = useState([])
 console.log(users);
 
   return (
