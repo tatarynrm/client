@@ -36,12 +36,21 @@
   background-color: var(--button-main);
   border-radius: 50%;
   cursor: pointer;
-  &:hover > &-options {
+  // &:hover > &-options {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   text-align: left;
+  //   gap: 10px;
+  // }
+  &-options.open {
     display: flex;
     flex-direction: column;
+    text-align: center;
     align-items: center;
-    text-align: left;
-    gap: 10px;
+    justify-content: center;
+    gap: 20px;
+    transition: all 0.5s ease;
   }
   &-options {
     background-color: whitesmoke;
@@ -55,6 +64,7 @@
     display: none;
     z-index: 99999999999;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    transition: all 0.5s ease;
   }
 }
 

@@ -53,7 +53,7 @@ const LogisticWork = () => {
   const [myZapSelect, setMyZapSelect] = useState(false);
   const [editZap, setEditZap] = useState(false);
   const [activeUsers, setActiveUsers] = useState(null);
-  const [showActiveUsers,setShowActiveUsers] = useState(false)
+  const [showActiveUsers, setShowActiveUsers] = useState(false);
   const showAddZap = () => {
     setAddZap((value) => !value);
   };
@@ -143,10 +143,15 @@ const LogisticWork = () => {
   return (
     <div className="logistic logistic__work container">
       <div className="active__users-length">
-        <p>
-          Користувачів на сайті: <button onClick={()=>setShowActiveUsers(value=>!value)} className="normal">{showActiveUsers ? "Приховати": "Дивитись"}{activeUsers?.length}</button>{" "}
-        </p>
-   {showActiveUsers &&      <ActiveUsersList users={activeUsers}/>}
+        {" "}
+        <button
+          onClick={() => setShowActiveUsers((value) => !value)}
+          className="normal"
+        >
+          {showActiveUsers ? "Приховати" : "Користувачі online"} {" "}
+          {activeUsers?.length}
+        </button>
+        {showActiveUsers && <ActiveUsersList users={activeUsers} />}
       </div>
       <div className="logistic__work-nav">
         <button onClick={() => dispatch(editZapAddSlice())} className="normal">
