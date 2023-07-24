@@ -6,6 +6,7 @@ import { fetchCargos } from "../../redux/slices/cargos";
 import moment from "moment";
 import "moment/locale/uk";
 import TruckLoader from "../../components/loaders/TruckLoader";
+import toTimestamp from "../../helpers/functions";
 const Transportation = () => {
   const  cargos  = useSelector((state) => state.cargos.cargos.items);
   console.log(cargos);
@@ -21,8 +22,7 @@ const Transportation = () => {
       REC_END:100
     }));
   }, []);
-
-
+  console.log(cargos);
   return (
     <div className="transportation container">
       {/* <div className="filters">
@@ -41,13 +41,15 @@ const Transportation = () => {
         <div className="transportation__title-item">Водій</div>
         <div className="transportation__title-item">Авто / Причіп</div>
       </div>
-      {cargos.length > 1 ? (
-        cargos.map((item, idx) => {
+      {cargos ? (
+        cargos.slice()
+        .sort((a,b) => toTimestamp(b.DATZAV) - toTimestamp(a.DATZAV))
+        .map((item, idx) => {
           return (
             <div className="transportation__block" key={idx}>
               <div className="transportation__item">
-                {/* {moment(item.DATZAV).format("L")} */}
-                {item.DATZAV}
+                {moment(item.DATZAV).format("L")}
+                {/* {item.DATZAV} */}
               </div>
               <div className="transportation__item">{item.ZAV}</div>
               <div className="transportation__item">{item.ROZV}</div>
