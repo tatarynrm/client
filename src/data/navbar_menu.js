@@ -47,15 +47,17 @@ export const navbar_menu = [
     //   { label: "Запит ціни", link: "/transportation-price" },
     // ],
   },
-  // {
-  //   label: "Експедиція",
-  //   icon: <FcSalesPerformance />,
-  //   submenu: [
-  //     { label: "Перевезення актуальні", link: "/transportation" },
-  //     { label: "Перевезення закриті", link: "/closed-transportation" },
-  //     { label: "Необхідно провести номери", link: "/transport-numbers" },
-  //   ],
-  // },
+  {
+    label: "Експедиція",
+    icon: <FcSalesPerformance />,
+    link: "/transportation",
+    isNew:true
+    // submenu: [
+    //   // { label: "Перевезення актуальні", link: "/transportation" },
+    //   // { label: "Перевезення закриті", link: "/closed-transportation" },
+    //   // { label: "Необхідно провести номери", link: "/transport-numbers" },
+    // ],
+  },
   {
     label: "Контрагенти",
     link: "/carriers",

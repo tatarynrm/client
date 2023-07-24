@@ -4,7 +4,6 @@ import axios from "../../utils/axios";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Bar, Doughnut, Pie } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
-// import { fetchCargos } from "../../redux/slices/cargos";
 import socket from "../../utils/socket";
 import moment from "moment";
 import "moment/locale/uk";

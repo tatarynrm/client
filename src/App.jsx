@@ -59,7 +59,6 @@ function App() {
   const eventsOpen = useSelector((state) => state.edit.eventsOpen);
   const [messageAdminState, setMessageAdminState] = useState(true);
   const location = useLocation();
-  console.log(location);
   useEffect(() => {
     dispatch(fetchAuthMe());
   }, []);
@@ -154,7 +153,7 @@ function App() {
             {/* </>
           ) : null} */}
             {/* <Route path={`/chat`} element={<Chat />} /> */}
-            {/* <Route path={`/transportation`} element={<Transportation />} /> */}
+            <Route path={`/transportation`} element={<Transportation />} />
             <Route path={`/carriers`} element={<Carriers />} />
             <Route path={`/carriers/:id`} element={<Carrier />} />
             <Route path={`/logistic-work`} element={<LogisticWork />} />

@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { FcAssistant } from "react-icons/fc";
 import { useSelector } from "react-redux";
+import newItem from '../../../assets/new.png'
 const MenuItem = ({ item ,setOpenBurger}) => {
   const userData = useSelector((state) => state.auth.data);
 
@@ -8,6 +9,9 @@ const MenuItem = ({ item ,setOpenBurger}) => {
     <>
       <NavLink to={item.link} onClick={()=>setOpenBurger(false)}>
         <div className={item.submenu ? "menu__item submenu" : "menu__item"}>
+{item.isNew &&           <div className="new__img">
+            <img src={newItem} alt="new" />
+          </div>}
           <div>{item.icon}</div>
           {item.label}
 

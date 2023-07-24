@@ -7,6 +7,7 @@ import { commentsReducer } from "./slices/comments";
 import { editReducer } from "./slices/edit";
 import { eventsReducer } from "./slices/events";
 import { urReducer } from "./slices/ur";
+import { cargosReducer } from "./slices/cargos";
 const store = configureStore({
   reducer: {
     users: userReducer,
@@ -15,7 +16,8 @@ const store = configureStore({
     comments: commentsReducer,
     edit: editReducer,
     events:eventsReducer,
-    ur:urReducer
+    ur:urReducer,
+    cargos:cargosReducer
   },
 });
 
