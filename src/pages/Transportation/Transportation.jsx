@@ -16,13 +16,14 @@ const Transportation = () => {
   const dispatch = useDispatch();
   // const [search, setSearch] = useState("");
   useEffect(() => {
-    dispatch(fetchCargos({
-      KOD_OS:userData?.KOD,
-      REC_START:0,
-      REC_END:100
-    }));
-  }, []);
-  console.log(cargos);
+if (userData) {
+  dispatch(fetchCargos({
+    KOD_OS:userData?.KOD,
+    REC_START:0,
+    REC_END:100
+  }));
+}
+  }, [userData]);
   return (
     <div className="transportation container">
       {/* <div className="filters">
