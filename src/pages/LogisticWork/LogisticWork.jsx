@@ -140,7 +140,7 @@ const LogisticWork = () => {
       opacity: 1,
     },
   };
-  console.log(zap);
+
   return (
     <div className="logistic logistic__work container">
       <div className="active__users-length">

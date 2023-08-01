@@ -94,12 +94,13 @@ const zapSlice = createSlice({
       state.zap.items = [...state.zap.items];
     },
     showEditReduxZap: (state, action) => {
-      const { pKodZap, pZapText, pZav, pRozv } = action.payload;
+      const { pKodZap, pZapText, pZav, pRozv,zapCina } = action.payload;
       const editZap = state.zap.items.find((item) => item.KOD === pKodZap);
       if (editZap) {
         editZap.ZAPTEXT = pZapText;
         editZap.ZAV = pZav;
         editZap.ROZV = pRozv;
+        editZap.ZAPCINA=zapCina;
       }
       state.zap.items = [...state.zap.items];
     },

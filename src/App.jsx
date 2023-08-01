@@ -47,6 +47,7 @@ import MessageFromAdmin from "./components/messages/MessageFromAdmin";
 import ZapReminder from "./components/messages/ZapReminder";
 import { TbBrandTelegram } from "react-icons/tb";
 import Carrier from "./pages/Carriers/Carrier";
+import ZapDeleteForm from "./components/zap/ZapDeleteForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ function App() {
   const token = window.localStorage.getItem("token");
   const userData = useSelector((state) => state.auth.data);
   const zapEditStatus = useSelector((state) => state.edit.zapEdit);
+  const zapDeleteStatus = useSelector((state) => state.edit.zapDeleteStatus);
   const navigate = useNavigate();
   const events = useSelector((state) => state.events.events.items);
   const eventsOpen = useSelector((state) => state.edit.eventsOpen);
@@ -89,13 +91,6 @@ function App() {
       }
     });
   }, [socket, userData]);
-  // useEffect(()=>{
-  //   dispatch(fetchEvents(userData?.KOD))
-  //   },[])
-
-  // useEffect(() => {
-  //   userData && dispatch(fetchEvents(userData?.KOD));
-  // }, [userData]);
   useEffect(() => {
     socket.on("showNewComment", (data) => {
       dispatch(
@@ -115,6 +110,7 @@ function App() {
     const date = new Date();
     date.toISOString();
     socket.on("showNewZap", (data) => {
+      console.log(data);
       dispatch(
         addReduxZap({
           DAT: date,
@@ -129,12 +125,17 @@ function App() {
           COUNTNEWCOMM: 0,
           ISNEW: 1,
           KOD: data.ZAP_KOD,
+          ZAPCINA:data.pZapCina
         })
       );
       notifyNewZap(userData, data);
       beepSend();
     });
   }, [socket]);
+  console.log(zapDeleteStatus);
+  useEffect(()=>{
+
+  },[zapDeleteStatus])
   return (
     <div className="main__app">
       {/* <div style={{backgroundColor:"lightcoral"}} className="admin__notification">
@@ -177,6 +178,7 @@ function App() {
           {/* <Route path="*" exact={true} element={<DoesntExist />} /> */}
         </Routes>
         {zapEditStatus ? <ZapEditForm /> : null}
+        {zapDeleteStatus ? <ZapDeleteForm /> : null}
         {eventsOpen && <NotificationPanel />}
         <ToastContainer />
         <MessageFromAdmin />

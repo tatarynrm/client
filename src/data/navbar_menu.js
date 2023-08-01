@@ -51,7 +51,7 @@ export const navbar_menu = [
     label: "Експедиція",
     icon: <FcSalesPerformance />,
     link: "/transportation",
-    isNew:true
+    isNew:false
     // submenu: [
     //   // { label: "Перевезення актуальні", link: "/transportation" },
     //   // { label: "Перевезення закриті", link: "/closed-transportation" },

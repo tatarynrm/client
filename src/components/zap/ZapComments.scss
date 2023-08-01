@@ -39,7 +39,18 @@
     z-index: 999;
   }
 }
+// .form__control{
+//   color: var(--body-color);
+// }
+.carriers__items{
+  color: var(--body-color);
+}
 
+.zap__delete-block{
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+}
 .comments__item {
   position: relative;
 

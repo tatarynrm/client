@@ -11,7 +11,12 @@ const ZapEditForm = () => {
   const [rozv, setRozv] = useState("");
   const [zapText, setZapText] = useState("");
   const zapEditData = useSelector((state) => state.edit.zapEditData);
+  const [zapCina,setZapCina] = useState(zapEditData.zapCina === 1 ? true:false)
+  console.log(zapEditData);
   const userData = useSelector((state) => state.auth.data);
+  const handleCheckboxChange = () => {
+    setZapCina((prevChecked) => !prevChecked);
+  };
   const handleEditForm = async (e) => {
     e.preventDefault();
     const obj = {
@@ -20,6 +25,7 @@ const ZapEditForm = () => {
       pZav: zav.label,
       pRozv: rozv.label,
       pZapText: zapText,
+      pZapCina:zapCina
     };
     try {
       if (zav === "" || rozv === "" || zapText === "") {
@@ -87,6 +93,11 @@ const ZapEditForm = () => {
                 placeholder: "Введіть місто вивантаження",
               }}
             />
+          </div>
+          <div className="form__control">
+            <label className="cina__zap">Запит ціни</label>
+            <input type="checkbox" checked={zapCina}
+          onChange={handleCheckboxChange} />
           </div>
           <div className="form__control">
             <textarea

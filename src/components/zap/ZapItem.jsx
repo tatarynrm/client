@@ -5,6 +5,7 @@ import { copyTextToClipboard } from "../../helpers/navigator";
 import { RxDotsVertical } from "react-icons/rx";
 import { AiOutlineComment } from "react-icons/ai";
 import { FaCommentSlash } from "react-icons/fa";
+import { MdPriceChange } from "react-icons/md";
 import ZapEdit from "../../components/zap/ZapEdit";
 import { useSelector } from "react-redux";
 const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
@@ -15,10 +16,19 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
     e.stopPropagation();
     setZapMenu((val) => !val);
   };
+  console.log(item);
   const newZapColor = Date.now() - moment(item.DAT).valueOf();
   const selectedTheme = localStorage.getItem("selectedTheme");
   return (
-    <div onClick={() => showComments(item)} className={`zap zap-${item.KOD}`}>
+    <div
+      onClick={() => showComments(item)}
+      className={`zap zap-${item.KOD} ${item.ZAPCINA === 1 ? "zap-cina" : ""}`}
+    >
+      {item.ZAPCINA === 1 ? (
+        <div className="zap__cina-icon" title="Запит ціни">
+          <MdPriceChange />
+        </div>
+      ) : null}
       {newZapColor <= 1800000 ? (
         <div className="decor__line-div-zap-new"></div>
       ) : (
@@ -80,15 +90,15 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
       <div title="Основна інформація по завантаженні" className="zap__text">
         {item.ZAPTEXT}
       </div>
-
+{item.ZAM && <div className="zap__zam">
+ <span>{item.ZAM}</span> 
+</div>}
       {userData?.KOD === item.KOD_OS ||
       userData.KOD == 3711 ||
-      userData.KOD == 38231  ||
-      userData.KOD == 2901  ||
-      userData.KOD == 38831  ||
-      userData.KOD == 6411  
-      
-      ? (
+      userData.KOD == 38231 ||
+      userData.KOD == 2901 ||
+      userData.KOD == 38831 ||
+      userData.KOD == 6411 ? (
         <div className="zap__menu">
           <RxDotsVertical className="zap__menu-dots" onClick={openZapMenu} />
         </div>

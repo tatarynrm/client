@@ -1,0 +1,26 @@
+.zap__delete-form {
+    color: white;
+
+     select {
+        padding: 10px;
+        width: 300px;
+
+        option {
+            
+        }
+    }
+
+    button {
+        margin-top: 100px;
+    }
+    .delete {
+        background-color: red;
+    }
+    .button__control{
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+}

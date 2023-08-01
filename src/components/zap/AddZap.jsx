@@ -11,6 +11,10 @@ import { editZapAddSlice } from "../../redux/slices/edit";
 // import { io } from "socket.io-client";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import { Link } from "react-router-dom";
+import AutoCompleteUr from "./AutoCompleteUr";
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+
 const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
   const zap = useSelector((state) => state.zap.zap.items);
   const userData = useSelector((state) => state.auth.data);
@@ -19,12 +23,32 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
   const [rozv, setRozv] = useState("");
   const [zapText, setZapText] = useState("");
   const [zapType, setZapType] = useState(null);
-  const [zam,setZam] = useState('')
+  const [zam,setZam] = useState(false)
+  const [zamData,setZamData] = useState(null)
+  const [carriers, setCarriers] = useState([]);
+  const [search, setSearch] = useState("");
+  const [zapCina,setZapCina] = useState(false)
   const dispatch = useDispatch();
   const options = [
     'one', 'two', 'three'
   ];
   const defaultOption = options[0];
+  const handleCheckboxChange = () => {
+    setZapCina((prevChecked) => !prevChecked);
+  };
+  const handleZamData = (item)=>{
+    setZamData({
+      zamName:item.NDOV,
+      zamKod:item.KOD
+    })
+    setZam(value => !value)
+  }
+  const clearZamData = (item)=>{
+    setZamData(null)
+    setZam(value => !value)
+    setSearch('')
+  }
+  console.log(zamData);
   const handleSubmitAddZap = async (e) => {
     e.preventDefault();
     const object = {
@@ -35,13 +59,25 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
       pZapText: zapText,
       PIP: userData.PIP,
       zavInfo:zav,
-      rozvInfo:rozv
+      rozvInfo:rozv,
+      pZapCina:zapCina ? 1 : 0,
+      pKodZam:zamData?.zamKod || null
     };
+    // pCodeKrainaZ varchar2,
+    // pCodeKrainaR varchar2,
+    // pOblZ varchar2,
+    // pOblR varchar2,
+    // pZLat number,
+    // pZLon number,
+    // pRLat number,
+    // pRLon number,
+    // pKodZam number,
     try {
       if ((zav !== "" || rozv !== "" || zapType === null, zapText === "")) {
         alert("Заповніть усіполя");
       } else {
         const data = await axios.post("/zap/add", object);
+        console.log(data);
         if (data.status === 200) {
           const dataKod = data.data.outBinds.pKodZap;
           socket.emit("newZap", { ...object, ZAP_KOD: dataKod });
@@ -56,12 +92,56 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
   }
   useEffect(() => {
   }, [zap]);
-  
+
+  useEffect(() => {
+    if (search.length > 2) {
+      const getContrAgents = async (search) => {
+        try {
+          const { data } = await axios.post("/ur/all", { search: search });
+          setCarriers(data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getContrAgents(search);
+    }
+    if (search.length === 0) {
+      setTimeout(() => {
+        setCarriers([]);
+      }, 500);
+    }
+  }, [search]);
   return (
     <form onSubmit={handleSubmitAddZap} className="add__zap">
-      {/* <div className="form__controll">
-      <Dropdown options={options} onChange={e=> setZam(e.target.value)} value={defaultOption} placeholder="Select an option" />;
-      </div> */}
+      
+{   zam ? 
+<span className="zam__choose">
+  {zamData.zamName}
+  <span onClick={clearZamData}><AiOutlineCloseCircle/></span>
+  </span> 
+  : <div className="form__control">
+        <input
+          className="search__input"
+          type="text"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <div className="carriers__items">
+          {carriers.length > 1
+            ? carriers.map((item, idx) => {
+                return (
+                  <div className="carriers__item" key={idx}>
+                    <p className="">{item.NDOV}</p>
+              
+                      <span onClick={e=>handleZamData(item)} className="normal" style={{cursor:"context-menu",padding:"0.4rem"}}>Обрати замовника</span>
+                
+                  </div>
+                );
+              })
+            : "Напишіть назву компанії"}
+        </div>
+      </div>}
+
+
       <div className="form__control">
         <GooglePlacesAutocomplete
           className="okkk"
@@ -89,7 +169,11 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
           }}
         />
       </div>
-
+          <div className="form__control">
+            <label className="cina__zap">Запит ціни</label>
+            <input type="checkbox" checked={zapCina}
+          onChange={handleCheckboxChange} />
+          </div>
       <div className="form__control">
         <textarea
           onChange={(e) => setZapText(e.target.value)}

@@ -7,6 +7,8 @@ import { deleteReduxZap, fetchZap } from "../../redux/slices/zap";
 import {
   editZap,
   editZapAddSlice,
+  editZapDeleteData,
+  editZapDeleteStatus,
   editZapEditData,
   editZapRedux,
 } from "../../redux/slices/edit";
@@ -21,6 +23,8 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
   const refreshAccessTime = Date.now() - moment(item.DAT).valueOf();
   const dispatch = useDispatch();
   const zapEditStatus = useSelector((state) => state.edit.zapEdit);
+  const zapDeleteStatus = useSelector((state) => state.edit.zapDeleteStatus);
+  const [zapDelete,setZapDelete] = useState(false)
   const editCurrentZap = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -33,6 +37,7 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
         zapText: item.ZAPTEXT,
         zapKod: item.KOD,
         zapKodOs: item.KOD_OS,
+        zapCina:item.ZAPCINA
       })
     );
   };
@@ -64,6 +69,19 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
     e.preventDefault();
     e.stopPropagation();
   };
+
+  const showDelete = (e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    // setZapDelete(value=> !value)
+    dispatch(editZapDeleteStatus())
+    dispatch(
+      editZapDeleteData({
+        pKodAuthor:item.KOD_OS,
+        pKodZap:item.KOD
+      })
+    );
+  }
   const deleteZap = async (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -96,11 +114,13 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
           <BiRefresh />
           <span>Оновити заявку</span>
         </i>
-        <i onClick={deleteZap} className="zap__edit-block zap__edit-delete">
+        <i onClick={showDelete} className="zap__edit-block zap__edit-delete">
           <AiFillDelete />
           <span>Видалити</span>
         </i>
       </div>
+
+      {/* {zapDelete ? <div className="zap__delete-block">321321321321</div> : null } */}
       {/* {zapEditStatus ? (
         <div className="zap__edit-form">
           <div className="zap__edit-form-container">

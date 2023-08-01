@@ -258,3 +258,18 @@
   //   cursor: context-menu!important;    
   // }
 }
+
+
+.zap__zam{
+  position: absolute;
+  bottom: -13px;
+  left: 0;
+  background-color: rgb(154, 211, 154);
+  width: 100%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: var(--body-color);
+  span{
+    padding-left: 10px;
+  }
+}

@@ -40,6 +40,33 @@
     }
   }
 }
+
+.cina__zap {
+ color: white;
+}
+.zap-cina {
+  // background-color: var(--zap-cina)
+}
+.zap__cina-icon{
+  font-size: 30px;
+}
+.zam__choose{
+  position: relative;
+  color: var(--body-color);
+  background-color: var(--background-color);
+  border-radius: 1px solid var(--body-color);
+  background-color: teal;
+  padding: 10px;
+  border-radius: 0.4rem;
+
+  span {
+    position: absolute;
+    top: -10px;
+    font-size: 20px;
+    right: 0;
+    cursor: pointer!important;
+  }
+}
 @media screen and (max-width: 600px) { 
 .add__zap{
   width: 100%;
