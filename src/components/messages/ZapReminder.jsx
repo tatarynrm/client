@@ -34,7 +34,7 @@ const ZapReminder = () => {
   return (
     <>
       <Modal
-        title={`Повідомлення від ${data?.user}`}
+        title={`Повідомлення від Адміністратора`}
         centered
         open={open}
         onOk={() => {
