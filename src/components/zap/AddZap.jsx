@@ -80,7 +80,8 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
         console.log(data);
         if (data.status === 200) {
           const dataKod = data.data.outBinds.pKodZap;
-          socket.emit("newZap", { ...object, ZAP_KOD: dataKod });
+          const zamName = data.data.outBinds.pZamName;
+          socket.emit("newZap", { ...object, ZAP_KOD: dataKod,ZAM_NAME:zamName });
           dispatch(editZapAddSlice());
         } else {
           alert("Виникла якась помилка");

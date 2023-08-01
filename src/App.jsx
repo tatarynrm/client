@@ -125,7 +125,8 @@ function App() {
           COUNTNEWCOMM: 0,
           ISNEW: 1,
           KOD: data.ZAP_KOD,
-          ZAPCINA:data.pZapCina
+          ZAPCINA:data.pZapCina,
+          ZAM:data.ZAM_NAME
         })
       );
       notifyNewZap(userData, data);
