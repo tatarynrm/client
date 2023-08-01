@@ -137,6 +137,14 @@ function App() {
   useEffect(()=>{
 
   },[zapDeleteStatus])
+  useEffect(()=>{
+socket.on('logoutAllUsers',data =>{
+  window.localStorage.removeItem("token");
+  navigate("/");
+})
+  },[socket,token])
+
+
   return (
     <div className="main__app">
       {/* <div style={{backgroundColor:"lightcoral"}} className="admin__notification">
