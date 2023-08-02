@@ -51,7 +51,7 @@ const ZapDeleteForm = () => {
             <option value="2">Закрита нами</option>
             <option value="3">Не закрита нами</option>
             <option value="4">Відмінена замовником</option>
-            <option value="2">Закрита замовником</option>
+            <option value="5">Закрита замовником</option>
           </select>
         </div>
         <div className="form__control button__control">

@@ -75,7 +75,7 @@
       color: black;
       padding: 0.4rem;
       border-radius: 0.4rem;
-      height: 7vh;
+      height: 10vh;
       overflow-y: scroll;
     }
   }
@@ -154,10 +154,11 @@
     }
   }
   &-create {
-    position: absolute;
-    bottom: 10px;
+    // position: fixed;
+    // position: absolute;
+    bottom: 0px;
     left: 0px;
-    display: flex;
+    // display: flex;
   }
 }
 
@@ -171,6 +172,7 @@
   width: 100%;
 }
 .comments__control {
+  position: relative;
   width: 100%;
   align-items: center;
   justify-content: center;

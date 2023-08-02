@@ -70,17 +70,38 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
     e.stopPropagation();
   };
 
-  const showDelete = (e)=>{
+  const showDelete = async (e)=>{
     e.preventDefault();
     e.stopPropagation();
-    // setZapDelete(value=> !value)
-    dispatch(editZapDeleteStatus())
-    dispatch(
-      editZapDeleteData({
-        pKodAuthor:item.KOD_OS,
-        pKodZap:item.KOD
-      })
-    );
+  
+    console.log(item);
+    if (item.ZAPCINA === 1) {
+      try {
+        if (window.confirm("Ви впевнені що хочете видалити дану заявку?")) {
+          const data = await axios.post("/zap/delete", {
+            pKodAuthor: userData?.KOD,
+            pStatus: 6,
+            pKodZap: item.KOD,
+          });
+          setZapMenu(false);
+          if (data.status === 200) {
+            socket.emit("deleteZap", item.KOD);
+          }
+        } else {
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }else {
+      dispatch(editZapDeleteStatus())
+      dispatch(
+        editZapDeleteData({
+          pKodAuthor:item.KOD_OS,
+          pKodZap:item.KOD
+        })
+      );
+    }
+
   }
   const deleteZap = async (e) => {
     e.stopPropagation();
