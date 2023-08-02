@@ -37,7 +37,8 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
         zapText: item.ZAPTEXT,
         zapKod: item.KOD,
         zapKodOs: item.KOD_OS,
-        zapCina:item.ZAPCINA
+        zapCina:item.ZAPCINA,
+        zapGroup:item.KOD_GROUP
       })
     );
   };

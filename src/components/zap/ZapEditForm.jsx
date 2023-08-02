@@ -6,38 +6,54 @@ import { editZapRedux } from "../../redux/slices/edit";
 import axios from "../../utils/axios";
 import socket from "../../utils/socket";
 const ZapEditForm = () => {
+  const userData = useSelector((state) => state.auth.data);
   const dispatch = useDispatch();
   const [zav, setZav] = useState("");
   const [rozv, setRozv] = useState("");
   const [zapText, setZapText] = useState("");
   const zapEditData = useSelector((state) => state.edit.zapEditData);
-  const [zapCina,setZapCina] = useState(zapEditData.zapCina === 1 ? true:false)
-  console.log(zapEditData);
-  const userData = useSelector((state) => state.auth.data);
-  const handleCheckboxChange = () => {
-    setZapCina((prevChecked) => !prevChecked);
+  const [selectedOption, setSelectedOption] = useState(zapEditData?.zapGroup ||selectedOption );
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
   };
+ 
+console.log(zapEditData);
+  const radio = [
+    { id: 1, value: 11, label: "Міжнародні" },
+    { id: 2, value: 21, label: "Регіональні" },
+  ];
+
   const handleEditForm = async (e) => {
     e.preventDefault();
+    // const obj = {
+    //   pKodAuthor: zapEditData.zapKodOs,
+    //   pKodZap: zapEditData.zapKod,
+    //   pZav: zav.label,
+    //   pRozv: rozv.label,
+    //   pZapText: zapText,
+    //   // pZapCina:zapCina
+    // };
     const obj = {
-      pKodAuthor: zapEditData.zapKodOs,
-      pKodZap: zapEditData.zapKod,
+      pKodAuthor: zapEditData?.zapKodOs,
+      pKodZap: zapEditData?.zapKod,
       pZav: zav.label,
       pRozv: rozv.label,
       pZapText: zapText,
-      pZapCina:zapCina
+      pKodAuthor: userData.KOD,
+      pZav: zav.label,
+      pRozv: rozv.label,
+      pZapText: zapText,
+      PIP: userData.PIP,
+      zavInfo:zav,
+      rozvInfo:rozv,
+      pZapCina:zapEditData.zapCina ? 1 : 0,
+      pKodZam:zapEditData?.zamKod || null
     };
     try {
       if (zav === "" || rozv === "" || zapText === "") {
         window.alert("Заповніть усі поля");
       } else {
-        const data = await axios.post(`/zap/edit`, {
-          pKodAuthor: zapEditData.zapKodOs,
-          pKodZap: zapEditData.zapKod,
-          pZav: zav.label,
-          pRozv: rozv.label,
-          pZapText: zapText,
-        });
+        const data = await axios.post(`/zap/edit`,obj);
         if (data.status === 200) {
           socket.emit("editZap", obj);
           alert(`Ви успішно редагувати заявку № ${obj.pKodZap} `);
@@ -53,6 +69,7 @@ const ZapEditForm = () => {
     setRozv(zapEditData?.rozv);
     setZapText(zapEditData?.zapText);
   }, [zapEditData]);
+  useEffect(()=>{},[zapEditData])
   return (
     <div className="zap__edit-form">
       {zapEditData && (
@@ -94,11 +111,27 @@ const ZapEditForm = () => {
               }}
             />
           </div>
-          <div className="form__control">
+          {/* <div className="form__control">
             <label className="cina__zap">Запит ціни</label>
             <input type="checkbox" checked={zapCina}
           onChange={handleCheckboxChange} />
-          </div>
+          </div> */}
+          {/* <div className="for__control">
+            {radio.map((item, key) => (
+              <div key={key} className={`radio ${selectedOption === item.value ? "selected__radio":""}`}>
+                <label>{item.label}</label>
+                <div className="radio__input">
+                  <input
+                    type="radio"
+                    name="group"
+                    value={item.value}
+                    onChange={handleOptionChange}
+                    checked={selectedOption === item.value}
+                  />
+                </div>
+              </div>
+            ))}
+          </div> */}
           <div className="form__control">
             <textarea
               value={zapText}
