@@ -12,7 +12,7 @@ import socket from "../../utils/socket";
 import { changeCommentsCount, fetchZap } from "../../redux/slices/zap";
 import { beep, beepSend } from "../../helpers/audio";
 import { FcInfo } from "react-icons/fc";
-import { FcManager, FcComments } from "react-icons/fc";
+import { FcManager, FcComments, FcOrganization } from "react-icons/fc";
 import { FaCity } from "react-icons/fa";
 import { BiSend } from "react-icons/bi";
 import { FaCommentSlash } from "react-icons/fa";
@@ -47,7 +47,7 @@ const ZapComments = ({ showComments, selectedZap }) => {
             pComment: comment,
             zapAuthor: selectedZap.KOD_OS,
             pKodComment: data.data.outBinds.pKodCom,
-            telegramId:selectedZap.TELEGRAMID
+            telegramId: selectedZap.TELEGRAMID,
           });
           socket.emit("myZapComment", {
             PIP: userData?.PIP,
@@ -81,7 +81,7 @@ const ZapComments = ({ showComments, selectedZap }) => {
             pComment: comment,
             zapAuthor: selectedZap.KOD_OS,
             pKodComment: data.data.outBinds.pKodCom,
-            telegramId:selectedZap.TELEGRAMID
+            telegramId: selectedZap.TELEGRAMID,
           });
           socket.emit("myZapComment", {
             PIP: userData?.PIP,
@@ -133,6 +133,17 @@ const ZapComments = ({ showComments, selectedZap }) => {
             <br /> <br /> <FaCity title="Місто вивантаження" />{" "}
             <AiOutlineArrowLeft title="Місто вивантаження" /> {selectedZap.ROZV}
           </div>
+          {selectedZap.ZAM && (
+            <div
+              style={{ cursor: "context-menu" }}
+              className="comments__item-zap-zam"
+              title="Замовник"
+            >
+              <span>
+                <FcOrganization /> {selectedZap.ZAM}
+              </span>
+            </div>
+          )}
           <div className="zap-text">
             <FcInfo /> <br />
             {selectedZap.ZAPTEXT}
@@ -142,7 +153,7 @@ const ZapComments = ({ showComments, selectedZap }) => {
           {comments.length > 0 ? (
             commentsToShow
               .sort((a, b) => a.KOD - b.KOD)
-              .filter(item => item.KOD_ZAP === selectedZap.KOD)
+              .filter((item) => item.KOD_ZAP === selectedZap.KOD)
               .map((item, idx) => {
                 return (
                   <React.Fragment key={idx}>

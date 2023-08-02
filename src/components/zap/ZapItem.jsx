@@ -6,6 +6,7 @@ import { RxDotsVertical } from "react-icons/rx";
 import { AiOutlineComment } from "react-icons/ai";
 import { FaCommentSlash } from "react-icons/fa";
 import { MdPriceChange } from "react-icons/md";
+import { FcOrganization } from "react-icons/fc";
 import ZapEdit from "../../components/zap/ZapEdit";
 import { useSelector } from "react-redux";
 const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
@@ -90,8 +91,8 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
       <div title="Основна інформація по завантаженні" className="zap__text">
         {item.ZAPTEXT}
       </div>
-{item.ZAM && <div className="zap__zam">
- <span>{item.ZAM}</span> 
+{item.ZAM && <div className="zap__zam" title="Замовник">
+  <span><FcOrganization/> {item.ZAM}</span> 
 </div>}
       {userData?.KOD === item.KOD_OS ||
       userData.KOD == 3711 ||

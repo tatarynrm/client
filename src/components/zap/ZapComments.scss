@@ -154,9 +154,9 @@
     }
   }
   &-create {
-    // position: fixed;
     // position: absolute;
-    bottom: 0px;
+    // position: absolute;
+    bottom: 1px;
     left: 0px;
     // display: flex;
   }
@@ -172,12 +172,12 @@
   width: 100%;
 }
 .comments__control {
-  position: relative;
+  // position: absolute;
   width: 100%;
   align-items: center;
   justify-content: center;
   // background-color: red;
-  // height: 10vh;
+  height: 10vh;
   display: flex;
   flex-direction: row;
   gap: 10px;
