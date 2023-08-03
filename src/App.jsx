@@ -181,7 +181,8 @@ socket.on('logoutAllUsers',data =>{
             userData?.KOD === 38231 ||
             userData?.KOD === 24011 ||
             userData?.KOD === 4611 ||
-            userData?.KOD === 3711
+            userData?.KOD === 3711 ||
+            userData?.KOD === 2811
              ? (
               <Route path={`/admin`} element={<AdminPanel />} />
             ) : null}
