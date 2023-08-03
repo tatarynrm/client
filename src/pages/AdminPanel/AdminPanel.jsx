@@ -95,6 +95,7 @@ const logoutAll = ()=>{
               )}
               {activeUsers
                 .filter((item) => item.userId !== undefined)
+                .sort((a,b) => a.PIP.localeCompare(b.PIP))
                 .map((item, idx) => {
                   return (
                     <UsersActions
