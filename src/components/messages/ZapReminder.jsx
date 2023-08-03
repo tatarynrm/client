@@ -30,7 +30,7 @@ const ZapReminder = () => {
  if (yes === true) {
     setTimeout(()=>{
         setOpen(true)
-        axios.get(`https://api.telegram.org/bot5733508440:AAHyqrinKscVQcQsA7istfD3-roQpzgazZs/sendMessage?chat_id=${userData?.TELEGRAMID}&text=OK`)
+        axios.get(`https://api.telegram.org/bot5733508440:AAHyqrinKscVQcQsA7istfD3-roQpzgazZs/sendMessage?chat_id=${userData?.TELEGRAMID}&text=Ви не оновляли одну з заявок більш ніж 24 години.Прошу перевірити актуальність ваших завантажень.Оновіть заявки, або видаліть їх (якщо вони втратили актуальність.)`)
     },600000)
  }
   }, [yes]);

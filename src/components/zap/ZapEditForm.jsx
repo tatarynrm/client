@@ -22,7 +22,7 @@ console.log(zapEditData);
     { id: 1, value: 11, label: "Міжнародні" },
     { id: 2, value: 21, label: "Регіональні" },
   ];
-
+console.log(zapEditData?.zamKod);
   const handleEditForm = async (e) => {
     e.preventDefault();
     // const obj = {
@@ -33,6 +33,7 @@ console.log(zapEditData);
     //   pZapText: zapText,
     //   // pZapCina:zapCina
     // };
+   
     const obj = {
       pKodAuthor: zapEditData?.zapKodOs,
       pKodZap: zapEditData?.zapKod,
