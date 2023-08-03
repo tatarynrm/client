@@ -16,7 +16,8 @@ const HeaderNav = ({openBurger,setOpenBurger}) => {
       {userData?.ISDIR === 1 ||
       userData?.KOD === 38231 ||
       userData?.KOD === 24011 ||
-      userData?.KOD === 4611
+      userData?.KOD === 4611 ||
+      userData?.KOD === 3711 
         ? navbar_menu.map((item, idx) => <MenuItem setOpenBurger={setOpenBurger} key={idx} item={item} />)
         : navbar_menu
             .filter((dir) => dir.isDir !== true)

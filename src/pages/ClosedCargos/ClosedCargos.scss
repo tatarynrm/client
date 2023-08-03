@@ -1,10 +1,21 @@
-.closed__cargos {
+.closed__zap {
   margin: 0 auto;
   margin-top: 20px;
+
+  &-filters {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    >.active {
+      background-color: rgba(89, 223, 205,0.7);
+    }
+  }
   .closed {
     width: 100%;
     display: flex;
     gap: 40px;
     flex-wrap: wrap;
+    margin-top: 20px;
   }
 }

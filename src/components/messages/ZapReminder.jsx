@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import socket from "../../utils/socket";
 import moment from "moment";
 import "moment/locale/uk";
+import axios from "axios";
 const ZapReminder = () => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState(null);
@@ -11,6 +12,7 @@ const ZapReminder = () => {
   const userData = useSelector((state) => state.auth.data);
   const zap = useSelector((state) => state.zap.zap.items);
   const myZap = zap?.filter((item) => item.KOD_OS === userData?.KOD);
+  console.log(myZap);
   useEffect(()=>{
    
     const checkZapLifeTime = () => {
@@ -28,6 +30,7 @@ const ZapReminder = () => {
  if (yes === true) {
     setTimeout(()=>{
         setOpen(true)
+        axios.get(`https://api.telegram.org/bot5733508440:AAHyqrinKscVQcQsA7istfD3-roQpzgazZs/sendMessage?chat_id=${userData?.TELEGRAMID}&text=OK`)
     },600000)
  }
   }, [yes]);
