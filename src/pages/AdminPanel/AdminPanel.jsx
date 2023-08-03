@@ -22,7 +22,8 @@ const AdminPanel = () => {
     if (window.confirm("Відправити повідомлення усім активним користувачам?")) {
       socket.emit("textToAllUsers", {
         textToAllUsers,
-        user:userData.PIP
+        user:userData.PIP,
+        activeUsers
       });
       setMessage('')
     }
