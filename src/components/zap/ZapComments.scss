@@ -84,7 +84,10 @@
     margin-top: 20px;
     overflow: hidden;
     overflow-y: scroll;
+    min-height: 50vh;
     max-height: 50vh;
+   
+   
 
     &::-webkit-scrollbar {
       // display: none;
@@ -294,5 +297,8 @@
     svg {
       width: 70px;
     }
+  }
+  .comments__item-block{
+    height: 50vh;
   }
 }
