@@ -3,6 +3,7 @@ const instance = axios.create({
   // baseURL: "http://192.168.5.180:8800",
     // baseURL: "http://localhost:8800",
   baseURL: "https://api.ict.lviv.ua",
+  // .
 
 });
 // this is comment
