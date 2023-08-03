@@ -59,7 +59,7 @@ const logoutAll = ()=>{
               Перезавантажити сторінки
             </button>
             <button onClick={logoutAll} className="danger">
-              Вийти усім з аккаунтів
+              Вийти усім з аккаунтів!!!
             </button>
           </div>
           <div className="admin__messages-to-users">
