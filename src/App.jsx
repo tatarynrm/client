@@ -168,7 +168,7 @@ socket.on('logoutAllUsers',data =>{
             <Route path={`/carriers/:id`} element={<Carrier />} />
             <Route path={`/logistic-work`} element={<LogisticWork />} />
             <Route path={`/ict-files`} element={<CompanyFiles />} />
-            <Route path={`/closed-cargos`} element={<ClosedCargos />} />
+            <Route path={`/statistic`} element={<ClosedCargos />} />
             {/* <Route
             path={`/current-transportation`}
             element={<CurrentTransportation />}

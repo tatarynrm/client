@@ -7,10 +7,12 @@ import {
   FcShipped,
   FcDocument,
   FcNews,
+  FcStatistics
 } from "react-icons/fc";
 import { FaCarCrash } from "react-icons/fa";
 import { MdCarCrash } from "react-icons/md";
 import { SiAdminer } from "react-icons/si";
+
 
 export const navbar_menu = [
   // { label: "Чат", link: "/chat", icon: <FcAssistant /> },
@@ -70,9 +72,9 @@ export const navbar_menu = [
     isDir: true,
   },
   {
-    label: "Закриті завантаження",
-    link: "/closed-cargos",
-    icon: <MdCarCrash />,
+    label: "Статистика",
+    link: "/statistic",
+    icon: <FcStatistics />,
     status: "red",
     isDir: true,
   },

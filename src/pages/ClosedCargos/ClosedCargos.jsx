@@ -17,7 +17,12 @@ const ClosedCargos = () => {
   const [statusZap, setStatusZap] = useState();
   const [statusValue,setStatusValue]= useState('')
   const [filterDate, setFilterDate] = useState('');
-
+  const [openManager,setOpenManager] = useState(false)
+  const [managerFilter,setManagerFilter] = useState(null)
+const filterByOneManager = (item)=>{
+  setManagerFilter(item.PIP);
+  setOpenManager(false)
+}
 
   const filtersButton = [
     { title: "Закриті нами", value: 2 },
@@ -34,6 +39,7 @@ const ClosedCargos = () => {
     if (item.value === 777) {
       setStatusZap();
       setStatusValue('')
+      setManagerFilter(null)
     } else {
       setStatusZap(item.value);
       setStatusValue(item.title)
@@ -53,17 +59,22 @@ const ClosedCargos = () => {
     getZap(userData?.KOD);
   }, [userData]);
   useEffect(() => {}, [statusZap]);
-  console.log(statusZap);
-
-  const filteredData = closedZap.filter(item => {
-    if (filterDate === '') return true; // Return all items if the input date is empty
-
-    const inputDate = new Date(filterDate);
-    return item.date <= inputDate;
+  
+  const uniqueUsers= closedZap.filter((obj, index, array) => {
+    return !array.slice(0, index).some((o) => o.PIP === obj.PIP);
   });
+  
+  console.log(uniqueUsers);
+  // const filteredData = closedZap.filter(item => {
+  //   if (filterDate === '') return true; // Return all items if the input date is empty
+
+  //   const inputDate = new Date(filterDate);
+  //   return item.date <= inputDate;
+  // });
   return (
     <div className="closed__zap container">
       <div className="closed__zap-filters">
+        <div className="closed__zap-buttons">
         {filtersButton.map((item, idx) => {
           return (
             <button
@@ -75,12 +86,20 @@ const ClosedCargos = () => {
             </button>
           );
         })}
+        </div>
+<div className="closed__zap-managers">
+  <button onClick={()=>setOpenManager(value =>!value)}>Фільтр по менеджеру</button>
+
+{openManager && <div className="mannager__block">
+{uniqueUsers?.map((item,idx)=>{
+  return <button key={idx} onClick={()=>filterByOneManager(item)}>{item.PIP}</button>
+})}
+</div>}
+
+</div>
+
         <div className="date__filter">
-        {/* <input
-        type="date"
-        value={filterDate}
-        onChange={handleInputChange}
-      /> */}
+
         </div>
       </div>
       <div className="closed">
@@ -89,6 +108,7 @@ const ClosedCargos = () => {
             ?.sort((a, b) => toTimestamp(b.DAT) - toTimestamp(a.DAT))
             .filter((item) => (statusZap ? item.STATUS === statusZap : item))
             // .filter((a,b) => toTimestamp(a.DAT) === new Date(chooseDate))
+            .filter((item) => managerFilter? item.PIP === managerFilter : item)
             .map((item, idx) => {
               return (
                 <div key={idx} className={`zap zap-${item.KOD}`}>
