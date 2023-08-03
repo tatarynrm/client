@@ -42,7 +42,10 @@ const AdminPanel = () => {
     setTextToAllUsers('')
   };
 const logoutAll = ()=>{
-  socket.emit("logoutAll");
+  if (window.confirm("Вийти усім користувачам з системи ?")) {
+    socket.emit("logoutAll");
+  }
+ 
 }
   return (
     <div className="admin container">
@@ -55,7 +58,7 @@ const logoutAll = ()=>{
             <button onClick={reloadWindow} className="normal">
               Перезавантажити сторінки
             </button>
-            <button onClick={logoutAll} className="normal">
+            <button onClick={logoutAll} className="danger">
               Вийти усім з аккаунтів
             </button>
           </div>
