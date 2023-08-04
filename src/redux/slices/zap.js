@@ -89,7 +89,7 @@ const zapSlice = createSlice({
       if (dateZap) {
         const date = new Date();
         date.toISOString();
-        dateZap.DAT = date;
+        dateZap.DATUPDATE = date;
       }
       state.zap.items = [...state.zap.items];
     },

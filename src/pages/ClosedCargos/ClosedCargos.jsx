@@ -64,7 +64,7 @@ const filterByOneManager = (item)=>{
     return !array.slice(0, index).some((o) => o.PIP === obj.PIP);
   });
   
-  console.log(uniqueUsers);
+  // console.log(uniqueUsers);
   // const filteredData = closedZap.filter(item => {
   //   if (filterDate === '') return true; // Return all items if the input date is empty
 

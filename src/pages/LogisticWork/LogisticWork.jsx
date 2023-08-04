@@ -276,7 +276,7 @@ const LogisticWork = () => {
                 return item;
               }
             })
-            .sort((a, b) => toTimestamp(b.DAT) - toTimestamp(a.DAT))
+            .sort((a, b) => toTimestamp(b.DATUPDATE) - toTimestamp(a.DATUPDATE))
             .map((item, idx) => {
               return (
                 <ZapItem

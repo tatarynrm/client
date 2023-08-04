@@ -18,7 +18,7 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
     setZapMenu((val) => !val);
   };
   console.log(item);
-  const newZapColor = Date.now() - moment(item.DAT).valueOf();
+  const newZapColor = Date.now() - moment(item.DATUPDATE).valueOf();
   const selectedTheme = localStorage.getItem("selectedTheme");
   return (
     <div
@@ -80,7 +80,7 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
         <div
           className="zap__author-time"
           title="Час створення заявки"
-        >{`${moment(item.DAT).startOf("minute").fromNow()}`}</div>
+        >{`${moment(item.DATUPDATE).startOf("minute").fromNow()}`}</div>
       </div>
       <div className="zap__cities">
         <div>

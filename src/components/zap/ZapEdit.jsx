@@ -20,7 +20,7 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const userData = useSelector((state) => state.auth.data);
   const zap = useSelector((state) => state.zap.items);
-  const refreshAccessTime = Date.now() - moment(item.DAT).valueOf();
+  const refreshAccessTime = Date.now() - moment(item.DATUPDATE).valueOf();
   const dispatch = useDispatch();
   const zapEditStatus = useSelector((state) => state.edit.zapEdit);
   const zapDeleteStatus = useSelector((state) => state.edit.zapDeleteStatus);
