@@ -12,14 +12,14 @@ import { useSelector } from "react-redux";
 const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
   const userData = useSelector((state) => state.auth.data);
   const [zapMenu, setZapMenu] = useState(false);
-  const comments = useSelector((state) => state.comments.comments.items);
+  // const comments = useSelector((state) => state.comments.comments.items);
   const openZapMenu = (e) => {
     e.stopPropagation();
     setZapMenu((val) => !val);
   };
   console.log(item);
   const newZapColor = Date.now() - moment(item.DATUPDATE).valueOf();
-  const selectedTheme = localStorage.getItem("selectedTheme");
+  // const selectedTheme = localStorage.getItem("selectedTheme");
   return (
     <div
       onClick={() => showComments(item)}
@@ -88,7 +88,7 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
           <span title="Вивантаження"> {item.ROZV}</span>
         </div>
       </div>
-      <div title="Основна інформація по завантаженні" className="zap__text">
+      <div onClick={()=>copyTextToClipboard(item.ZAPTEXT)} title="Основна інформація по завантаженні" className="zap__text">
         {item.ZAPTEXT}
       </div>
 {item.ZAM && <div className="zap__zam" title="Замовник">
