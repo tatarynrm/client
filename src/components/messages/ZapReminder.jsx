@@ -18,7 +18,7 @@ const ZapReminder = () => {
     const checkZapLifeTime = () => {
       const someZap = myZap?.some((item) => {
         let ol;
-         ol = Date.now() - moment(item.DAT).valueOf() > 86400000;
+         ol = Date.now() - moment(item.DATUPDATE).valueOf() > 86400000;
          if (ol === true) {
           setYes(true)
          }
