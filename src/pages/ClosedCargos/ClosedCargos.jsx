@@ -20,6 +20,7 @@ const ClosedCargos = () => {
   const [filterDate, setFilterDate] = useState('');
   const [openManager,setOpenManager] = useState(false)
   const [managerFilter,setManagerFilter] = useState(null)
+  const [gradient,setGradient] = useState(false)
 const filterByOneManager = (item)=>{
   setManagerFilter(item.PIP);
   setOpenManager(false)
@@ -65,6 +66,9 @@ console.log(closedZap);
     return !array.slice(0, index).some((o) => o.PIP === obj.PIP);
   });
   
+  const addGradient = ()=>{
+    setGradient(value => !value)
+  }
   const cls = (status)=>{
 
   switch (status) {
@@ -113,6 +117,7 @@ console.log(closedZap);
             </button>
           );
         })}
+        <button className="normal" onClick={addGradient}>{gradient? "Сховати градієнт" :"Додати градієнт"}</button>
         </div>
 <div className="closed__zap-managers">
   <button onClick={()=>setOpenManager(value =>!value)}>Фільтр по менеджеру</button>
@@ -129,7 +134,7 @@ console.log(closedZap);
 
         </div>
       </div>
-<ClosedColors/>
+  {gradient && <ClosedColors/> } 
       <div className="closed">
         {closedZap ? (
           closedZap
@@ -139,7 +144,7 @@ console.log(closedZap);
             .filter((item) => managerFilter? item.PIP === managerFilter : item)
             .map((item, idx) => {
               return (
-                <div key={idx} className={`zap zap-${item.KOD} ${cls(item.STATUS)}`}>
+                <div key={idx} className={`zap zap-${item.KOD} ${gradient && cls(item.STATUS)}`}>
                   {item.KOD_GROUP === 11 ? (
                     <div className="decor__line-div-zap-mizh"></div>
                   ) : (
