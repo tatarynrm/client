@@ -11,6 +11,7 @@ import { AiOutlineComment } from "react-icons/ai";
 import { FaCommentSlash } from "react-icons/fa";
 import ZapEdit from "../../components/zap/ZapEdit";
 import toTimestamp from "../../helpers/functions";
+import ClosedColors from "./ClosedColors";
 const ClosedCargos = () => {
   const userData = useSelector((state) => state.auth.data);
   const [closedZap, setClosedZap] = useState([]);
@@ -23,7 +24,7 @@ const filterByOneManager = (item)=>{
   setManagerFilter(item.PIP);
   setOpenManager(false)
 }
-
+console.log(closedZap);
   const filtersButton = [
     { title: "Закриті нами", value: 2 },
     { title: "Не закриті нами", value: 3 },
@@ -64,6 +65,32 @@ const filterByOneManager = (item)=>{
     return !array.slice(0, index).some((o) => o.PIP === obj.PIP);
   });
   
+  const cls = (status)=>{
+
+  switch (status) {
+    case 0:
+      return 'actual'
+   
+    case 1:
+      return 'delete'
+  
+    case 2:
+      return 'closed_us'
+    case 3:
+      return 'dont_close_us'
+    case 4:
+      return 'decline_ur'
+    case 5:
+      return 'closed_by_ur'
+    case 6:
+      return 'zap_cina'
+
+  
+    default:
+      break;
+  }
+
+  }
   // console.log(uniqueUsers);
   // const filteredData = closedZap.filter(item => {
   //   if (filterDate === '') return true; // Return all items if the input date is empty
@@ -102,6 +129,7 @@ const filterByOneManager = (item)=>{
 
         </div>
       </div>
+<ClosedColors/>
       <div className="closed">
         {closedZap ? (
           closedZap
@@ -111,7 +139,7 @@ const filterByOneManager = (item)=>{
             .filter((item) => managerFilter? item.PIP === managerFilter : item)
             .map((item, idx) => {
               return (
-                <div key={idx} className={`zap zap-${item.KOD}`}>
+                <div key={idx} className={`zap zap-${item.KOD} ${cls(item.STATUS)}`}>
                   {item.KOD_GROUP === 11 ? (
                     <div className="decor__line-div-zap-mizh"></div>
                   ) : (

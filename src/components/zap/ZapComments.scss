@@ -75,7 +75,7 @@
       color: black;
       padding: 0.4rem;
       border-radius: 0.4rem;
-      height: 10vh;
+      height: 15vh;
       overflow-y: scroll;
     }
   }
@@ -84,8 +84,8 @@
     margin-top: 20px;
     overflow: hidden;
     overflow-y: scroll;
-    min-height: 50vh;
-    max-height: 50vh;
+    min-height: 40vh;
+    max-height: 40vh;
    
    
 
@@ -128,18 +128,19 @@
       .comment__date {
         // position: absolute;
         //  bottom: 0;
-        font-size: 14px;
+        font-size: 12px;
         color: rgb(29, 28, 28);
       }
       .comment__author {
         font-weight: bold;
         // color: light;
+        font-size: 14px;
       }
 
       &-rightside {
         // background-color: red;
         padding: 0.4rem;
-        font-size: 18px;
+        font-size: 14px;
         font-weight: bold;
       }
     }

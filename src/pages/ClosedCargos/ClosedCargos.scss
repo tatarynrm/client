@@ -46,5 +46,45 @@ position: relative;
     gap: 40px;
     flex-wrap: wrap;
     margin-top: 20px;
+
+
+   .actual {
+    background-color: rgb(2, 92, 72);
+   }
+   
+    .delete{
+      background-color: red;
+    }
+  
+    .closed_us {
+      background-color: rgba(63, 226, 63, 0.4);
+    }
+  .dont_close_us{
+    background-color: rgb(243, 6, 6,0.4);
   }
+  .decline_ur{
+    background-color: rgb(187, 95, 95);
+  }
+   .closed_by_ur {
+    background-color: rgba(168, 55, 233, 0.4);
+   }
+   .zap_cina {
+    background-color: rgba(236, 245, 111, 0.4);
+   }
+
+
+
+    .zap{
+      display: flex;
+      width: 30%;
+      height: 100px;
+      // flex-direction:column;
+    }
+  }
+}
+
+
+
+.closed__zap-colors{
+  color: var(--body-color);
 }
