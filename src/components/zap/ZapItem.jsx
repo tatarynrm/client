@@ -24,6 +24,7 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
     <div
       onClick={() => showComments(item)}
       className={`zap zap-${item.KOD} ${item.ZAPCINA === 1 ? "zap-cina" : ""}`}
+      title={item.ZAPTEXT}
     >
       {item.ZAPCINA === 1 ? (
         <div className="zap__cina-icon" title="Запит ціни">

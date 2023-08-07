@@ -54,8 +54,17 @@ const LogisticWork = () => {
   const [editZap, setEditZap] = useState(false);
   const [activeUsers, setActiveUsers] = useState(null);
   const [showActiveUsers, setShowActiveUsers] = useState(false);
+  const [checkedItems,setCheckedItems] = useState([])
+  console.log(checkedItems);
   const showAddZap = () => {
     setAddZap((value) => !value);
+  };
+  const handleCheckboxChange = (itemId) => {
+    if (checkedItems.includes(itemId)) {
+      setCheckedItems(checkedItems.filter((id) => id !== itemId));
+    } else {
+      setCheckedItems([...checkedItems, itemId]);
+    }
   };
   useEffect(() => {
     if (userData) {
