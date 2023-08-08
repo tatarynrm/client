@@ -54,8 +54,9 @@ const LogisticWork = () => {
   const [editZap, setEditZap] = useState(false);
   const [activeUsers, setActiveUsers] = useState(null);
   const [showActiveUsers, setShowActiveUsers] = useState(false);
-  const [checkedItems,setCheckedItems] = useState([])
-  console.log(checkedItems);
+  const [checkedItems, setCheckedItems] = useState([]);
+  const [openManager, setOpenManager] = useState(false);
+  const [choosenUsers, setChoosenUsers] = useState([]);
   const showAddZap = () => {
     setAddZap((value) => !value);
   };
@@ -149,7 +150,18 @@ const LogisticWork = () => {
       opacity: 1,
     },
   };
-
+  const uniqueUsers = zap.filter((obj, index, array) => {
+    return !array.slice(0, index).some((o) => o.PIP === obj.PIP);
+  });
+  const setUsersToChosen = (item) => {
+    if (choosenUsers.includes(item)) {
+      setChoosenUsers(
+        choosenUsers.filter((selectedItem) => selectedItem !== item)
+      );
+    } else {
+      setChoosenUsers([...choosenUsers, item]);
+    }
+  };
   return (
     <div className="logistic logistic__work container">
       <div className="active__users-length">
@@ -158,7 +170,7 @@ const LogisticWork = () => {
           onClick={() => setShowActiveUsers((value) => !value)}
           className="normal"
         >
-          {showActiveUsers ? "Приховати" : "Користувачі online"} {" "}
+          {showActiveUsers ? "Приховати" : "Користувачі online"}{" "}
           {activeUsers?.length}
         </button>
         {showActiveUsers && <ActiveUsersList users={activeUsers} />}
@@ -173,11 +185,9 @@ const LogisticWork = () => {
             onChange={(e) => setSearchFilter(e.target.value)}
             style={{
               border: "none",
-              // borderBottom: "1px solid rgb(76, 135, 202)",
               outline: "none",
               width: "100%",
               padding: "0.4rem",
-              // borderRadius: "10px",
             }}
             type="text"
             placeholder="Пошук: місто,прізвище"
@@ -200,6 +210,32 @@ const LogisticWork = () => {
             Лише мої заявки
           </button>
         )}
+
+        <div>
+          <button
+            className="normal"
+            style={{position:"relative"}}
+            onClick={() => setOpenManager((value) => !value)}
+          >
+            {openManager ? 'Приховати фільтр' : 'Фільтр по менеджерах'}
+          </button>
+          {openManager && (
+            <div className="pip__filter">
+              {uniqueUsers.map((item, idx) => {
+                return (
+                  <div key={idx} className="choose__user">
+                    <input
+                                 type="checkbox"
+                                 checked={choosenUsers.includes(item.PIP)}
+                                 onChange={() => setUsersToChosen(item.PIP)}
+                    />
+                    <button>{item.PIP}</button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
       <div className="zap__rules">
         <div className="zap__rules-block">
@@ -285,6 +321,9 @@ const LogisticWork = () => {
                 return item;
               }
             })
+            .filter((item) =>
+            choosenUsers.length > 0 ? choosenUsers.includes(item.PIP) : item
+          )
             .sort((a, b) => toTimestamp(b.DATUPDATE) - toTimestamp(a.DATUPDATE))
             .map((item, idx) => {
               return (
