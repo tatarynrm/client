@@ -27,9 +27,8 @@ const ClosedCargos = () => {
   const [startDate, endDate] = dateRange;
   const [choosenUsers, setChoosenUsers] = useState([]);
   const [zapCount, setZapCount] = useState(null);
-  const uniqueNamesSet = new Set(closedZap?.map(item => item.PIP));
-  const uniqueNames = Array.from(uniqueNamesSet);
-  console.log(uniqueNames);
+
+
   const filterByOneManager = (item) => {
     setManagerFilter(item.PIP);
     // setOpenManager(false)
@@ -83,7 +82,7 @@ const ClosedCargos = () => {
   };
   const getZapByDate = async (FROM) => {
     try {
-      if (endDate === undefined) {
+      if (endDate === undefined || endDate === null  ) {
         const data = await axios.post("/zap/by-date", { FROM: startDate?.toLocaleDateString() });
         if (data.status === 200) {
           setClosedZap(data.data);
@@ -213,6 +212,7 @@ const ClosedCargos = () => {
       </div>
       {gradient && <ClosedColors />}
       {startDate ? <p className="closed__report">Звіт за : {startDate.toLocaleDateString()} - {endDate ? endDate.toLocaleDateString() : null}</p> : null}
+     {startDate && <p className="closed__report">Було створено {closedZap?.length} запити. </p>}
       <div className="closed">
         {closedZap ? (
           closedZap
