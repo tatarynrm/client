@@ -92,53 +92,67 @@ function App() {
     });
   }, [socket, userData]);
   useEffect(() => {
-    socket.on("showNewComment", (data) => {
-      dispatch(
-        addCommentRedux({
-          KOD_OS: data.pKodAuthor,
-          KOD_ZAP: data.pKodZap,
-          PRIM: data.pComment,
-          PIP: data.PIP,
-          DAT: Date.now(),
-          KOD: data.pKodComment,
-        })
-      );
-    });
+      if (token) {
+        socket.on("showNewComment", (data) => {
+          dispatch(
+            addCommentRedux({
+              KOD_OS: data.pKodAuthor,
+              KOD_ZAP: data.pKodZap,
+              PRIM: data.pComment,
+              PIP: data.PIP,
+              DAT: Date.now(),
+              KOD: data.pKodComment,
+            })
+          );
+        });
+      }
+    
+
   }, []);
 
   useEffect(() => {
     const date = new Date();
     date.toISOString();
-    socket.on("showNewZap", (data) => {
-      console.log(data);
-      dispatch(
-        addReduxZap({
-          DAT: date,
-          KOD_GROUP: data.pKodGroup,
-          KOD_OS: data.pKodAuthor,
-          ZAV: data.pZav,
-          ROZV: data.pRozv,
-          ZAPTEXT: data.pZapText,
-          KOD: data.ZAPKOD,
-          PIP: data.PIP,
-          COUNTCOMM: 0,
-          COUNTNEWCOMM: 0,
-          ISNEW: 1,
-          KOD: data.ZAP_KOD,
-          ZAPCINA:data.pZapCina,
-          ZAM:data.ZAM_NAME
-        })
-      );
-      notifyNewZap(userData, data);
-      beepSend();
-    });
+
+if (token) {
+  socket.on("showNewZap", (data) => {
+    console.log(data);
+    dispatch(
+      addReduxZap({
+        DAT: date,
+        KOD_GROUP: data.pKodGroup,
+        KOD_OS: data.pKodAuthor,
+        ZAV: data.pZav,
+        ROZV: data.pRozv,
+        ZAPTEXT: data.pZapText,
+        KOD: data.ZAPKOD,
+        PIP: data.PIP,
+        COUNTCOMM: 0,
+        COUNTNEWCOMM: 0,
+        ISNEW: 1,
+        KOD: data.ZAP_KOD,
+        ZAPCINA:data.pZapCina,
+        ZAM:data.ZAM_NAME
+      })
+    );
+    notifyNewZap(userData, data);
+    beepSend();
+  });
+}
+
+    
   }, [socket]);
-  console.log(zapDeleteStatus);
+
+
   useEffect(()=>{
 
   },[zapDeleteStatus])
+
+
+
+
   useEffect(()=>{
-socket.on('logoutAllUsers',data =>{
+  socket.on('logoutAllUsers',data =>{
   window.localStorage.removeItem("token");
   navigate("/");
 })

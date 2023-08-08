@@ -22,17 +22,41 @@ position: relative;
 .mannager__block{
   position: absolute;
   z-index: 9999999999;
-  background-color: lightblue;
+  background-color: rgb(53, 84, 150);
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: center;
-  flex-direction: column;
+  // flex-direction: column;
+  flex-wrap: wrap;
   gap: 20px;
   top: 40px;
   padding: 10px;
   padding: 0.4rem;
   border-radius: 10px;
+  width:400px;
+  height: auto;
+
+  .mannagers__filters{
+    display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 20px;
+
+  .choose__user{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 30%;
+    input {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  }
 }
   }
 
@@ -49,7 +73,7 @@ position: relative;
 
 
    .actual {
-    background-color: rgb(2, 92, 72);
+    background-color: rgba(130, 226, 205,0.4);
    }
    
     .delete{
@@ -88,3 +112,4 @@ position: relative;
 .closed__zap-colors{
   color: var(--body-color);
 }
+

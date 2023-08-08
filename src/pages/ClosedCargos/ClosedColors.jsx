@@ -4,6 +4,10 @@ const ClosedColors = () => {
   return (
     <div className="closed__zap-colors">
     <div className="close__color" style={{display:"flex",gap:"5px",alignItems:"center",textAlign:"center"}}>
+      <div className="color" style={{backgroundColor:'rgba(130, 226, 205,0.4)',width:"15px",height:"15px",borderRadius:"10px"}}></div>
+      <span className="title">Актуальна</span>
+    </div>
+    <div className="close__color" style={{display:"flex",gap:"5px",alignItems:"center",textAlign:"center"}}>
       <div className="color" style={{backgroundColor:'rgba(63, 226, 63, 0.4)',width:"15px",height:"15px",borderRadius:"10px"}}></div>
       <span className="title">Закрита нами</span>
     </div>

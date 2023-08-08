@@ -33,6 +33,7 @@ const Home = () => {
   const [arr,setArr] = useState([])
   const [dateFrom,setDateFrom] = useState('')
   const [dateError,setDateError] = useState(false)
+  console.log(dateFrom);
   useEffect(() => {
     if (userData) {
       socket.emit("newUser", userData);
