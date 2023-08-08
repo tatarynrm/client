@@ -57,6 +57,7 @@ const LogisticWork = () => {
   const [checkedItems, setCheckedItems] = useState([]);
   const [openManager, setOpenManager] = useState(false);
   const [choosenUsers, setChoosenUsers] = useState([]);
+  const [myFunc,setMyFunc] = useState(false)
   const showAddZap = () => {
     setAddZap((value) => !value);
   };
@@ -114,6 +115,7 @@ const LogisticWork = () => {
   }, [socket]);
   useEffect(() => {
     socket.on("refreshAllZap", (data) => {
+      console.log(data);
       dispatch(refreshReduxZap(data));
     });
   }, [zap]);
@@ -162,6 +164,18 @@ const LogisticWork = () => {
       setChoosenUsers([...choosenUsers, item]);
     }
   };
+  const refreshMyZap = async()=>{
+    const myZap = zap.filter((item) =>item.KOD_OS === userData?.KOD)
+    myZap.forEach(element => {
+      axios.post(`/zap/refresh`,{pKodAuthor:userData?.KOD,pKodZap:element.KOD})
+      socket.emit("refreshZap", element.KOD);
+    });
+    try {
+     
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="logistic logistic__work container">
       <div className="active__users-length">
@@ -301,6 +315,11 @@ const LogisticWork = () => {
         // }}
         className="zap__list"
       >
+        {myZapSelect &&  
+        <div className="my__func">
+          <button onClick={refreshMyZap} className="reload__my-func normal">Оновити усі заявки</button>
+        </div>
+        }
         {zap ? (
           zap
 
