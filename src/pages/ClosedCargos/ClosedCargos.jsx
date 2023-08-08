@@ -212,7 +212,7 @@ const ClosedCargos = () => {
       </div>
       {gradient && <ClosedColors />}
       {startDate ? <p className="closed__report">Звіт за : {startDate.toLocaleDateString()} - {endDate ? endDate.toLocaleDateString() : null}</p> : null}
-     {startDate && <p className="closed__report">Стврено запитів : {closedZap?.length} </p>}
+     {startDate && <p className="closed__report">Стврено запитів : {closedZap?.filter(item=>  choosenUsers.includes(item.PIP)).length} </p>}
       <div className="closed">
         {closedZap ? (
           closedZap
