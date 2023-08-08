@@ -26,12 +26,18 @@ const ClosedCargos = () => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const [choosenUsers, setChoosenUsers] = useState([]);
-
+  const [zapCount, setZapCount] = useState(null);
+  const uniqueNamesSet = new Set(closedZap?.map(item => item.PIP));
+  const uniqueNames = Array.from(uniqueNamesSet);
+  console.log(uniqueNames);
   const filterByOneManager = (item) => {
     setManagerFilter(item.PIP);
     // setOpenManager(false)
   };
+
   console.log(startDate?.toLocaleDateString());
+  console.log(endDate?.toLocaleDateString());
+
   const setUsersToChosen = (item) => {
     if (choosenUsers.includes(item)) {
       setChoosenUsers(
@@ -41,24 +47,6 @@ const ClosedCargos = () => {
       setChoosenUsers([...choosenUsers, item]);
     }
   };
-  console.log(choosenUsers);
-  const data = [
-    { sizes: "big,small" },
-    { sizes: "medium,small" },
-    { sizes: "small,big" },
-    { sizes: "big" },
-    { sizes: "medium" },
-  ];
-
-  const filterOptions = ["big", "small"];
-  const filterData = data.filter(({ sizes }) => {
-    for (const filter of filterOptions) {
-      if (sizes.includes(filter)) {
-        return true;
-      }
-    }
-  });
-
   const filtersButton = [
     { title: "Актуальна", value: 0 },
     { title: "Закриті нами", value: 2 },
@@ -76,6 +64,8 @@ const ClosedCargos = () => {
       setStatusZap();
       setStatusValue("");
       setManagerFilter(null);
+      setChoosenUsers([]);
+      getZap(userData?.KOD)
     } else {
       setStatusZap(item.value);
       setStatusValue(item.title);
@@ -91,10 +81,31 @@ const ClosedCargos = () => {
       console.log(error);
     }
   };
+  const getZapByDate = async (FROM) => {
+    try {
+      if (endDate === undefined) {
+        const data = await axios.post("/zap/by-date", { FROM: startDate?.toLocaleDateString() });
+        if (data.status === 200) {
+          setClosedZap(data.data);
+          console.log(data);
+        }
+      }else{
+        const data = await axios.post("/zap/by-date", { FROM: startDate.toLocaleDateString(),TO:endDate.toLocaleDateString() });
+        if (data.status === 200) {
+          setClosedZap(data.data);
+          console.log(data);
+        }
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     getZap(userData?.KOD);
   }, [userData]);
   useEffect(() => {}, [statusZap]);
+  useEffect(() => {}, [choosenUsers]);
 
   const uniqueUsers = closedZap.filter((obj, index, array) => {
     return !array.slice(0, index).some((o) => o.PIP === obj.PIP);
@@ -126,6 +137,7 @@ const ClosedCargos = () => {
         break;
     }
   };
+  console.log(closedZap);
   return (
     <div className="closed__zap container">
       <div className="closed__zap-filters">
@@ -188,7 +200,7 @@ const ClosedCargos = () => {
             locale={uk}
             placeholderText="Натисніть для вибору дати"
             selectsRange={true}
-            dateFormat="yyyy/MM/dd"
+            dateFormat="dd-MM-yyyy"
             startDate={startDate}
             endDate={endDate}
             onChange={(update) => {
@@ -196,9 +208,11 @@ const ClosedCargos = () => {
             }}
             withPortal
           />
+          <button className="normal" onClick={()=> getZapByDate(startDate.toLocaleDateString())} >Сортувати по даті</button>
         </div>
       </div>
       {gradient && <ClosedColors />}
+      {startDate ? <p className="closed__report">Звіт за : {startDate.toLocaleDateString()} - {endDate ? endDate.toLocaleDateString() : null}</p> : null}
       <div className="closed">
         {closedZap ? (
           closedZap
@@ -237,14 +251,7 @@ const ClosedCargos = () => {
                           <AiOutlineComment />
                         )}
 
-                        <span>
-                          {item.COUNTCOMM <= 0 ? null : item.COUNTCOMM}
-                        </span>
-                        {item.COUNTNEWCOMM <= 0 ? null : (
-                          <span className="new__comments">
-                            {item.COUNTNEWCOMM}
-                          </span>
-                        )}
+                
                       </div>
                     </div>
                     <div className="zap__author-time">{`${moment(item.DAT)
