@@ -3,13 +3,12 @@ import "./AdminPanel.scss";
 import { useState } from "react";
 import socket from "../../utils/socket";
 import UsersActions from "../../components/admin_components/UsersActions";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import axios from '../../utils/axios'
 const AdminPanel = () => {
   const userData = useSelector(state => state.auth.data);
   const [textToAllUsers, setTextToAllUsers] = useState("");
   const [activeUsers, setActiveUsers] = useState();
-const dispatch = useDispatch()
   const [message, setMessage] = useState("");
   const fetchActiveUsers = () => {
     socket.emit("activeUsers");

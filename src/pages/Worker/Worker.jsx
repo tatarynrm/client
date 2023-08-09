@@ -1,24 +1,18 @@
 import { useEffect, useState } from "react";
 import "./Worker.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserById } from "../../redux/slices/users";
-import Loader from "../../components/loader/Loader";
 import axios from "../../utils/axios";
 import moment from "moment";
 import "moment/locale/uk";
 const Worker = () => {
-  const birthDate = moment();
   const { users } = useSelector((state) => state.users);
   const { id } = useParams();
   const [zas, setZas] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
   const total = zas?.reduce((sum, cur) => sum + cur.SUMA, 0);
-  // const totalSum = zas?.reduce((acc, next) => {
-  //   return acc.SUMA + next.SUMA;
-  // }, 0);
   const getZASas = async (id) => {
     try {
       const { data } = await axios.get(`zas/${id}`);

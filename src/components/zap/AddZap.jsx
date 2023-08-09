@@ -63,15 +63,7 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
       pZapCina:zapCina ? 1 : 0,
       pKodZam:zamData?.zamKod || null
     };
-    // pCodeKrainaZ varchar2,
-    // pCodeKrainaR varchar2,
-    // pOblZ varchar2,
-    // pOblR varchar2,
-    // pZLat number,
-    // pZLon number,
-    // pRLat number,
-    // pRLon number,
-    // pKodZam number,
+
     try {
       if ((zav !== "" || rozv !== "" || zapType === null, zapText === "")) {
         alert("Заповніть усіполя");

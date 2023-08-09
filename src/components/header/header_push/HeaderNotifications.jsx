@@ -1,14 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './HeaderPush.scss'
 import { MdNotificationsNone,MdMailOutline } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
-import NotificationPanel from '../../notification_panel/NotificationPanel';
+import { useDispatch } from 'react-redux';
 import { eventsOpenChange,emailOpenChange } from '../../../redux/slices/edit';
 const HeaderNotifications = () => {
     const dispatch = useDispatch()
-    useEffect(()=>{
-
-    },[])
   return (
     <div className='header__notifications'>
         <i onClick={()=> dispatch(eventsOpenChange()) } className='header__notification'><MdNotificationsNone/></i>
@@ -18,4 +14,4 @@ const HeaderNotifications = () => {
   )
 }
 
-export default HeaderNotifications
+export default HeaderNotifications;

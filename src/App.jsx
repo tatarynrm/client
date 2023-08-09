@@ -1,10 +1,4 @@
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Workers from "./pages/Workers/Workers";
 import Worker from "./pages/Worker/Worker";
@@ -12,27 +6,14 @@ import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Login from "./pages/Login/Login";
-import DoesntExist from "./pages/DoesntExist/DoesntExist";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAuthMe, selectIsAuth } from "./redux/slices/auth";
-import { fetchActiveUsers, fetchUsers } from "./redux/slices/users";
-import CurrentTransportation from "./pages/CurrentTransportation/CurrentTransportation";
-import Chat from "./pages/Chat/Chat";
-import CurrentTransportationItem from "./pages/CurrentTransportation/CurrentTransportationItem";
+import { fetchAuthMe } from "./redux/slices/auth";
 import Transportation from "./pages/Transportation/Transportation";
 import Carriers from "./pages/Carriers/Carriers";
-import axios from "./utils/axios";
 import LogisticWork from "./pages/LogisticWork/LogisticWork";
-import {
-  addReduxZap,
-  fetchAllZap,
-  fetchGroups,
-  fetchZap,
-} from "./redux/slices/zap";
-import { editZap } from "./redux/slices/edit";
+import { addReduxZap } from "./redux/slices/zap";
 import ZapEditForm from "./components/zap/ZapEditForm";
-import { io } from "socket.io-client";
 import socket from "./utils/socket";
 import CompanyFiles from "./pages/CompanyFiles/CompanyFiles";
 import ClosedCargos from "./pages/ClosedCargos/ClosedCargos";
@@ -40,7 +21,6 @@ import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import { ToastContainer } from "react-toastify";
 import { fromAdminToUser, notifyNewZap, textToAllUsers } from "./utils/toasts";
 import { beepSend, directorSound, msgToAllUsers } from "./helpers/audio";
-import { fetchEvents } from "./redux/slices/events";
 import NotificationPanel from "./components/notification_panel/NotificationPanel";
 import { addCommentRedux } from "./redux/slices/comments";
 import MessageFromAdmin from "./components/messages/MessageFromAdmin";
@@ -52,23 +32,17 @@ import NotificationMail from "./components/notification_panel/NotificationMail";
 
 function App() {
   const dispatch = useDispatch();
-  const isAuth = useSelector(selectIsAuth);
   const token = window.localStorage.getItem("token");
   const userData = useSelector((state) => state.auth.data);
   const zapEditStatus = useSelector((state) => state.edit.zapEdit);
   const zapDeleteStatus = useSelector((state) => state.edit.zapDeleteStatus);
   const navigate = useNavigate();
-  const events = useSelector((state) => state.events.events.items);
   const eventsOpen = useSelector((state) => state.edit.eventsOpen);
   const mailOpen = useSelector((state) => state.edit.mailOpen);
-  const [messageAdminState, setMessageAdminState] = useState(true);
   const location = useLocation();
   useEffect(() => {
     dispatch(fetchAuthMe());
-  }, []);
-  // useEffect(() => {
-  //   dispatch(fetchZap(userData?.KOD));
-  // }, []);
+  }, [dispatch]);
   useEffect(() => {
     if (userData) {
       socket.emit("newUser", userData);
@@ -94,117 +68,88 @@ function App() {
     });
   }, [socket, userData]);
   useEffect(() => {
-      if (token) {
-        socket.on("showNewComment", (data) => {
-          dispatch(
-            addCommentRedux({
-              KOD_OS: data.pKodAuthor,
-              KOD_ZAP: data.pKodZap,
-              PRIM: data.pComment,
-              PIP: data.PIP,
-              DAT: Date.now(),
-              KOD: data.pKodComment,
-            })
-          );
-        });
-      }
-    
-
+    if (token) {
+      socket.on("showNewComment", (data) => {
+        dispatch(
+          addCommentRedux({
+            KOD_OS: data.pKodAuthor,
+            KOD_ZAP: data.pKodZap,
+            PRIM: data.pComment,
+            PIP: data.PIP,
+            DAT: Date.now(),
+            KOD: data.pKodComment,
+          })
+        );
+      });
+    }
   }, []);
 
   useEffect(() => {
     const date = new Date();
     date.toISOString();
 
-if (token) {
-  socket.on("showNewZap", (data) => {
-    console.log(data);
-    dispatch(
-      addReduxZap({
-        DAT: date,
-        KOD_GROUP: data.pKodGroup,
-        KOD_OS: data.pKodAuthor,
-        ZAV: data.pZav,
-        ROZV: data.pRozv,
-        ZAPTEXT: data.pZapText,
-        KOD: data.ZAPKOD,
-        PIP: data.PIP,
-        COUNTCOMM: 0,
-        COUNTNEWCOMM: 0,
-        ISNEW: 1,
-        KOD: data.ZAP_KOD,
-        ZAPCINA:data.pZapCina,
-        ZAM:data.ZAM_NAME
-      })
-    );
-    notifyNewZap(userData, data);
-    beepSend();
-  });
-}
-
-    
+    if (token) {
+      socket.on("showNewZap", (data) => {
+        console.log(data);
+        dispatch(
+          addReduxZap({
+            DAT: date,
+            KOD_GROUP: data.pKodGroup,
+            KOD_OS: data.pKodAuthor,
+            ZAV: data.pZav,
+            ROZV: data.pRozv,
+            ZAPTEXT: data.pZapText,
+            KOD: data.ZAPKOD,
+            PIP: data.PIP,
+            COUNTCOMM: 0,
+            COUNTNEWCOMM: 0,
+            ISNEW: 1,
+            KOD: data.ZAP_KOD,
+            ZAPCINA: data.pZapCina,
+            ZAM: data.ZAM_NAME,
+          })
+        );
+        notifyNewZap(userData, data);
+        beepSend();
+      });
+    }
   }, [socket]);
 
+  useEffect(() => {}, [zapDeleteStatus]);
 
-  useEffect(()=>{
-
-  },[zapDeleteStatus])
-
-
-
-
-  useEffect(()=>{
-  socket.on('logoutAllUsers',data =>{
-  window.localStorage.removeItem("token");
-  navigate("/");
-})
-  },[socket,token])
-
+  useEffect(() => {
+    socket.on("logoutAllUsers", (data) => {
+      window.localStorage.removeItem("token");
+      navigate("/");
+    });
+  }, [socket, token]);
 
   return (
     <div className="main__app">
-      {/* <div style={{backgroundColor:"lightcoral"}} className="admin__notification">
-        <span>Оновлення :.................</span>
-      </div> */}{" "}
       <Header />
       <div className="main__content">
         <Routes>
           <Route exact path="/login" element={<Login />} />
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<Home />} />
-            {/* {userData?.ISDIR === 1 ? (
-            <> */}
             <Route path="/workers" element={<Workers />} />
             <Route path={`/workers/:id`} element={<Worker />} />{" "}
-            {/* </>
-          ) : null} */}
-            {/* <Route path={`/chat`} element={<Chat />} /> */}
             <Route path={`/transportation`} element={<Transportation />} />
             <Route path={`/carriers`} element={<Carriers />} />
             <Route path={`/carriers/:id`} element={<Carrier />} />
             <Route path={`/logistic-work`} element={<LogisticWork />} />
             <Route path={`/ict-files`} element={<CompanyFiles />} />
             <Route path={`/statistic`} element={<ClosedCargos />} />
-            {/* <Route
-            path={`/current-transportation`}
-            element={<CurrentTransportation />}
-          /> */}
-            {/* <Route
-            path={`/current-transportation/:id`}
-            element={<CurrentTransportationItem />}
-          /> */}
             {userData?.ISDIR === 1 ||
             userData?.KOD === 38231 ||
             userData?.KOD === 24011 ||
             userData?.KOD === 4611 ||
             userData?.KOD === 3711 ||
             userData?.KOD === 2811 ||
-            userData?.KOD === 6411
-             ? (
+            userData?.KOD === 6411 ? (
               <Route path={`/admin`} element={<AdminPanel />} />
             ) : null}
           </Route>
-          {/* <Route path="*" exact={true} element={<DoesntExist />} /> */}
         </Routes>
         {zapEditStatus ? <ZapEditForm /> : null}
         {zapDeleteStatus ? <ZapDeleteForm /> : null}
