@@ -9,6 +9,14 @@ export const fetchEvents = createAsyncThunk("users/fetchUsers", async (KOD_OS) =
     console.log(error);
   }
 });
+export const fetchMessAll = createAsyncThunk("users/fetchMessAll", async () => {
+  try {
+    const { data } = await axios.get("/events/get-all-mess");
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 
 const initialState = {
@@ -31,6 +39,18 @@ const eventsSlice = createSlice({
       state.events.status = "loaded";
     },
     [fetchEvents.rejected]: (state) => {
+      state.events.items = [];
+      state.events.status = "error";
+    },
+    [fetchMessAll.pending]: (state) => {
+      state.events.items = [];
+      state.events.status = "loading";
+    },
+    [fetchMessAll.fulfilled]: (state, action) => {
+      state.events.items = action.payload;
+      state.events.status = "loaded";
+    },
+    [fetchMessAll.rejected]: (state) => {
       state.events.items = [];
       state.events.status = "error";
     },

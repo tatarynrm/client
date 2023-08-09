@@ -48,6 +48,7 @@ import ZapReminder from "./components/messages/ZapReminder";
 import { TbBrandTelegram } from "react-icons/tb";
 import Carrier from "./pages/Carriers/Carrier";
 import ZapDeleteForm from "./components/zap/ZapDeleteForm";
+import NotificationMail from "./components/notification_panel/NotificationMail";
 
 function App() {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ function App() {
   const navigate = useNavigate();
   const events = useSelector((state) => state.events.events.items);
   const eventsOpen = useSelector((state) => state.edit.eventsOpen);
+  const mailOpen = useSelector((state) => state.edit.mailOpen);
   const [messageAdminState, setMessageAdminState] = useState(true);
   const location = useLocation();
   useEffect(() => {
@@ -207,6 +209,7 @@ if (token) {
         {zapEditStatus ? <ZapEditForm /> : null}
         {zapDeleteStatus ? <ZapDeleteForm /> : null}
         {eventsOpen && <NotificationPanel />}
+        {mailOpen && <NotificationMail />}
         <ToastContainer />
         <MessageFromAdmin />
         <ZapReminder />

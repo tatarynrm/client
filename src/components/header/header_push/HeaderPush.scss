@@ -1,0 +1,53 @@
+.header__notifications{
+position: relative;
+}
+.header__notification{
+    position: relative;
+    font-size: 40px;
+    color: var(--body-color);
+    cursor: pointer;
+    &::after {
+// content: "...";
+// color: var(--body-color);
+// font-size: 10px;
+// width: 15px;
+// height: 15px;
+// background-color: red;
+// position: absolute;
+// top: 0;
+// right: 0;
+// border-radius: 50%;
+// padding: 0.1rem;
+
+    }
+}
+.header__notification.mail{
+    position: relative;
+    font-size: 40px;
+    color: var(--body-color);
+    cursor: pointer;
+    &::after {
+content: "!!!";
+color: var(--body-color);
+font-size: 10px;
+width: 15px;
+height: 15px;
+background-color: red;
+position: absolute;
+top: 0;
+right: 0;
+border-radius: 50%;
+padding: 0.1rem;
+
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+
+    .header__notifications{
+        position: relative;
+    }
+
+
+}
