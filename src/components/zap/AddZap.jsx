@@ -48,7 +48,6 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
     setZam(value => !value)
     setSearch('')
   }
-  console.log(zamData);
   const handleSubmitAddZap = async (e) => {
     e.preventDefault();
     const object = {
@@ -69,8 +68,8 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
         alert("Заповніть усіполя");
       } else {
         const data = await axios.post("/zap/add", object);
-        console.log(data);
         if (data.status === 200) {
+          console.log(data);
           const dataKod = data.data.outBinds.pKodZap;
           const zamName = data.data.outBinds.pZamName;
           socket.emit("newZap", { ...object, ZAP_KOD: dataKod,ZAM_NAME:zamName });

@@ -90,10 +90,11 @@ function App() {
 
     if (token) {
       socket.on("showNewZap", (data) => {
-        console.log(data);
+        console.log('-show-new-zap',data);
         dispatch(
           addReduxZap({
             DAT: date,
+            DATUPDATE:date,
             KOD_GROUP: data.pKodGroup,
             KOD_OS: data.pKodAuthor,
             ZAV: data.pZav,
