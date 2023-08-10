@@ -39,9 +39,6 @@ const Home = () => {
       socket.emit("newUser", userData);
     }
   }, [userData]);
-  useEffect(()=>{
-    dispatch(fetchEvents(userData?.KOD))
-    },[])
 
   useEffect(() => {
     dispatch(fetchAllZap(todayDate))
