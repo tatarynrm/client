@@ -2,24 +2,22 @@ import "./Workers.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Link,
-  useParams,
   useSearchParams,
   useLocation,
 } from "react-router-dom";
-import axios from "../../utils/axios";
+
 import { useEffect, useState } from "react";
 import {
   fetchActiveUsers,
   fetchFiredUsers,
   fetchUsers,
 } from "../../redux/slices/users";
-import Loader from "../../components/loader/Loader";
-import moment from "moment";
+
 import "moment/locale/uk";
 const Workers = () => {
   const location = useLocation();
   const { users } = useSelector((state) => state.users);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
@@ -40,21 +38,6 @@ const Workers = () => {
     setSearchParams({});
     dispatch(fetchUsers());
   };
-  // useEffect(() => {
-  //   switch (pageLocation) {
-  //     case "active":
-  //       dispatch(fetchActiveUsers());
-  //       setSearchParams({ filter: "active" });
-  //       break;
-  //     case "fired":
-  //       dispatch(fetchFiredUsers());
-  //       setSearchParams({ filter: "fired" });
-  //       break;
-
-  //     default:
-  //       break;
-  //   }
-  // }, []);
 useEffect(()=>{
   dispatch(fetchActiveUsers())
 },[])

@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import "./LogisticWork.scss";
 import ZapComments from "../../components/zap/ZapComments";
-import moment from "moment";
 import "moment/locale/uk";
 import toTimestamp from "../../helpers/functions";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AddZap from "../../components/zap/AddZap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchActiveUsers } from "../../redux/slices/users";
 import { motion } from "framer-motion";
 import {
   changeCommentsCount,
@@ -19,19 +16,16 @@ import {
   showEditReduxZap,
 } from "../../redux/slices/zap";
 import {
-  // fromAdminToUser,
+
   notifyCommentZap,
-  notifyNewZap,
+
 } from "../../utils/toasts";
 import socket from "../../utils/socket";
 import ZapItem from "../../components/zap/ZapItem";
-import ZapEditForm from "../../components/zap/ZapEditForm";
+
 import { editZapAddSlice } from "../../redux/slices/edit";
-import { useRef } from "react";
 import axios from "../../utils/axios";
-import { addReduxZap } from "../../redux/slices/zap";
-import { beep, beepSend } from "../../helpers/audio";
-import { fetchEvents } from "../../redux/slices/events";
+
 import ActiveUsersList from "../../components/users/ActiveUsersList";
 
 const LogisticWork = () => {
@@ -40,15 +34,10 @@ const LogisticWork = () => {
   const userData = useSelector((state) => state.auth.data);
   const groups = useSelector((state) => state.zap.zap.groups);
   const zap = useSelector((state) => state.zap.zap.items);
-  const [activeZap, setActiveZap] = useState([]);
-  const { users } = useSelector((state) => state.users);
   const [commentsClass, setCommentsClass] = useState(false);
-  const [filterZap, setFilterZap] = useState([]);
   const [selectedZap, setSelectedZap] = useState(null);
   const [addZap, setAddZap] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
-  const comments = useSelector((state) => state.comments.comments);
-  const [myZap, setMyZap] = useState(null);
   const zapAddSlice = useSelector((state) => state.edit.zapAddSlice);
   const [myZapSelect, setMyZapSelect] = useState(false);
   const [editZap, setEditZap] = useState(false);
@@ -57,7 +46,6 @@ const LogisticWork = () => {
   const [checkedItems, setCheckedItems] = useState([]);
   const [openManager, setOpenManager] = useState(false);
   const [choosenUsers, setChoosenUsers] = useState([]);
-  const [myFunc,setMyFunc] = useState(false)
   const showAddZap = () => {
     setAddZap((value) => !value);
   };

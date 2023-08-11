@@ -2,7 +2,7 @@ import "./NotificationMail.scss";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchEvents, fetchMessAll } from "../../redux/slices/events";
+import { fetchMessAll } from "../../redux/slices/events";
 import toTimestamp from "../../helpers/functions";
 import moment from "moment";
 import "moment/locale/uk";
@@ -34,23 +34,10 @@ const NotificationMail = () => {
         type="text"
         placeholder="Ключові слова"
       />
-      {/* <div className="notifications__panel-button-filters">
-      <button onClick={allFilter} className="normal">
-          Усі повідомлення
-        </button>
-        <button onClick={commentFilter} className="normal">
-          Повідомлення для мене
-        </button>
 
-      </div> */}
       {events &&
         events
-          // .filter(item => {
-          //   return buttonFilter.toLowerCase() === ""
-          //   ? item
-          //   : item.TITLE.includes(buttonFilter)
-
-          // })
+ 
           .filter(item => {
             return searchFilter.toLowerCase() === ""
             ? item
