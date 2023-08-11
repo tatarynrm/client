@@ -8,10 +8,18 @@ import axios from '../../utils/axios'
 const AdminPanel = () => {
   const userData = useSelector(state => state.auth.data);
   const [textToAllUsers, setTextToAllUsers] = useState("");
-  const [activeUsers, setActiveUsers] = useState();
+  const [activeUsers, setActiveUsers] = useState(null);
   const [message, setMessage] = useState("");
+  const [usersGroups,setUsersGroups] = useState(null)
   const fetchActiveUsers = () => {
-    socket.emit("activeUsers");
+    if (activeUsers === null ) {
+      socket.emit("activeUsers");
+      setUsersGroups(null)
+    }else {
+      setActiveUsers(null)
+      setUsersGroups(null)
+    }
+    
   };
   const reloadWindow = () => {
     socket.emit("windowReload");
@@ -49,14 +57,31 @@ const logoutAll = ()=>{
   }
  
 }
+const groupUsers = async ()=>{
+  try {
+   if (usersGroups === null) {
+    const {data} = await axios.get('/users/managers');
+    setUsersGroups(data)
+    setActiveUsers(null)
+   }else {
+    setUsersGroups(null)
+   }
+  } catch (error) {
+    console.log(error);
+  }
+}
   return (
     <div className="admin container">
       <div className="admin__inner">
         <div className="admin__nav">
           <div className="fast__buttons">
             <button onClick={fetchActiveUsers} className="normal">
-              Активні юзери
+              {activeUsers === null ? "Активні користувачі" : "Приховати активних користувачів"}
             </button>
+            <button onClick={()=>groupUsers()} className="normal">
+            {usersGroups === null ? "Права корисутвання" : "Приховати права користування"}
+            </button>
+            
             <button onClick={reloadWindow} className="normal">
               Перезавантажити сторінки
             </button>
@@ -111,6 +136,11 @@ const logoutAll = ()=>{
                 })}
             </div>
           ) : null}
+          {usersGroups ? <div className="active__users">
+            {usersGroups.sort((a,b) => a.PIP.localeCompare(b.PIP)).map((item,idx)=>{
+              return <div key={idx}>{item.PIP}</div>
+            })}
+          </div> :null }
         </div>
       </div>
     </div>
