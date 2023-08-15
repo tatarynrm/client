@@ -46,6 +46,7 @@ const LogisticWork = () => {
   const [checkedItems, setCheckedItems] = useState([]);
   const [openManager, setOpenManager] = useState(false);
   const [choosenUsers, setChoosenUsers] = useState([]);
+  const [cinaFilter,setCinaFilter] = useState(false)
   const showAddZap = () => {
     setAddZap((value) => !value);
   };
@@ -164,6 +165,7 @@ const LogisticWork = () => {
       console.log(error);
     }
   }
+
   return (
     <div className="logistic logistic__work container">
       <div className="active__users-length">
@@ -212,6 +214,8 @@ const LogisticWork = () => {
             Лише мої заявки
           </button>
         )}
+        {cinaFilter ? <button onClick={()=> setCinaFilter(value => !value)} className="normal">Скинути фільтр</button> : <button onClick={()=> setCinaFilter(value => !value)} className="normal">Запит ціни</button> }
+        
 
         <div>
           <button
@@ -331,6 +335,7 @@ const LogisticWork = () => {
             .filter((item) =>
             choosenUsers.length > 0 ? choosenUsers.includes(item.PIP) : item
           )
+          .filter(item => cinaFilter ? item.ZAPCINA === 1 : item)
             .sort((a, b) => toTimestamp(b.DATUPDATE) - toTimestamp(a.DATUPDATE))
             .map((item, idx) => {
               return (

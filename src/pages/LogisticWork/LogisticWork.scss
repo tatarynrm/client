@@ -286,3 +286,10 @@
   cursor: pointer!important;
 
 }
+
+.price__zap-icon{
+  svg {
+    fill: var(--price-color);
+  }
+  
+}

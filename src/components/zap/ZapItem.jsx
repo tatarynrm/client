@@ -9,17 +9,20 @@ import { MdPriceChange } from "react-icons/md";
 import { FcOrganization } from "react-icons/fc";
 import ZapEdit from "../../components/zap/ZapEdit";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
   const userData = useSelector((state) => state.auth.data);
   const [zapMenu, setZapMenu] = useState(false);
+  const selectedTheme = localStorage.getItem("selectedTheme");
   // const comments = useSelector((state) => state.comments.comments.items);
   const openZapMenu = (e) => {
     e.stopPropagation();
     setZapMenu((val) => !val);
   };
-  console.log(item);
   const newZapColor = Date.now() - moment(item.DATUPDATE).valueOf();
-  // const selectedTheme = localStorage.getItem("selectedTheme");
+useEffect(()=>{
+
+},[selectedTheme])
   return (
     <div
       onClick={() => showComments(item)}
@@ -28,7 +31,7 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
     >
       {item.ZAPCINA === 1 ? (
         <div className="zap__cina-icon" title="Запит ціни">
-          <MdPriceChange />
+        <i className="price__zap-icon"><MdPriceChange /></i> 
         </div>
       ) : null}
       {newZapColor <= 1800000 ? (

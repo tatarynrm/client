@@ -105,7 +105,6 @@ function App() {
             COUNTCOMM: 0,
             COUNTNEWCOMM: 0,
             ISNEW: 1,
-            KOD: data.ZAP_KOD,
             ZAPCINA: data.pZapCina,
             ZAM: data.ZAM_NAME,
           })
