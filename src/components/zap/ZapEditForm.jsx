@@ -17,22 +17,13 @@ const ZapEditForm = () => {
     setSelectedOption(event.target.value);
   };
  
-console.log(zapEditData);
   const radio = [
     { id: 1, value: 11, label: "Міжнародні" },
     { id: 2, value: 21, label: "Регіональні" },
   ];
-console.log(zapEditData?.zamKod);
+
   const handleEditForm = async (e) => {
     e.preventDefault();
-    // const obj = {
-    //   pKodAuthor: zapEditData.zapKodOs,
-    //   pKodZap: zapEditData.zapKod,
-    //   pZav: zav.label,
-    //   pRozv: rozv.label,
-    //   pZapText: zapText,
-    //   // pZapCina:zapCina
-    // };
    
     const obj = {
       pKodAuthor: zapEditData?.zapKodOs,
@@ -57,7 +48,7 @@ console.log(zapEditData?.zamKod);
         const data = await axios.post(`/zap/edit`,obj);
         if (data.status === 200) {
           socket.emit("editZap", obj);
-          alert(`Ви успішно редагувати заявку № ${obj.pKodZap} `);
+          alert(`Ви успішно редагували заявку № ${obj.pKodZap} `);
           dispatch(editZapRedux());
         }
       }
@@ -65,6 +56,32 @@ console.log(zapEditData?.zamKod);
       console.log(error);
     }
   };
+  const handleEditText = async (e) => {
+    e.preventDefault();
+   
+  const obj = {
+   pKodZap: zapEditData?.zapKod,
+   pZapText: zapText,
+  }
+    try {
+      if (zapText === "") {
+        window.alert("Заповніть усі поля");
+      } else {
+        const data = await axios.post(`/zap/edit-text`,obj);
+        if (data.status === 200) {
+          socket.emit("editZapText", obj);
+          alert(`Ви успішно редагували текст до  заявки № ${obj.pKodZap} `);
+          dispatch(editZapRedux());
+      
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
   useEffect(() => {
     setZav(zapEditData?.zav);
     setRozv(zapEditData?.rozv);
@@ -74,9 +91,10 @@ console.log(zapEditData?.zamKod);
   return (
     <div className="zap__edit-form">
       {zapEditData && (
-        <form className="zap__edit_form" onSubmit={handleEditForm}>
+        <form className="zap__edit_form" >
           <h3 style={{ color: "brown" }}>
             Необхідно знову внести місто завантаження та вивантаження. <br />
+            Також можете виправити лише текст заявки. <br/>
             Або натисніть кнопку Відхилити
           </h3>
           <div className="form__control">
@@ -153,7 +171,8 @@ console.log(zapEditData?.zamKod);
             />
           </div>
           <div className="zap__edit_form-buttons">
-            <button className="normal">Редагувати</button>
+            <button className="normal" onClick={handleEditForm}>Редагувати</button>
+            <button className="normal" onClick={handleEditText}>Редагувати лише текст</button>
             <button onClick={() => dispatch(editZapRedux())} className="danger">
               Відхилити
             </button>

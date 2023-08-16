@@ -14,6 +14,7 @@ import {
   fetchZap,
   refreshReduxZap,
   showEditReduxZap,
+  showEditReduxZapText,
 } from "../../redux/slices/zap";
 import { notifyCommentZap } from "../../utils/toasts";
 import socket from "../../utils/socket";
@@ -111,6 +112,12 @@ const LogisticWork = () => {
   useEffect(() => {
     socket.on("showEditZap", (data) => {
       dispatch(showEditReduxZap(data));
+    });
+  }, [zap]);
+  useEffect(() => {
+    socket.on("showEditZapText", (data) => {
+      console.log(data);
+      dispatch(showEditReduxZapText(data));
     });
   }, [zap]);
   useEffect(() => {

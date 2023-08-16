@@ -104,6 +104,14 @@ const zapSlice = createSlice({
       }
       state.zap.items = [...state.zap.items];
     },
+    showEditReduxZapText: (state, action) => {
+      const { pKodZap, pZapText} = action.payload;
+      const editZap = state.zap.items.find((item) => item.KOD === pKodZap);
+      if (editZap) {
+        editZap.ZAPTEXT = pZapText;
+      }
+      state.zap.items = [...state.zap.items];
+    },
   },
   extraReducers: {
     [fetchAllZap.pending]: (state) => {
@@ -162,5 +170,6 @@ export const {
   changeCommentsCount,
   refreshReduxZap,
   showEditReduxZap,
+  showEditReduxZapText
 } = zapSlice.actions;
 export const zapReducer = zapSlice.reducer;
