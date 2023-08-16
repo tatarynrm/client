@@ -6,6 +6,7 @@ const initialState = {
   eventsOpen: false,
   mailOpen: false,
   zapDeleteStatus: false,
+  addZapSuccess:false,
   zapEditData: {
     zav: "",
     rozv: "",
@@ -43,6 +44,9 @@ const editSlice = createSlice({
     editZapDeleteStatus: (state, action) => {
       state.zapDeleteStatus = !state.zapDeleteStatus;
     },
+    changeAddZapSuccess: (state, action) => {
+      state.addZapSuccess = !state.addZapSuccess;
+    },
   },
 });
 export const {
@@ -53,5 +57,6 @@ export const {
   editZapDeleteStatus,
   editZapDeleteData,
   emailOpenChange,
+  changeAddZapSuccess
 } = editSlice.actions;
 export const editReducer = editSlice.reducer;

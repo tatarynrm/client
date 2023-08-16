@@ -285,7 +285,14 @@
   text-align: center;
   font-size: 200px;
 }
-
+.zap-text-copy{
+  position: absolute;
+  right: 40px;
+  cursor: pointer!important;
+  svg {
+    fill: rgb(24, 52, 56);
+  }
+}
 
 @media screen and (max-width: 600px) {  
 

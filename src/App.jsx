@@ -31,6 +31,7 @@ import ZapDeleteForm from "./components/zap/ZapDeleteForm";
 import NotificationMail from "./components/notification_panel/NotificationMail";
 
 function App() {
+  
   const dispatch = useDispatch();
   const token = window.localStorage.getItem("token");
   const userData = useSelector((state) => state.auth.data);

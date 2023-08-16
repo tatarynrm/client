@@ -16,10 +16,11 @@ import { FcManager, FcComments, FcOrganization } from "react-icons/fc";
 import { FaCity } from "react-icons/fa";
 import { BiSend } from "react-icons/bi";
 import { FaCommentSlash } from "react-icons/fa";
-import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
+import { AiOutlineArrowRight, AiOutlineArrowLeft,AiOutlineCopy } from "react-icons/ai";
 import toTimestamp from "../../helpers/functions";
 import CommentItem from "./CommentItem";
 import messagesGif from "../../assets/messages1gif.gif";
+import { copyTextToClipboard } from "../../helpers/navigator";
 const ZapComments = ({ showComments, selectedZap }) => {
   const [comment, setComment] = useState("");
   const comments = useSelector((state) => state.comments.comments.items);
@@ -145,6 +146,7 @@ const ZapComments = ({ showComments, selectedZap }) => {
             </div>
           )}
           <div className="zap-text">
+            <i title="Скопіювати" className="zap-text-copy" onClick={()=> copyTextToClipboard(selectedZap.ZAPTEXT)}><AiOutlineCopy /> </i> 
             <FcInfo /> <br />
             {selectedZap.ZAPTEXT}
           </div>

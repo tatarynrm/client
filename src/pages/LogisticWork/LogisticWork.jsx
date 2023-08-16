@@ -15,11 +15,7 @@ import {
   refreshReduxZap,
   showEditReduxZap,
 } from "../../redux/slices/zap";
-import {
-
-  notifyCommentZap,
-
-} from "../../utils/toasts";
+import { notifyCommentZap } from "../../utils/toasts";
 import socket from "../../utils/socket";
 import ZapItem from "../../components/zap/ZapItem";
 
@@ -27,13 +23,15 @@ import { editZapAddSlice } from "../../redux/slices/edit";
 import axios from "../../utils/axios";
 
 import ActiveUsersList from "../../components/users/ActiveUsersList";
-
+import useWindowSize from "react-use/lib/useWindowSize";
+import Confetti from "react-confetti";
 const LogisticWork = () => {
   const [searchFilter, setSearchFilter] = useState("");
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.data);
   const groups = useSelector((state) => state.zap.zap.groups);
   const zap = useSelector((state) => state.zap.zap.items);
+  const addZapSuccess = useSelector((state) => state.edit.addZapSuccess)
   const [commentsClass, setCommentsClass] = useState(false);
   const [selectedZap, setSelectedZap] = useState(null);
   const [addZap, setAddZap] = useState(false);
@@ -46,7 +44,9 @@ const LogisticWork = () => {
   const [checkedItems, setCheckedItems] = useState([]);
   const [openManager, setOpenManager] = useState(false);
   const [choosenUsers, setChoosenUsers] = useState([]);
-  const [cinaFilter,setCinaFilter] = useState(false)
+  const [cinaFilter, setCinaFilter] = useState(false);
+  const { width, height } = useWindowSize();
+  console.log('-----',addZapSuccess);
   const showAddZap = () => {
     setAddZap((value) => !value);
   };
@@ -153,21 +153,26 @@ const LogisticWork = () => {
       setChoosenUsers([...choosenUsers, item]);
     }
   };
-  const refreshMyZap = async()=>{
-    const myZap = zap.filter((item) =>item.KOD_OS === userData?.KOD)
-    myZap.forEach(element => {
-      axios.post(`/zap/refresh`,{pKodAuthor:userData?.KOD,pKodZap:element.KOD})
+  const refreshMyZap = async () => {
+    const myZap = zap.filter((item) => item.KOD_OS === userData?.KOD);
+    myZap.forEach((element) => {
+      axios.post(`/zap/refresh`, {
+        pKodAuthor: userData?.KOD,
+        pKodZap: element.KOD,
+      });
       socket.emit("refreshZap", element.KOD);
     });
     try {
-     
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+useEffect(()=>{
 
+},[])
   return (
     <div className="logistic logistic__work container">
+      { addZapSuccess ?<Confetti width={width} height={height} /> : null }  
       <div className="active__users-length">
         {" "}
         <button
@@ -214,16 +219,29 @@ const LogisticWork = () => {
             Лише мої заявки
           </button>
         )}
-        {cinaFilter ? <button onClick={()=> setCinaFilter(value => !value)} className="normal">Скинути фільтр</button> : <button onClick={()=> setCinaFilter(value => !value)} className="normal">Запит ціни</button> }
-        
+        {cinaFilter ? (
+          <button
+            onClick={() => setCinaFilter((value) => !value)}
+            className="normal"
+          >
+            Скинути фільтр
+          </button>
+        ) : (
+          <button
+            onClick={() => setCinaFilter((value) => !value)}
+            className="normal"
+          >
+            Запит ціни
+          </button>
+        )}
 
         <div>
           <button
             className="normal"
-            style={{position:"relative"}}
+            style={{ position: "relative" }}
             onClick={() => setOpenManager((value) => !value)}
           >
-            {openManager ? 'Приховати фільтр' : 'Фільтр по менеджерах'}
+            {openManager ? "Приховати фільтр" : "Фільтр по менеджерах"}
           </button>
           {openManager && (
             <div className="pip__filter">
@@ -231,9 +249,9 @@ const LogisticWork = () => {
                 return (
                   <div key={idx} className="choose__user">
                     <input
-                                 type="checkbox"
-                                 checked={choosenUsers.includes(item.PIP)}
-                                 onChange={() => setUsersToChosen(item.PIP)}
+                      type="checkbox"
+                      checked={choosenUsers.includes(item.PIP)}
+                      onChange={() => setUsersToChosen(item.PIP)}
                     />
                     <button>{item.PIP}</button>
                   </div>
@@ -307,11 +325,13 @@ const LogisticWork = () => {
         // }}
         className="zap__list"
       >
-        {myZapSelect &&  
-        <div className="my__func">
-          <button onClick={refreshMyZap} className="reload__my-func normal">Оновити усі заявки</button>
-        </div>
-        }
+        {myZapSelect && (
+          <div className="my__func">
+            <button onClick={refreshMyZap} className="reload__my-func normal">
+              Оновити усі заявки
+            </button>
+          </div>
+        )}
         {zap ? (
           zap
 
@@ -333,9 +353,9 @@ const LogisticWork = () => {
               }
             })
             .filter((item) =>
-            choosenUsers.length > 0 ? choosenUsers.includes(item.PIP) : item
-          )
-          .filter(item => cinaFilter ? item.ZAPCINA === 1 : item)
+              choosenUsers.length > 0 ? choosenUsers.includes(item.PIP) : item
+            )
+            .filter((item) => (cinaFilter ? item.ZAPCINA === 1 : item))
             .sort((a, b) => toTimestamp(b.DATUPDATE) - toTimestamp(a.DATUPDATE))
             .map((item, idx) => {
               return (
@@ -362,7 +382,6 @@ const LogisticWork = () => {
           selectedZap={selectedZap}
         />
       ) : null}
-    
     </div>
   );
 };

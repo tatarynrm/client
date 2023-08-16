@@ -7,7 +7,7 @@ import axios from "../../utils/axios";
 import { fetchZap, addReduxZap } from "../../redux/slices/zap";
 import socket from "../../utils/socket";
 import { beep } from "../../helpers/audio";
-import { editZapAddSlice } from "../../redux/slices/edit";
+import { changeAddZapSuccess, editZapAddSlice } from "../../redux/slices/edit";
 // import { io } from "socket.io-client";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -74,6 +74,10 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
           const zamName = data.data.outBinds.pZamName;
           socket.emit("newZap", { ...object, ZAP_KOD: dataKod,ZAM_NAME:zamName });
           dispatch(editZapAddSlice());
+          dispatch(changeAddZapSuccess())
+          setTimeout(()=>{
+            dispatch(changeAddZapSuccess())
+          },4000)
         } else {
           alert("Виникла якась помилка");
         }

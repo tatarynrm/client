@@ -21,7 +21,6 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
   };
   const newZapColor = Date.now() - moment(item.DATUPDATE).valueOf();
 
-  console.log(zapMenu);
 
   return (
     <div
@@ -92,7 +91,7 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
           <span title="Вивантаження"> {item.ROZV}</span>
         </div>
       </div>
-      <div onClick={()=>copyTextToClipboard(item.ZAPTEXT)} title="Основна інформація по завантаженні" className="zap__text">
+      <div  title="Основна інформація по завантаженні" className="zap__text">
         {item.ZAPTEXT}
       </div>
 {item.ZAM && <div className="zap__zam" title="Замовник">
