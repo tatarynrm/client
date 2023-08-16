@@ -29,7 +29,7 @@ const ClosedCargos = () => {
   const [choosenUsers, setChoosenUsers] = useState([]);
   const [zapCount, setZapCount] = useState(null);
   const [closedZapForXlsx,setClosedZapForXlsx] = useState([])
-
+console.log(closedZap);
   const filterByOneManager = (item) => {
     setManagerFilter(item.PIP);
   };
@@ -37,7 +37,7 @@ const ClosedCargos = () => {
   // console.log(startDate?.toLocaleDateString());
   // console.log(endDate?.toLocaleDateString());
 
-  console.log(closedZap);
+  // console.log(closedZap);
   const setUsersToChosen = (item) => {
     if (choosenUsers.includes(item)) {
       setChoosenUsers(
@@ -137,9 +137,60 @@ const ClosedCargos = () => {
         break;
     }
   };
+  const clsXlsxStatus = (status) => {
+    switch (status) {
+      case 0:
+        return "Актуальна";
+
+      case 1:
+        return "Видалена";
+
+      case 2:
+        return "Закрита нами";
+      case 3:
+        return "Не закрита нами";
+      case 4:
+        return "Відмінена замовником";
+      case 5:
+        return "Закрита замовником";
+      case 6:
+        return "Запит ціни";
+
+      default:
+        break;
+    }
+  };
+  // console.log(closedZap);
+  let myArr = [];
+  const repairArr = (arr)=>{
+
+for (let i = 0; i < arr.length; i++) {
+  const el = arr[i];
+const date = moment(el.DAT).format('L')
+const dateUpdate = moment(el.DATUPDATE).format("L");
+const dateClose = el.DATSTATUS === null ? "НЕ ЗАКРИТИЙ СТАТУС": moment(el.DATSTATUS).format("L");
+  myArr.push({
+    "КОД ЗАЯВКИ":el.KOD,
+    "ДАТА СТВОРЕННЯ":date,
+    "ПЕРЕВЕЗЕННЯ":el.KOD_GROUP === 11 ? "Міжнародні":"Регіональні",
+    "ЗАВАНТАЖЕННЯ": el.ZAV,
+    "ВИВАНТАЖЕННЯ": el.ROZV,
+    "ВАНТАЖ":el.ZAPTEXT,
+    "СТАТУС":clsXlsxStatus(el.STATUS),
+    "СТВОРЕНО":el.PIP,
+    "ДАТА ОНОВЛЕННЯ":dateUpdate,
+    "ДАТА ЗАКРИТТЯ":dateClose,
+    "КІЛЬКІСТЬ КОМЕНТАРІВ":el.COUNTCOMM
+    // ""
+  })
+}
+
+  }
+  repairArr(closedZap)
+  console.log('myARRR',myArr);
   return (
     <div className="closed__zap container">
-      <ExcelFile item={closedZap} userData={userData} />
+      <ExcelFile item={myArr.length > 0 ? myArr : []} userData={userData} />
       <div className="closed__zap-filters">
         <div className="closed__zap-buttons">
           {filtersButton.map((item, idx) => {
