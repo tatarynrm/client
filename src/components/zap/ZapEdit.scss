@@ -17,11 +17,13 @@
 }
 
 .zap__menu-buttons {
-  position: absolute;
+  position:absolute;
   z-index: 99999;
   top: 0px;
-  right: -160px;
+  // right: -160px;
+  right: 50px;
   background-color: white;
+  width: 60%;
 
   gap: 20px;
   display: flex;

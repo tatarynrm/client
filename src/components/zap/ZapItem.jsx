@@ -20,9 +20,9 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
     setZapMenu((val) => !val);
   };
   const newZapColor = Date.now() - moment(item.DATUPDATE).valueOf();
-useEffect(()=>{
 
-},[selectedTheme])
+  console.log(zapMenu);
+
   return (
     <div
       onClick={() => showComments(item)}

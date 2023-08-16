@@ -3,10 +3,7 @@ import "./ZapEdit.scss";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { BiRefresh } from "react-icons/bi";
 import axios from "../../utils/axios";
-import { deleteReduxZap, fetchZap } from "../../redux/slices/zap";
 import {
-  editZap,
-  editZapAddSlice,
   editZapDeleteData,
   editZapDeleteStatus,
   editZapEditData,
