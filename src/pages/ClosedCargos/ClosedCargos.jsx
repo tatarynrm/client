@@ -13,6 +13,7 @@ import ClosedColors from "./ClosedColors";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import uk from "date-fns/locale/uk";
+import ExcelFile from "../../components/Excel/ExcelFile";
 registerLocale("uk", uk);
 const ClosedCargos = () => {
   const userData = useSelector((state) => state.auth.data);
@@ -27,16 +28,16 @@ const ClosedCargos = () => {
   const [startDate, endDate] = dateRange;
   const [choosenUsers, setChoosenUsers] = useState([]);
   const [zapCount, setZapCount] = useState(null);
-
+  const [closedZapForXlsx,setClosedZapForXlsx] = useState([])
 
   const filterByOneManager = (item) => {
     setManagerFilter(item.PIP);
-    // setOpenManager(false)
   };
 
-  console.log(startDate?.toLocaleDateString());
-  console.log(endDate?.toLocaleDateString());
+  // console.log(startDate?.toLocaleDateString());
+  // console.log(endDate?.toLocaleDateString());
 
+  console.log(closedZap);
   const setUsersToChosen = (item) => {
     if (choosenUsers.includes(item)) {
       setChoosenUsers(
@@ -136,9 +137,9 @@ const ClosedCargos = () => {
         break;
     }
   };
-  console.log(closedZap);
   return (
     <div className="closed__zap container">
+      <ExcelFile item={closedZap} userData={userData} />
       <div className="closed__zap-filters">
         <div className="closed__zap-buttons">
           {filtersButton.map((item, idx) => {
@@ -207,7 +208,7 @@ const ClosedCargos = () => {
             }}
             withPortal
           />
-          <button className="normal" onClick={()=> getZapByDate(startDate.toLocaleDateString())} >Сортувати по даті</button>
+          <button className="normal" disabled={startDate === null || undefined ? true :false} onClick={()=> getZapByDate(startDate.toLocaleDateString())} >Сортувати по даті</button>
         </div>
       </div>
       {gradient && <ClosedColors />}
@@ -219,7 +220,7 @@ const ClosedCargos = () => {
             ?.sort((a, b) => toTimestamp(b.DAT) - toTimestamp(a.DAT))
             .filter((item) => (statusZap ? item.STATUS === statusZap : item))
             // .filter((a,b) => toTimestamp(a.DAT) === new Date(chooseDate))
-            .filter((item) =>
+            .filter((item) => 
               managerFilter ? item.PIP === managerFilter : item
             )
             .filter((item) =>
