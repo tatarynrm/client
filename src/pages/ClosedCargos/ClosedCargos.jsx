@@ -28,8 +28,8 @@ const ClosedCargos = () => {
   const [startDate, endDate] = dateRange;
   const [choosenUsers, setChoosenUsers] = useState([]);
   const [zapCount, setZapCount] = useState(null);
-  const [closedZapForXlsx,setClosedZapForXlsx] = useState([])
-console.log(closedZap);
+  const [closedZapForXlsx, setClosedZapForXlsx] = useState([]);
+  console.log(closedZap);
   const filterByOneManager = (item) => {
     setManagerFilter(item.PIP);
   };
@@ -65,7 +65,7 @@ console.log(closedZap);
       setStatusValue("");
       setManagerFilter(null);
       setChoosenUsers([]);
-      getZap(userData?.KOD)
+      getZap(userData?.KOD);
     } else {
       setStatusZap(item.value);
       setStatusValue(item.title);
@@ -83,20 +83,24 @@ console.log(closedZap);
   };
   const getZapByDate = async (FROM) => {
     try {
-      if (endDate === undefined || endDate === null  ) {
-        const data = await axios.post("/zap/by-date", { FROM: startDate?.toLocaleDateString() });
+      if (endDate === undefined || endDate === null) {
+        const data = await axios.post("/zap/by-date", {
+          FROM: startDate?.toLocaleDateString(),
+        });
         if (data.status === 200) {
           setClosedZap(data.data);
           console.log(data);
         }
-      }else{
-        const data = await axios.post("/zap/by-date", { FROM: startDate.toLocaleDateString(),TO:endDate.toLocaleDateString() });
+      } else {
+        const data = await axios.post("/zap/by-date", {
+          FROM: startDate.toLocaleDateString(),
+          TO: endDate.toLocaleDateString(),
+        });
         if (data.status === 200) {
           setClosedZap(data.data);
           console.log(data);
         }
       }
-
     } catch (error) {
       console.log(error);
     }
@@ -162,32 +166,34 @@ console.log(closedZap);
   };
   // console.log(closedZap);
   let myArr = [];
-  const repairArr = (arr)=>{
-
-for (let i = 0; i < arr.length; i++) {
-  const el = arr[i];
-const date = moment(el.DAT).format('L')
-const dateUpdate = moment(el.DATUPDATE).format("L");
-const dateClose = el.DATSTATUS === null ? "НЕ ЗАКРИТИЙ СТАТУС": moment(el.DATSTATUS).format("L");
-  myArr.push({
-    "КОД ЗАЯВКИ":el.KOD,
-    "ДАТА СТВОРЕННЯ":date,
-    "ПЕРЕВЕЗЕННЯ":el.KOD_GROUP === 11 ? "Міжнародні":"Регіональні",
-    "ЗАВАНТАЖЕННЯ": el.ZAV,
-    "ВИВАНТАЖЕННЯ": el.ROZV,
-    "ВАНТАЖ":el.ZAPTEXT,
-    "СТАТУС":clsXlsxStatus(el.STATUS),
-    "СТВОРЕНО":el.PIP,
-    "ДАТА ОНОВЛЕННЯ":dateUpdate,
-    "ДАТА ЗАКРИТТЯ":dateClose,
-    "КІЛЬКІСТЬ КОМЕНТАРІВ":el.COUNTCOMM
-    // ""
-  })
-}
-
-  }
-  repairArr(closedZap)
-  console.log('myARRR',myArr);
+  const repairArr = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      const el = arr[i];
+      const date = moment(el.DAT).format("L");
+      const dateUpdate = moment(el.DATUPDATE).format("L");
+      const dateClose =
+        el.DATSTATUS === null
+          ? "НЕ ЗАКРИТИЙ СТАТУС"
+          : moment(el.DATSTATUS).format("L");
+      myArr.push({
+        "КОД ЗАЯВКИ": el.KOD,
+        "ДАТА СТВОРЕННЯ": date,
+        ПЕРЕВЕЗЕННЯ: el.KOD_GROUP === 11 ? "Міжнародні" : "Регіональні",
+        ЗАВАНТАЖЕННЯ: el.ZAV,
+        ВИВАНТАЖЕННЯ: el.ROZV,
+        ВАНТАЖ: el.ZAPTEXT,
+        СТАТУС: clsXlsxStatus(el.STATUS),
+        СТВОРЕНО: el.PIP,
+        "ДАТА ОНОВЛЕННЯ": dateUpdate,
+        "ДАТА ЗАКРИТТЯ": dateClose,
+        "КІЛЬКІСТЬ КОМЕНТАРІВ": el.COUNTCOMM,
+        КОМЕНТАРІ: `dsdsa \n dasda\n123123`,
+      });
+    }
+  };
+  repairArr(closedZap);
+  // console.log("myARRR", myArr);
+  console.log(closedZap);
   return (
     <div className="closed__zap container">
       <ExcelFile item={myArr.length > 0 ? myArr : []} userData={userData} />
@@ -259,19 +265,35 @@ const dateClose = el.DATSTATUS === null ? "НЕ ЗАКРИТИЙ СТАТУС": 
             }}
             withPortal
           />
-          <button className="normal" disabled={startDate === null || undefined ? true :false} onClick={()=> getZapByDate(startDate.toLocaleDateString())} >Сортувати по даті</button>
+          <button
+            className="normal"
+            disabled={startDate === null || undefined ? true : false}
+            onClick={() => getZapByDate(startDate.toLocaleDateString())}
+          >
+            Сортувати по даті
+          </button>
         </div>
       </div>
       {gradient && <ClosedColors />}
-      {startDate ? <p className="closed__report">Звіт за : {startDate.toLocaleDateString()} - {endDate ? endDate.toLocaleDateString() : null}</p> : null}
-     {startDate && <p className="closed__report">Стврено запитів : {closedZap?.filter(item=>  choosenUsers.includes(item.PIP)).length} </p>}
+      {startDate ? (
+        <p className="closed__report">
+          Звіт за : {startDate.toLocaleDateString()} -{" "}
+          {endDate ? endDate.toLocaleDateString() : null}
+        </p>
+      ) : null}
+      {startDate && (
+        <p className="closed__report">
+          Стврено запитів :{" "}
+          {closedZap?.filter((item) => choosenUsers.includes(item.PIP)).length}{" "}
+        </p>
+      )}
       <div className="closed">
         {closedZap ? (
           closedZap
             ?.sort((a, b) => toTimestamp(b.DAT) - toTimestamp(a.DAT))
             .filter((item) => (statusZap ? item.STATUS === statusZap : item))
             // .filter((a,b) => toTimestamp(a.DAT) === new Date(chooseDate))
-            .filter((item) => 
+            .filter((item) =>
               managerFilter ? item.PIP === managerFilter : item
             )
             .filter((item) =>
@@ -302,8 +324,6 @@ const dateClose = el.DATSTATUS === null ? "НЕ ЗАКРИТИЙ СТАТУС": 
                         ) : (
                           <AiOutlineComment />
                         )}
-
-                
                       </div>
                     </div>
                     <div className="zap__author-time">{`${moment(item.DAT)
@@ -317,6 +337,12 @@ const dateClose = el.DATSTATUS === null ? "НЕ ЗАКРИТИЙ СТАТУС": 
                     </div>
                   </div>
                   <div className="zap__text">{item.ZAPTEXT}</div>
+                  <div className="comments__closed">{item.COMMENTS !== null ? item.COMMENTS.map((item,idx) => {
+                    return <div key={idx} >
+                     <span>{item.PIP}</span> <span>{item.PRIM}</span>
+                    </div>
+                  }):null}</div>
+                  
                 </div>
               );
             })

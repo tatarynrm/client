@@ -118,3 +118,10 @@ position: relative;
 .closed__report{
   color: var(--body-color);
 }
+
+.comments__closed{
+  display: flex;
+  position: absolute;
+  bottom: -20px;
+  left: 0px;
+}
