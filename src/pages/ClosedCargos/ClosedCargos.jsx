@@ -3,17 +3,16 @@ import "./ClosedCargos.scss";
 import { useSelector } from "react-redux";
 import axios from "../../utils/axios";
 import moment from "moment";
-import { copyTextToClipboard } from "../../helpers/navigator";
-import { RxDotsVertical } from "react-icons/rx";
+import uk from "date-fns/locale/uk";
 import { AiOutlineComment } from "react-icons/ai";
 import { FaCommentSlash } from "react-icons/fa";
-import ZapEdit from "../../components/zap/ZapEdit";
 import toTimestamp from "../../helpers/functions";
 import ClosedColors from "./ClosedColors";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import uk from "date-fns/locale/uk";
+
 import ExcelFile from "../../components/Excel/ExcelFile";
+import ClosedZap from "../../components/zap/ClosedZap/ClosedZap";
 registerLocale("uk", uk);
 const ClosedCargos = () => {
   const userData = useSelector((state) => state.auth.data);
@@ -29,15 +28,12 @@ const ClosedCargos = () => {
   const [choosenUsers, setChoosenUsers] = useState([]);
   const [zapCount, setZapCount] = useState(null);
   const [closedZapForXlsx, setClosedZapForXlsx] = useState([]);
-  console.log(closedZap);
+  const [showComments,setShowComments] = useState(false)
+
   const filterByOneManager = (item) => {
     setManagerFilter(item.PIP);
   };
 
-  // console.log(startDate?.toLocaleDateString());
-  // console.log(endDate?.toLocaleDateString());
-
-  // console.log(closedZap);
   const setUsersToChosen = (item) => {
     if (choosenUsers.includes(item)) {
       setChoosenUsers(
@@ -89,7 +85,6 @@ const ClosedCargos = () => {
         });
         if (data.status === 200) {
           setClosedZap(data.data);
-          console.log(data);
         }
       } else {
         const data = await axios.post("/zap/by-date", {
@@ -98,7 +93,6 @@ const ClosedCargos = () => {
         });
         if (data.status === 200) {
           setClosedZap(data.data);
-          console.log(data);
         }
       }
     } catch (error) {
@@ -164,7 +158,6 @@ const ClosedCargos = () => {
         break;
     }
   };
-  // console.log(closedZap);
   let myArr = [];
   const repairArr = (arr) => {
     for (let i = 0; i < arr.length; i++) {
@@ -192,8 +185,7 @@ const ClosedCargos = () => {
     }
   };
   repairArr(closedZap);
-  // console.log("myARRR", myArr);
-  console.log(closedZap);
+console.log(closedZap);
   return (
     <div className="closed__zap container">
       <ExcelFile item={myArr.length > 0 ? myArr : []} userData={userData} />
@@ -272,6 +264,7 @@ const ClosedCargos = () => {
           >
             Сортувати по даті
           </button>
+          <button className="normal" onClick={()=>setShowComments(val=>!val)}>{showComments ? "Скинути фільтр" : "Лише з коментарями"}</button>
         </div>
       </div>
       {gradient && <ClosedColors />}
@@ -287,7 +280,8 @@ const ClosedCargos = () => {
           {closedZap?.filter((item) => choosenUsers.includes(item.PIP)).length}{" "}
         </p>
       )}
-      <div className="closed">
+      <div className="close">
+
         {closedZap ? (
           closedZap
             ?.sort((a, b) => toTimestamp(b.DAT) - toTimestamp(a.DAT))
@@ -299,51 +293,10 @@ const ClosedCargos = () => {
             .filter((item) =>
               choosenUsers.length > 0 ? choosenUsers.includes(item.PIP) : item
             )
+            .filter(item => showComments ? item.COMMENTS?.length > 0 : item)
             .map((item, idx) => {
               return (
-                <div
-                  key={idx}
-                  className={`zap zap-${item.KOD} ${
-                    gradient && cls(item.STATUS)
-                  }`}
-                >
-                  {item.KOD_GROUP === 11 ? (
-                    <div className="decor__line-div-zap-mizh"></div>
-                  ) : (
-                    <div className="decor__line-div-zap-region"></div>
-                  )}
-                  <div className="zap__author">
-                    <div className="zap__author-name">{item.PIP}</div>
-                    <div className="zap__comments-length">
-                      <div className="zap__comments-counter">
-                        {item.COUNTCOMM <= 0 ? (
-                          <FaCommentSlash
-                            title="Коментарів немає"
-                            className="comments__tooltip"
-                          />
-                        ) : (
-                          <AiOutlineComment />
-                        )}
-                      </div>
-                    </div>
-                    <div className="zap__author-time">{`${moment(item.DAT)
-                      .startOf("minute")
-                      .fromNow()}`}</div>
-                  </div>
-                  <div className="zap__cities">
-                    <div>
-                      {item.ZAV} <br /> - <br />
-                      {item.ROZV}
-                    </div>
-                  </div>
-                  <div className="zap__text">{item.ZAPTEXT}</div>
-                  <div className="comments__closed">{item.COMMENTS !== null ? item.COMMENTS.map((item,idx) => {
-                    return <div key={idx} >
-                     <span>{item.PIP}</span> <span>{item.PRIM}</span>
-                    </div>
-                  }):null}</div>
-                  
-                </div>
+               <ClosedZap key={idx} cls={cls} item={item} idx={idx} gradient={gradient}/>
               );
             })
         ) : (
