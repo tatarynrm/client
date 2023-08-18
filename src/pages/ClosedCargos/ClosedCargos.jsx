@@ -13,6 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import ExcelFile from "../../components/Excel/ExcelFile";
 import ClosedZap from "../../components/zap/ClosedZap/ClosedZap";
+import ZapStatusTable from "../../components/tables/ZapStatusTable";
 registerLocale("uk", uk);
 const ClosedCargos = () => {
   const userData = useSelector((state) => state.auth.data);
@@ -282,7 +283,7 @@ console.log(closedZap);
       )}
       <div className="close">
 
-        {closedZap ? (
+        {/* {closedZap ? (
           closedZap
             ?.sort((a, b) => toTimestamp(b.DAT) - toTimestamp(a.DAT))
             .filter((item) => (statusZap ? item.STATUS === statusZap : item))
@@ -301,7 +302,9 @@ console.log(closedZap);
             })
         ) : (
           <p>Помилка мережі</p>
-        )}
+        )} */}
+
+        {closedZap && <ZapStatusTable data={closedZap}/>}
       </div>
     </div>
   );

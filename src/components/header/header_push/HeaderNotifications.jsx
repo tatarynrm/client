@@ -8,9 +8,9 @@ const HeaderNotifications = () => {
     const dispatch = useDispatch()
   return (
     <div className='header__notifications'>
-        <i  className='header__notification'> <a target='_blank' href="https://meet.google.com/fxd-wpda-uic"><SiGooglemeet /></a>  </i>
-        <i onClick={()=> dispatch(eventsOpenChange()) } className='header__notification'><MdNotificationsNone/></i>
-        <i onClick={()=> dispatch(emailOpenChange()) } className='header__notification mail'><MdMailOutline/></i>
+        <i  className='header__notification'> <a target='_blank' title='Приєднатись до Google Meet' href="https://meet.google.com/fxd-wpda-uic"><SiGooglemeet /></a>  </i>
+        <i title='Події з заявками' onClick={()=> dispatch(eventsOpenChange()) } className='header__notification'><MdNotificationsNone/></i>
+        <i title='Повідомлення від адмінстраторів та керівників' onClick={()=> dispatch(emailOpenChange()) } className='header__notification mail'><MdMailOutline/></i>
     </div>
     
   )

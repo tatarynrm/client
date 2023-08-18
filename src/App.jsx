@@ -171,7 +171,7 @@ function App() {
             </a>
           </div>
         )}
-        <SiGooglemeet/>
+
       </div>
       {/* <Footer /> */}
     </div>
