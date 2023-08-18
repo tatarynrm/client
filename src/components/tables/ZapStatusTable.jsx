@@ -5,7 +5,8 @@ import {
 } from "@tanstack/react-table";
 import { useMemo } from "react";
 import DataTable from "react-data-table-component";
-
+import DataTableExtensions from 'react-data-table-component-extensions';
+import 'react-data-table-component-extensions/dist/index.css';
 const ZapStatusTable = ({data}) => {
     const clsXlsxStatus = (status) => {
         switch (status) {
@@ -67,23 +68,25 @@ const ZapStatusTable = ({data}) => {
   ];
   
   const columns = [
-    { name: "№", selector: (row) => row.KOD,width:"100px" },
-    { name: "Дата", selector: (row) => row.DAT, sortable: true,maxWidth:"150px" },
-    { name: "Автор", selector: (row) => row.PIP, sortable: true,maxWidth:"150px" },
-    { name: "Статус", selector: (row) => clsXlsxStatus(row.STATUS), sortable: true,maxWidth:"150px" },
-    { name: "Завантаження", selector: (row) => row.ZAV, sortable: true,maxWidth:"150px" },
-    { name: "Вигрузка", selector: (row) => row.ZAV, sortable: true,maxWidth:"150px" },
-    { name: "Інформація", selector: (row) => row.ZAPTEXT, sortable: true,maxWidth:"300px", },
-    { name: "Замовник", selector: (row) => row.ZAM ?row.ZAM : "-" , sortable: true,maxWidth:"100px", },
-    { name: "К-сть коментарів", selector: (row) =>  row.COUNTCOMM , sortable: true,maxWidth:"50px", },
-    // { name: "Коментарі", selector: (row) => row.COMMENTS.PIP ?row.COMMENTS.PIP : null  , sortable: true,maxWidth:"50px", },
-
+    { name: "№", selector: (row) => row.KOD,cellExport: row => row.KOD,width:"100px" },
+    { name: "Дата", selector: (row) => row.DAT,cellExport:row=>row.DAT, sortable: true,maxWidth:"150px" },
+    { name: "Автор", selector: (row) => row.PIP, cellExport:row=>row.PIP, sortable: true,maxWidth:"150px" },
+    { name: "Статус", selector: (row) => clsXlsxStatus(row.STATUS),cellExport:row=>clsXlsxStatus(row.STATUS), sortable: true,maxWidth:"150px" },
+    { name: "Завантаження", selector: (row) => row.ZAV,cellExport:row=>row.ZAV, sortable: true,maxWidth:"150px" },
+    { name: "Вигрузка", selector: (row) => row.ROZV,cellExport:row=> row.ROZV, sortable: true,maxWidth:"150px" },
+    { name: "Інформація", selector: (row) => row.ZAPTEXT,cellExport:row=>row.ZAPTEXT, sortable: true,maxWidth:"300px", },
+    { name: "Замовник", selector: (row) => row.ZAM ?row.ZAM : "-" ,cellExport:(row) => row.ZAM ?row.ZAM : "-" , sortable: true,maxWidth:"100px", },
+    { name: "К-сть коментарів", selector: (row) =>  row.COUNTCOMM ,cellExport:row=>row.COUNTCOMM, sortable: true,maxWidth:"50px", },
+    // { name: "Коментарі", selector: (row) => row.COMMENTS.PIP ?row.COMMENTS.PIP : null  , cellExport:row=> row.COMMENTS.PIP ?row.COMMENTS.PIP : null  ,sortable: true,maxWidth:"50px", },
+    // // { name: 'Folio', selector: row => row.Cfdi_Folio, cellExport: row => row.Cfdi_Folio, sortable: true },
   ];
 //   const data = [
 //     { DAT: "231321", CITY_FROM: "Lviv", CITY_TO: "Kyiv" },
 //     { DAT: "1234", CITY_FROM: "321", CITY_TO: "Kyi3232v" },
 //   ];
-
+const tableData = {
+    columns,data
+}
 
 const expandedComponent = ({data}) =>{
    return <pre>{data.COMMENTS !== null ? data.COMMENTS.map(item => `${item.DAT} ${item.PIP}-${item.PRIM}\n`) : '---'}</pre>
@@ -92,7 +95,8 @@ const expandedComponent = ({data}) =>{
     <>
       <h1>Таблиця статусів заявок</h1>
 
-      <DataTable
+<DataTableExtensions {...tableData} >
+<DataTable
         columns={columns}
         
         data={data}
@@ -104,6 +108,7 @@ responsive={true}
 expandableRows={true}
 expandableRowsComponent={expandedComponent}
       ></DataTable>
+</DataTableExtensions>
 
       {/* <table>
         {tableData.getHeaderGroups().map(headerGroup =>(
