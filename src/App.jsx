@@ -29,9 +29,13 @@ import { TbBrandTelegram } from "react-icons/tb";
 import Carrier from "./pages/Carriers/Carrier";
 import ZapDeleteForm from "./components/zap/ZapDeleteForm";
 import NotificationMail from "./components/notification_panel/NotificationMail";
+import {SiGooglemeet} from 'react-icons/si'
+// import Meetign from "./components/meeting/Meetign";
+// import MeetingPage from "./pages/Meeting/MeetingPage";
 
 function App() {
   
+
   const dispatch = useDispatch();
   const token = window.localStorage.getItem("token");
   const userData = useSelector((state) => state.auth.data);
@@ -101,7 +105,7 @@ function App() {
             ZAV: data.pZav,
             ROZV: data.pRozv,
             ZAPTEXT: data.pZapText,
-            KOD: data.ZAPKOD,
+            KOD: data.ZAP_KOD,
             PIP: data.PIP,
             COUNTCOMM: 0,
             COUNTNEWCOMM: 0,
@@ -141,6 +145,7 @@ function App() {
             <Route path={`/logistic-work`} element={<LogisticWork />} />
             <Route path={`/ict-files`} element={<CompanyFiles />} />
             <Route path={`/statistic`} element={<ClosedCargos />} />
+            {/* <Route path={`/meeting`} element={<MeetingPage />} /> */}
             {userData?.ISDIR === 1 ||
             userData?.KOD === 38231 ||
             userData?.KOD === 24011 ||
@@ -166,6 +171,7 @@ function App() {
             </a>
           </div>
         )}
+        <SiGooglemeet/>
       </div>
       {/* <Footer /> */}
     </div>

@@ -5,7 +5,7 @@ gap: 50px;
 }
 .header__notification{
     position: relative;
-    font-size: 40px;
+    font-size: 30px;
     color: var(--body-color);
     cursor: pointer;
     &::after {
@@ -25,7 +25,7 @@ gap: 50px;
 }
 .header__notification.mail{
     position: relative;
-    font-size: 40px;
+    font-size: 30px;
     color: var(--body-color);
     cursor: pointer;
     &::after {

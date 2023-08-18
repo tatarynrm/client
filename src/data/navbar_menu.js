@@ -9,6 +9,7 @@ import {
   FcNews,
   FcStatistics
 } from "react-icons/fc";
+import {RiGroup2Fill} from 'react-icons/ri'
 import { FaCarCrash } from "react-icons/fa";
 import { MdCarCrash } from "react-icons/md";
 import { SiAdminer } from "react-icons/si";
@@ -71,6 +72,12 @@ export const navbar_menu = [
     icon: <FcBusinessman />,
     isDir: true,
   },
+  // {
+  //   label: "Онлайн нарада",
+  //   link: "/meeting",
+  //   icon: <RiGroup2Fill />,
+  //   isDir: false,
+  // },
   {
     label: "Статистика",
     link: "/statistic",
