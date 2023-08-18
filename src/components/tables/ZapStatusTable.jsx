@@ -76,15 +76,17 @@ const ZapStatusTable = ({data}) => {
     { name: "Інформація", selector: (row) => row.ZAPTEXT, sortable: true,maxWidth:"300px", },
     { name: "Замовник", selector: (row) => row.ZAM ?row.ZAM : "-" , sortable: true,maxWidth:"100px", },
     { name: "К-сть коментарів", selector: (row) =>  row.COUNTCOMM , sortable: true,maxWidth:"50px", },
-    // { name: "Коментарі", selector: (row) => row.COMMENTS , sortable: true,maxWidth:"50px", },
+    // { name: "Коментарі", selector: (row) => row.COMMENTS.PIP ?row.COMMENTS.PIP : null  , sortable: true,maxWidth:"50px", },
 
   ];
 //   const data = [
 //     { DAT: "231321", CITY_FROM: "Lviv", CITY_TO: "Kyiv" },
 //     { DAT: "1234", CITY_FROM: "321", CITY_TO: "Kyi3232v" },
 //   ];
+
+
 const expandedComponent = ({data}) =>{
-   return <pre>{data.ZAPTEXT}</pre>
+   return <pre>{data.COMMENTS !== null ? data.COMMENTS.map(item => `${item.DAT} ${item.PIP}-${item.PRIM}\n`) : '---'}</pre>
 }
   return (
     <>
@@ -94,7 +96,7 @@ const expandedComponent = ({data}) =>{
         columns={columns}
         
         data={data}
-        fixedHeader
+        // fixedHeader
         // pagination={1000}
         customStyles={tableCustomStyles}
         // conditionalRowStyles={conditionalRowStyles}
