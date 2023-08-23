@@ -5,14 +5,14 @@ import socket from "../../utils/socket";
 import moment from "moment";
 import "moment/locale/uk";
 import axios from "axios";
-const ZapReminder = () => {d
+const ZapReminder = () => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState(null);
   const [yes,setYes] = useState(false)
   const userData = useSelector((state) => state.auth.data);
   const zap = useSelector((state) => state.zap.zap.items);
   const myZap = zap?.filter((item) => item.KOD_OS === userData?.KOD);
-  console.log(myZap);
+
   useEffect(()=>{
    
     const checkZapLifeTime = () => {
