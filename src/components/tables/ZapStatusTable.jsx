@@ -3,11 +3,15 @@ import {
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 const ZapStatusTable = ({data}) => {
+  const[myData,setMyData] = useState([])
+  useEffect(()=>{
+    setMyData(data)
+  },[])
     const clsXlsxStatus = (status) => {
         switch (status) {
           case 0:

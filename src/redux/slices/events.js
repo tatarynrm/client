@@ -17,6 +17,18 @@ export const fetchMessAll = createAsyncThunk("users/fetchMessAll", async () => {
     console.log(error);
   }
 });
+export const fetchGoogleMeetLink = createAsyncThunk("users/fetchGoogleMeetLink", async (KOD_OS) => {
+  try {
+    const { data } = await axios.post("/events/google-meet",{KOD_OS});
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
+
 
 
 const initialState = {
@@ -28,7 +40,11 @@ const initialState = {
 const eventsSlice = createSlice({
   name: "events",
   initialState,
-  reducers: {},
+  reducers: {
+    addGoogleMeetEvent: (state, action) => {
+      state.events.items = [{GOOGLEMEET:action.payload}];
+    },
+  },
   extraReducers: {
     [fetchEvents.pending]: (state) => {
       state.events.items = [];
@@ -54,7 +70,22 @@ const eventsSlice = createSlice({
       state.events.items = [];
       state.events.status = "error";
     },
+    [fetchGoogleMeetLink.pending]: (state) => {
+      state.events.items = [];
+      state.events.status = "loading";
+    },
+    [fetchGoogleMeetLink.fulfilled]: (state, action) => {
+      state.events.items = action.payload;
+      state.events.status = "loaded";
+    },
+    [fetchGoogleMeetLink.rejected]: (state) => {
+      state.events.items = [];
+      state.events.status = "error";
+    },
   },
 });
-
+export const {
+  addGoogleMeetEvent,
+ 
+} = eventsSlice.actions;
 export const eventsReducer = eventsSlice.reducer;

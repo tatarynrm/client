@@ -4,12 +4,12 @@ import "moment/locale/uk";
 import { copyTextToClipboard } from "../../helpers/navigator";
 import { RxDotsVertical } from "react-icons/rx";
 import { AiOutlineComment } from "react-icons/ai";
+import { FiTruck } from "react-icons/fi";
 import { FaCommentSlash } from "react-icons/fa";
 import { MdPriceChange } from "react-icons/md";
 import { FcOrganization } from "react-icons/fc";
 import ZapEdit from "../../components/zap/ZapEdit";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
   const userData = useSelector((state) => state.auth.data);
   const [zapMenu, setZapMenu] = useState(false);
@@ -21,7 +21,6 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
   };
   const newZapColor = Date.now() - moment(item.DATUPDATE).valueOf();
 
-
   return (
     <div
       onClick={() => showComments(item)}
@@ -30,7 +29,9 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
     >
       {item.ZAPCINA === 1 ? (
         <div className="zap__cina-icon" title="Запит ціни">
-        <i className="price__zap-icon"><MdPriceChange /></i> 
+          <i className="price__zap-icon">
+            <MdPriceChange />
+          </i>
         </div>
       ) : null}
       {newZapColor <= 1800000 ? (
@@ -87,16 +88,33 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
       </div>
       <div className="zap__cities">
         <div>
-          <span title="Завантаження">{item.ZAV} </span> <br /> - <br />
-          <span title="Вивантаження"> {item.ROZV}</span>
+          <span title={`Завантаження\n${item.ZAV}`}>
+            {item.ZAV}{" "}
+          </span>{" "}
+          <br /> - <br />
+          <span title={`Завантаження\n${item.ROZV}`}>
+            {" "}
+            {item.ROZV}
+          </span>
         </div>
       </div>
-      <div  title="Основна інформація по завантаженні" className="zap__text">
+      <div title="Основна інформація по завантаженні" className="zap__text">
         {item.ZAPTEXT}
       </div>
-{item.ZAM && <div className="zap__zam" title="Замовник">
-  <span><FcOrganization/> {item.ZAM}</span> 
-</div>}
+
+      {item.KILAMACT > 1 ? (
+        <i className="count__car">
+          <FiTruck fill="white" /> <span>{item.KILAMACT}</span>{" "}
+        </i>
+      ) : null}
+
+      {item.ZAM && (
+        <div className="zap__zam" title="Замовник">
+          <span>
+            <FcOrganization /> {item.ZAM}
+          </span>
+        </div>
+      )}
       {userData?.KOD === item.KOD_OS ||
       userData.KOD == 3711 ||
       userData.KOD == 38231 ||

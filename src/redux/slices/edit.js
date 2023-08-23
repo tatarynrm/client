@@ -6,7 +6,9 @@ const initialState = {
   eventsOpen: false,
   mailOpen: false,
   zapDeleteStatus: false,
+  zapZakrStatus: false,
   addZapSuccess:false,
+  googleMeetOpen:false,
   zapEditData: {
     zav: "",
     rozv: "",
@@ -44,8 +46,14 @@ const editSlice = createSlice({
     editZapDeleteStatus: (state, action) => {
       state.zapDeleteStatus = !state.zapDeleteStatus;
     },
+    editZapZakrStatus: (state, action) => {
+      state.zapZakrStatus = !state.zapZakrStatus;
+    },
     changeAddZapSuccess: (state, action) => {
       state.addZapSuccess = !state.addZapSuccess;
+    },
+    changeGoogleMeetOpen: (state, action) => {
+      state.googleMeetOpen = !state.googleMeetOpen;
     },
   },
 });
@@ -55,8 +63,10 @@ export const {
   editZapEditData,
   eventsOpenChange,
   editZapDeleteStatus,
+  editZapZakrStatus,
   editZapDeleteData,
   emailOpenChange,
-  changeAddZapSuccess
+  changeAddZapSuccess,
+  changeGoogleMeetOpen
 } = editSlice.actions;
 export const editReducer = editSlice.reducer;

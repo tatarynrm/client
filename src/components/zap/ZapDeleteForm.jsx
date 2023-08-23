@@ -7,8 +7,8 @@ import axios from "../../utils/axios";
 import socket from "../../utils/socket";
 const ZapDeleteForm = () => {
   const dispatch = useDispatch();
-  const [selectedOption, setSelectedOption] = useState("2");
-  const [textOption, setTextOption] = useState("Закрита нами");
+  const [selectedOption, setSelectedOption] = useState("3");
+  const [textOption, setTextOption] = useState("Не закрита нами");
   const zapDeleteData = useSelector((state) => state.edit.zapDeleteData);
   const userData = useSelector(state => state.auth.data)
   console.log(zapDeleteData);
@@ -48,7 +48,6 @@ const ZapDeleteForm = () => {
         <h3>Оберіть причину видалення</h3>
         <div className="form__control">
           <select value={selectedOption} onChange={handleSelectChange}>
-            <option value="2">Закрита нами</option>
             <option value="3">Не закрита нами</option>
             <option value="4">Відмінена замовником</option>
             <option value="5">Закрита замовником</option>
@@ -56,7 +55,7 @@ const ZapDeleteForm = () => {
         </div>
         <div className="form__control button__control">
           <button onClick={deleteZap} className="normal delete">
-            Видалити
+            Закрити перевезення
           </button>
           <button
             onClick={(e) => dispatch(editZapDeleteStatus())}

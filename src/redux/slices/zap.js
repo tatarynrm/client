@@ -112,6 +112,14 @@ const zapSlice = createSlice({
       }
       state.zap.items = [...state.zap.items];
     },
+    showEditReduxZapCarCount: (state, action) => {
+      const { pKilAmZakr, pKodZap} = action.payload;
+      const editZap = state.zap.items.find((item) => item.KOD === pKodZap);
+      if (editZap) {
+        editZap.KILAMACT = editZap.KILAMACT - pKilAmZakr;
+      }
+      state.zap.items = [...state.zap.items];
+    },
   },
   extraReducers: {
     [fetchAllZap.pending]: (state) => {
@@ -170,6 +178,7 @@ export const {
   changeCommentsCount,
   refreshReduxZap,
   showEditReduxZap,
-  showEditReduxZapText
+  showEditReduxZapText,
+  showEditReduxZapCarCount
 } = zapSlice.actions;
 export const zapReducer = zapSlice.reducer;

@@ -5,7 +5,7 @@ import socket from "../../utils/socket";
 import moment from "moment";
 import "moment/locale/uk";
 import axios from "axios";
-const ZapReminder = () => {
+const ZapReminder = () => {d
   const [open, setOpen] = useState(false);
   const [data, setData] = useState(null);
   const [yes,setYes] = useState(false)

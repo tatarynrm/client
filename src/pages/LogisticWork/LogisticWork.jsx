@@ -14,6 +14,7 @@ import {
   fetchZap,
   refreshReduxZap,
   showEditReduxZap,
+  showEditReduxZapCarCount,
   showEditReduxZapText,
 } from "../../redux/slices/zap";
 import { notifyCommentZap } from "../../utils/toasts";
@@ -128,6 +129,12 @@ const LogisticWork = () => {
         return;
       }
     });
+  }, []);
+  useEffect(() => {
+ socket.on('showChangeCountAm',data =>{
+  console.log('DAAAAAAAAAA',data);
+  dispatch(showEditReduxZapCarCount(data));
+ })
   }, []);
   const containerProp = {
     hidden: { opacity: 1, scale: 0 },

@@ -186,10 +186,10 @@ const ClosedCargos = () => {
     }
   };
   repairArr(closedZap);
-console.log(closedZap);
+
   return (
     <div className="closed__zap container">
-      <ExcelFile item={myArr.length > 0 ? myArr : []} userData={userData} />
+      {/* <ExcelFile item={myArr.length > 0 ? myArr : []} userData={userData} /> */}
       <div className="closed__zap-filters">
         <div className="closed__zap-buttons">
           {filtersButton.map((item, idx) => {

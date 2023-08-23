@@ -214,6 +214,15 @@
   color: var(--body-color);
  
 }
+.count__car {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  span {
+    color: var(--body-color);
+  }
+
+}
 .cities {
   color: rgb(226, 146, 41);
 }

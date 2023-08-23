@@ -29,25 +29,45 @@ import { TbBrandTelegram } from "react-icons/tb";
 import Carrier from "./pages/Carriers/Carrier";
 import ZapDeleteForm from "./components/zap/ZapDeleteForm";
 import NotificationMail from "./components/notification_panel/NotificationMail";
-import {SiGooglemeet} from 'react-icons/si'
+import { SiGooglemeet } from "react-icons/si";
+import GoogleMeetItem from "./components/google_meet/GoogleMeetItem";
+import { changeGoogleMeetOpen } from "./redux/slices/edit";
+import { addGoogleMeetEvent } from "./redux/slices/events";
+import ZapZakrForm from "./components/zap/ZapZakrForm";
 // import Meetign from "./components/meeting/Meetign";
 // import MeetingPage from "./pages/Meeting/MeetingPage";
 
 function App() {
-  
-
   const dispatch = useDispatch();
   const token = window.localStorage.getItem("token");
   const userData = useSelector((state) => state.auth.data);
   const zapEditStatus = useSelector((state) => state.edit.zapEdit);
   const zapDeleteStatus = useSelector((state) => state.edit.zapDeleteStatus);
+  const zapZakrStatus = useSelector((state) => state.edit.zapZakrStatus);
   const navigate = useNavigate();
   const eventsOpen = useSelector((state) => state.edit.eventsOpen);
+  const googleMeetOpen = useSelector((state) => state.edit.googleMeetOpen);
   const mailOpen = useSelector((state) => state.edit.mailOpen);
   const location = useLocation();
+  const googleMeet = window.localStorage.getItem("googleMeet");
+  const events = useSelector(state => state.events.events.items)
   useEffect(() => {
     dispatch(fetchAuthMe());
   }, [dispatch]);
+  useEffect(() => {
+    socket.on("showStartGoogleMeet", (data) => {
+      dispatch(changeGoogleMeetOpen())
+      dispatch(addGoogleMeetEvent(data))
+    });
+  }, [socket]);
+  useEffect(() => {
+    socket.on("showStartGoogleMeetWithTime", (data) => {
+      dispatch(changeGoogleMeetOpen())
+      // dispatch(addGoogleMeetEvent(data))
+    });
+  }, [socket]);
+
+  useEffect(() => {}, [googleMeet]);
   useEffect(() => {
     if (userData) {
       socket.emit("newUser", userData);
@@ -95,11 +115,11 @@ function App() {
 
     if (token) {
       socket.on("showNewZap", (data) => {
-        console.log('-show-new-zap',data);
+        console.log("--------------show-new-zap", data);
         dispatch(
           addReduxZap({
             DAT: date,
-            DATUPDATE:date,
+            DATUPDATE: date,
             KOD_GROUP: data.pKodGroup,
             KOD_OS: data.pKodAuthor,
             ZAV: data.pZav,
@@ -112,6 +132,10 @@ function App() {
             ISNEW: 1,
             ZAPCINA: data.pZapCina,
             ZAM: data.ZAM_NAME,
+            PUNKTZ: data.pPunktZ,
+            PUNKTR: data.pPunktR,
+            KILAM: data.pKilAm,
+            KILAMACT:data.pKilAm
           })
         );
         notifyNewZap(userData, data);
@@ -120,7 +144,7 @@ function App() {
     }
   }, [socket]);
 
-  useEffect(() => {}, [zapDeleteStatus]);
+
 
   useEffect(() => {
     socket.on("logoutAllUsers", (data) => {
@@ -128,7 +152,8 @@ function App() {
       navigate("/");
     });
   }, [socket, token]);
-
+  useEffect(() => {}, [zapDeleteStatus]);
+  useEffect(() => {}, [events]);
   return (
     <div className="main__app">
       <Header />
@@ -159,11 +184,14 @@ function App() {
         </Routes>
         {zapEditStatus ? <ZapEditForm /> : null}
         {zapDeleteStatus ? <ZapDeleteForm /> : null}
+        {zapZakrStatus ? <ZapZakrForm /> : null}
         {eventsOpen && <NotificationPanel />}
         {mailOpen && <NotificationMail />}
+        {googleMeetOpen ? <GoogleMeetItem /> : null}
         <ToastContainer />
         <MessageFromAdmin />
         <ZapReminder />
+
         {location.pathname === "/logistic-work" && (
           <div title="Технічна підтримка" className="telegram__chat">
             <a target="_blank" href="https://t.me/I_Dont_Have_A_Phone_Number">
@@ -171,7 +199,6 @@ function App() {
             </a>
           </div>
         )}
-
       </div>
       {/* <Footer /> */}
     </div>

@@ -67,3 +67,67 @@
     height: 70px;
   }
 }
+
+.google__meet-button {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.all__tg-users{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  color: var(--body-color);
+  margin-top: 20px;
+
+  .tg__user{
+    background-color: rgb(29, 104, 100);
+    padding: 0.4rem;
+    border-radius: 10px;
+    cursor: pointer;
+    &-online {
+      background-color: green;
+    }
+    &-offline {
+      background-color: rgb(64, 137, 206);
+    }
+  }
+}
+.tg__users-select {
+  margin-top: 20px;
+  display: flex;
+  gap: 30px;
+}
+
+.google__meet-area{
+  display: flex;
+  flex-direction: row;
+}
+.google__meet-actions{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: var(--body-color);
+}
+.meet__options{
+  border: 1px solid var(--body-color);
+  padding: 0.4rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  textarea {
+    resize: none;
+    padding: 0.4rem;
+    border-radius: 10px;
+  }
+}
+
+.show__active-or-inactive{
+  display: flex;
+  gap: 10px;
+}
+

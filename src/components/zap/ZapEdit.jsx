@@ -8,11 +8,14 @@ import {
   editZapDeleteStatus,
   editZapEditData,
   editZapRedux,
+  editZapZakrStatus,
 } from "../../redux/slices/edit";
 import { useEffect } from "react";
 import socket from "../../utils/socket";
 import { useState } from "react";
 import moment from "moment";
+import { MdDoneOutline } from "react-icons/md";
+import { GiCancel } from "react-icons/gi";
 const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const userData = useSelector((state) => state.auth.data);
@@ -21,7 +24,7 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
   const dispatch = useDispatch();
   const zapEditStatus = useSelector((state) => state.edit.zapEdit);
   const zapDeleteStatus = useSelector((state) => state.edit.zapDeleteStatus);
-  const [zapDelete,setZapDelete] = useState(false)
+  const [zapDelete, setZapDelete] = useState(false);
   const editCurrentZap = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -34,8 +37,10 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
         zapText: item.ZAPTEXT,
         zapKod: item.KOD,
         zapKodOs: item.KOD_OS,
-        zapCina:item.ZAPCINA,
-        zapGroup:item.KOD_GROUP
+        zapCina: item.ZAPCINA,
+        zapGroup: item.KOD_GROUP,
+        zapKodZam:item.KOD_ZAM,
+        pKilAm:item.KILAMACT
       })
     );
   };
@@ -68,59 +73,51 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
     e.stopPropagation();
   };
 
-  const showDelete = async (e)=>{
+  const showDelete = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-  
-    console.log(item);
-    if (item.ZAPCINA === 1) {
-      try {
-        if (window.confirm("Ви впевнені що хочете видалити дану заявку?")) {
-          const data = await axios.post("/zap/delete", {
-            pKodAuthor: userData?.KOD,
-            pStatus: 6,
-            pKodZap: item.KOD,
-          });
-          setZapMenu(false);
-          if (data.status === 200) {
-            socket.emit("deleteZap", item.KOD);
-          }
-        } else {
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }else {
-      dispatch(editZapDeleteStatus())
-      dispatch(
-        editZapDeleteData({
-          pKodAuthor:item.KOD_OS,
-          pKodZap:item.KOD
-        })
-      );
-    }
-
-  }
-  const deleteZap = async (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    try {
-      if (window.confirm("Ви впевнені що хочете видалити дану заявку?")) {
-        const data = await axios.post("/zap/delete", {
-          pKodAuthor: userData?.KOD,
-          pStatus: 1,
-          pKodZap: item.KOD,
-        });
-        setZapMenu(false);
-        if (data.status === 200) {
-          socket.emit("deleteZap", item.KOD);
-        }
-      } else {
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(editZapDeleteStatus());
+    dispatch(
+      editZapDeleteData({
+        pKodAuthor: item.KOD_OS,
+        pKodZap: item.KOD,
+      
+      })
+    );
   };
+  const showZakr = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    dispatch(editZapZakrStatus());
+    dispatch(
+      editZapDeleteData({
+        pKodAuthor: item.KOD_OS,
+        pKodZap: item.KOD,
+       
+      })
+    );
+  };
+  // const deleteZap = async (e) => {
+  //   e.stopPropagation();
+  //   e.preventDefault();
+  //   try {
+  //     if (window.confirm("Ви впевнені що хочете видалити дану заявку?")) {
+  //       const data = await axios.post("/zap/delete", {
+  //         pKodAuthor: userData?.KOD,
+  //         pStatus: 1,
+  //         pKodZap: item.KOD,
+  //       });
+  //       setZapMenu(false);
+  //       if (data.status === 200) {
+  //         socket.emit("deleteZap", item.KOD);
+  //       }
+  //     } else {
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   useEffect(() => {}, [zap]);
   return (
     <>
@@ -133,25 +130,15 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
           <BiRefresh />
           <span>Оновити заявку</span>
         </i>
+        <i onClick={showZakr} className="zap__edit-block zap__edit-delete">
+          <MdDoneOutline />
+          <span>Закрита нами</span>
+        </i>
         <i onClick={showDelete} className="zap__edit-block zap__edit-delete">
-          <AiFillDelete />
-          <span>Видалити</span>
+          <GiCancel />
+          <span>Відмінена</span>
         </i>
       </div>
-
-      {/* {zapDelete ? <div className="zap__delete-block">321321321321</div> : null } */}
-      {/* {zapEditStatus ? (
-        <div className="zap__edit-form">
-          <div className="zap__edit-form-container">
-            <form>
-              <div className="form__control">
-                <label>Завантаження</label>
-                <input type="text" />
-              </div>
-            </form>
-          </div>
-        </div>
-      ) : null} */}
     </>
   );
 };
