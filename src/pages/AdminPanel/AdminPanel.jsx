@@ -99,6 +99,7 @@ const AdminPanel = () => {
               status: 4,
               users:allTgUsers,
               date:moment(dateTime).format('LLL'),
+              dateToRemind:dateTime,
               title:meetTitle
             });
           }
@@ -115,6 +116,7 @@ const AdminPanel = () => {
               status: 5,
               users:choosenUsers,
               date:moment(dateTime).format('LLL'),
+              dateToRemind:dateTime,
               title:meetTitle
             });
           }
@@ -130,6 +132,7 @@ const AdminPanel = () => {
               GOOGLEMEET: userData?.GOOGLEMEET,
               status: 6,
               date:moment(dateTime).format('LLL'),
+              dateToRemind:dateTime,
               title:meetTitle
             });
           }
