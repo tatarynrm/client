@@ -47,8 +47,9 @@ const LogisticWork = () => {
   const [openManager, setOpenManager] = useState(false);
   const [choosenUsers, setChoosenUsers] = useState([]);
   const [cinaFilter, setCinaFilter] = useState(false);
+  const [krainaZakr,setKrainaZakr] = useState(false)
   const { width, height } = useWindowSize();
-  console.log('-----',addZapSuccess);
+  
   const showAddZap = () => {
     setAddZap((value) => !value);
   };
@@ -184,6 +185,7 @@ const LogisticWork = () => {
 useEffect(()=>{
 
 },[])
+console.log(zap.filter(item => item.ZAKRKRAINA > 0));
   return (
     <div className="logistic logistic__work container">
       { addZapSuccess ?<Confetti width={width} height={height} /> : null }  
@@ -233,6 +235,7 @@ useEffect(()=>{
             Лише мої заявки
           </button>
         )}
+        {/* {zap.filter(item => item.ZAKRKRAINA > 0 ? <button>Закріплено за мною</button> : null )} */}
         {cinaFilter ? (
           <button
             onClick={() => setCinaFilter((value) => !value)}
@@ -248,7 +251,7 @@ useEffect(()=>{
             Запит ціни
           </button>
         )}
-
+{krainaZakr ? <button onClick={()=>setKrainaZakr(val=>!val)} className="normal">Приховати фільтр </button> : <button onClick={()=>setKrainaZakr(val=>!val)} className="normal">Фільтр по закр/країнах</button> }
         <div>
           <button
             className="normal"
@@ -325,7 +328,8 @@ useEffect(()=>{
       {zapAddSlice ? (
         <AddZap showAddZap={showAddZap} selectedGroup={selectedGroup} />
       ) : null}
-
+        {krainaZakr && <h3 className="filter__title">Фільтр по закріпленими за вами країнами</h3> }
+        {cinaFilter && <h3 className="filter__title">Фільтр по заявках : ЗАПИТ ЦІНИ</h3> }
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -339,6 +343,7 @@ useEffect(()=>{
         // }}
         className="zap__list"
       >
+
         {myZapSelect && (
           <div className="my__func">
             <button onClick={refreshMyZap} className="reload__my-func normal">
@@ -370,6 +375,7 @@ useEffect(()=>{
               choosenUsers.length > 0 ? choosenUsers.includes(item.PIP) : item
             )
             .filter((item) => (cinaFilter ? item.ZAPCINA === 1 : item))
+            .filter((item) => (krainaZakr ?   item.ZAKRKRAINA > 0 : item ))
             .sort((a, b) => toTimestamp(b.DATUPDATE) - toTimestamp(a.DATUPDATE))
             .map((item, idx) => {
               return (
