@@ -177,7 +177,9 @@ function App() {
             userData?.KOD === 4611 ||
             userData?.KOD === 3711 ||
             userData?.KOD === 2811 ||
-            userData?.KOD === 6411 ? (
+            userData?.KOD === 6411 ||
+            userData?.KOD === 19011 
+            ? (
               <Route path={`/admin`} element={<AdminPanel />} />
             ) : null}
           </Route>
