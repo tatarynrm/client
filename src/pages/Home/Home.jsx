@@ -19,6 +19,7 @@ import { fetchAllZap, fetchZap } from "../../redux/slices/zap";
 import { generateUniqueRGBColors } from "../../helpers/colors";
 import { todayDate } from "../../helpers/dates";
 import { fetchEvents } from "../../redux/slices/events";
+import HomeMap from "../../components/maps/HomeMap";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 const Home = () => {
@@ -126,6 +127,7 @@ useEffect(()=>{
     return (
       <div className="home container">
         <p>Перейдіть на вкладку завантаження</p>
+        {/* <HomeMap/> */}
       </div>
 
     )

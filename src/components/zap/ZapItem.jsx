@@ -7,7 +7,7 @@ import { AiOutlineComment } from "react-icons/ai";
 import { FiTruck } from "react-icons/fi";
 import { FaCommentSlash } from "react-icons/fa";
 import { MdPriceChange } from "react-icons/md";
-import { FcOrganization } from "react-icons/fc";
+import { FcOrganization, FcUnlock } from "react-icons/fc";
 import ZapEdit from "../../components/zap/ZapEdit";
 import { useSelector } from "react-redux";
 const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
@@ -88,14 +88,9 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
       </div>
       <div className="zap__cities">
         <div>
-          <span title={`Завантаження\n${item.ZAV}`}>
-            {item.ZAV}{" "}
-          </span>{" "}
-          <br /> - <br />
-          <span title={`Завантаження\n${item.ROZV}`}>
-            {" "}
-            {item.ROZV}
-          </span>
+          <span title={`Завантаження\n${item.ZAV}`}>{item.ZAV} </span> <br /> -{" "}
+          <br />
+          <span title={`Завантаження\n${item.ROZV}`}> {item.ROZV}</span>
         </div>
       </div>
       <div title="Основна інформація по завантаженні" className="zap__text">
@@ -112,6 +107,13 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
         <div className="zap__zam" title="Замовник">
           <span>
             <FcOrganization /> {item.ZAM}
+          </span>
+        </div>
+      )}
+      {item.ZAKRKRAINA > 0 && (
+        <div title="Закріплено за вами" className="your__zap">
+          <span>
+            <FcUnlock />
           </span>
         </div>
       )}
