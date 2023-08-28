@@ -185,7 +185,7 @@ const LogisticWork = () => {
 useEffect(()=>{
 
 },[])
-console.log(zap.filter(item => item.ZAKRKRAINA > 0));
+// const onlyKrainaUsers = zap.filter(item => item.ZAKRKRAINA > 0);
   return (
     <div className="logistic logistic__work container">
       { addZapSuccess ?<Confetti width={width} height={height} /> : null }  

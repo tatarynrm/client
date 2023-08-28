@@ -112,7 +112,7 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
       )}
       {item.ZAKRKRAINA > 0 && (
         <div title="Закріплено за вами" className="your__zap">
-          <span>
+          <span> Закріплено за вами
             <FcUnlock />
           </span>
         </div>
