@@ -38,6 +38,7 @@ const ZapComments = ({ showComments, selectedZap }) => {
           pKodAuthor: userData?.KOD,
           pKodZap: selectedZap.KOD,
           pComment: comment,
+          
         });
         if (data.status === 200) {
           setComment("");
@@ -49,6 +50,7 @@ const ZapComments = ({ showComments, selectedZap }) => {
             zapAuthor: selectedZap.KOD_OS,
             pKodComment: data.data.outBinds.pKodCom,
             telegramId: selectedZap.TELEGRAMID,
+            selectedZap
           });
           socket.emit("myZapComment", {
             PIP: userData?.PIP,
@@ -57,6 +59,7 @@ const ZapComments = ({ showComments, selectedZap }) => {
             pComment: comment,
             zapAuthor: selectedZap.KOD_OS,
             pKodComment: data.data.outBinds.pKodCom,
+            selectedZap
           });
         }
       }
