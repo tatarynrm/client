@@ -189,7 +189,7 @@ function App() {
         {zapZakrStatus ? <ZapZakrForm /> : null}
         {eventsOpen && <NotificationPanel />}
         {mailOpen && <NotificationMail />}
-        {googleMeetOpen ? <GoogleMeetItem /> : null}
+        {/* {googleMeetOpen ? <GoogleMeetItem /> : null} */}
         <ToastContainer />
         <MessageFromAdmin />
         <ZapReminder />

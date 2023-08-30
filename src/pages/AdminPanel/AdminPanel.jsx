@@ -25,13 +25,13 @@ const AdminPanel = () => {
   const events = useSelector((state) => state.events.events.items);
   const [choosenUsers, setChoosenUsers] = useState([]);
   const [activeUsersCompare, setActiveUsersCompare] = useState([]);
-
+  const [googleMeetLink,setGoogleMeetLink] = useState([])
+  const [nachVid,setNachVid] = useState([])
   const [dateTime, setDateTime] = useState("");
   const [meetTitle, setMeetTitle] = useState("");
-  // console.log(new Date(dateTime).toUTCString());
-//   console.log();
-// console.log(dateTime);
-// console.log(meetTitle);
+  console.log(nachVid);
+
+
   const showActiveUsersAtList = () => {
     socket.emit("activeUsersToCompare");
   };
@@ -66,7 +66,7 @@ const AdminPanel = () => {
       case 1:
         if (window.confirm("Розпочати миттєву нараду з усіма?")) {
           socket.emit("startGoogleMeet", {
-            GOOGLEMEET: userData?.GOOGLEMEET,
+            GOOGLEMEET: googleMeetLink,
             status: 1,
             users:allTgUsers
           });
@@ -75,7 +75,7 @@ const AdminPanel = () => {
       case 2:
         if (window.confirm("Розпочати миттєву нараду з обраними менеджерами?")) {
           socket.emit("startGoogleMeet", {
-            GOOGLEMEET: userData?.GOOGLEMEET,
+            GOOGLEMEET: googleMeetLink,
             status: 2,
             users:choosenUsers
           });
@@ -84,7 +84,7 @@ const AdminPanel = () => {
       case 3:
         if (window.confirm("Розпочати миттєву нараду з активними менеджерами?")) {
           socket.emit("startGoogleMeet", {
-            GOOGLEMEET: userData?.GOOGLEMEET,
+            GOOGLEMEET: googleMeetLink,
             status: 3,
           });
         }
@@ -95,7 +95,7 @@ const AdminPanel = () => {
             alert('Заповніть дату та тему наради')
           }else {
             socket.emit("startGoogleMeet", {
-              GOOGLEMEET: userData?.GOOGLEMEET,
+              GOOGLEMEET: googleMeetLink,
               status: 4,
               users:allTgUsers,
               date:moment(dateTime).format('LLL'),
@@ -112,7 +112,7 @@ const AdminPanel = () => {
             alert('Заповніть дату та тему наради')
           }else {
             socket.emit("startGoogleMeet", {
-              GOOGLEMEET: userData?.GOOGLEMEET,
+              GOOGLEMEET: googleMeetLink,
               status: 5,
               users:choosenUsers,
               date:moment(dateTime).format('LLL'),
@@ -129,7 +129,7 @@ const AdminPanel = () => {
             alert('Заповніть дату та тему наради')
           }else {
             socket.emit("startGoogleMeet", {
-              GOOGLEMEET: userData?.GOOGLEMEET,
+              GOOGLEMEET: googleMeetLink,
               status: 6,
               date:moment(dateTime).format('LLL'),
               dateToRemind:dateTime,
@@ -226,7 +226,6 @@ const AdminPanel = () => {
   useEffect(() => {}, [events]);
   useEffect(() => {}, [activeUsersCompare]);
 
-  // console.log(activeUsersCompare);
   return (
     <div className="admin container">
       <div className="admin__inner">
@@ -344,6 +343,9 @@ const AdminPanel = () => {
                       ? "Зняти виділення"
                       : "Вибрати усіх"}
                   </button>
+                  <button className="normal" onClick={()=>setNachVid(allTgUsers.filter(item=> item.ISNV === 1))}>
+                    Начальники відділів
+                  </button>
                   <button className="normal" onClick={showActiveUsersAtList}>
                     Показати активних
                   </button>
@@ -364,7 +366,9 @@ const AdminPanel = () => {
                             )
                               ? "tg__user-online"
                               : "tg__user-offline"
-                          }`}
+                          } ${nachVid.length > 0  && nachVid.find( 
+                            val => val.ISNV === item.ISNV
+                          )? "tg__user-nach-vid" : "" }`}
                           key={idx}
                         >
                           <input
@@ -383,6 +387,14 @@ const AdminPanel = () => {
             <div className="google__meet-actions">
               <div className="immidate__meet meet__options">
                 <h2>Миттєва нарада</h2>
+                <div className="form__control">
+                  <input
+                    type="text"
+                    placeholder="Посилання на нараду"
+                    value={googleMeetLink}
+                    onChange={e=> setGoogleMeetLink(e.target.value)}
+                  />
+                </div>
                 <div className="tg__users-select">
                   <button onClick={() => startGoogleMeet(1)} className="normal">
                     Розпочати нараду з усіма
@@ -399,6 +411,15 @@ const AdminPanel = () => {
 
               <div className="time__select meet__options">
                 <h2>Нарада за розкладом</h2>
+
+                <div className="form__control">
+                  <input
+                    type="text"
+                    placeholder="Посилання на нараду"
+                    value={googleMeetLink}
+                    onChange={e=> setGoogleMeetLink(e.target.value)}
+                  />
+                </div>
                 <div className="form__control">
                   <input
                     type="datetime-local"
