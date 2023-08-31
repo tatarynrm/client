@@ -29,7 +29,7 @@ const AdminPanel = () => {
   const [nachVid,setNachVid] = useState([])
   const [dateTime, setDateTime] = useState("");
   const [meetTitle, setMeetTitle] = useState("");
-  console.log(nachVid);
+  console.log(choosenUsers);
 
 
   const showActiveUsersAtList = () => {
@@ -343,7 +343,13 @@ const AdminPanel = () => {
                       ? "Зняти виділення"
                       : "Вибрати усіх"}
                   </button>
-                  <button className="normal" onClick={()=>setNachVid(allTgUsers.filter(item=> item.ISNV === 1))}>
+                  <button className="normal" onClick={()=>{
+                    setNachVid(allTgUsers.filter(item=> item.ISNV === 1))
+                    selectAllChoosenUsers(
+                      nachVid.filter((item) => item.ISNV === 1).map(val => val.TELEGRAMID)
+                    )
+                    
+                  }}>
                     Начальники відділів
                   </button>
                   <button className="normal" onClick={showActiveUsersAtList}>
@@ -362,7 +368,7 @@ const AdminPanel = () => {
                           className={`tg__user ${
                             activeUsersCompare.length > 0 &&
                             activeUsersCompare.find(
-                              (val) => val.TELEGRAMID == item.TELEGRAMID
+                              (val) => val.TELEGRAMID === item.TELEGRAMID
                             )
                               ? "tg__user-online"
                               : "tg__user-offline"
