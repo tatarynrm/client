@@ -8,6 +8,7 @@ import moment from "moment";
 import "moment/locale/uk";
 const Worker = () => {
   const { users } = useSelector((state) => state.users);
+  const [base64Data, setBase64Data] = useState('');
   const { id } = useParams();
   const [zas, setZas] = useState([]);
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const Worker = () => {
   }, [id]);
 
   useEffect(()=>{},[id,users])
+
   return (
     <div className="worker">
       <button className="go__back danger" onClick={() => navigate(-1)}>
@@ -87,6 +89,7 @@ const Worker = () => {
           )}
         </div>
       )}
+      {/* {users?.items.FOTO !== null && blobToBase64(users?.items.FOTO).then(res => console.log(res))  } */}
       <h3 style={{ textAlign: "left" }}>
         Засоби у використанні:{zas.length > 0 ? zas.length : "Відсутні"}
       </h3>

@@ -29,7 +29,6 @@ const [openBurger,setOpenBurger] = useState(false)
     <header className="header">
       <div className="header__wrapper container">
         <HeaderLogo />
-  
         {token ? <HeaderTime /> : null}
         {token ? <HeaderNav openBurger={openBurger} setOpenBurger={setOpenBurger} /> : null}
         {token ? <HeaderNotifications /> : null}

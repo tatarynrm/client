@@ -40,7 +40,7 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
         zapCina: item.ZAPCINA,
         zapGroup: item.KOD_GROUP,
         zapKodZam:item.KOD_ZAM,
-        pKilAm:item.KILAMACT
+        pKilAm:item.KILAMACT,
       })
     );
   };

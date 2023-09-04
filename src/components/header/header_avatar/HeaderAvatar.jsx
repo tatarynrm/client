@@ -17,7 +17,6 @@ const HeaderAvatar = () => {
   const userData = useSelector((state) => state.auth.data);
   const [open,setOpen] = useState(false)
   const navigate = useNavigate();
-  // const location = window.location.pathname.slice(1, 100);
   const logoutFromAccount = () => {
     dispatch(logout());
     window.localStorage.clear();

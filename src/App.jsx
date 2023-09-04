@@ -34,9 +34,6 @@ import GoogleMeetItem from "./components/google_meet/GoogleMeetItem";
 import { changeGoogleMeetOpen } from "./redux/slices/edit";
 import { addGoogleMeetEvent } from "./redux/slices/events";
 import ZapZakrForm from "./components/zap/ZapZakrForm";
-// import Meetign from "./components/meeting/Meetign";
-// import MeetingPage from "./pages/Meeting/MeetingPage";
-
 function App() {
   const dispatch = useDispatch();
   const token = window.localStorage.getItem("token");
@@ -50,19 +47,19 @@ function App() {
   const mailOpen = useSelector((state) => state.edit.mailOpen);
   const location = useLocation();
   const googleMeet = window.localStorage.getItem("googleMeet");
-  const events = useSelector(state => state.events.events.items)
+  const events = useSelector((state) => state.events.events.items);
   useEffect(() => {
     dispatch(fetchAuthMe());
   }, [dispatch]);
   useEffect(() => {
     socket.on("showStartGoogleMeet", (data) => {
-      dispatch(changeGoogleMeetOpen())
-      dispatch(addGoogleMeetEvent(data))
+      dispatch(changeGoogleMeetOpen());
+      dispatch(addGoogleMeetEvent(data));
     });
   }, [socket]);
   useEffect(() => {
     socket.on("showStartGoogleMeetWithTime", (data) => {
-      dispatch(changeGoogleMeetOpen())
+      dispatch(changeGoogleMeetOpen());
       // dispatch(addGoogleMeetEvent(data))
     });
   }, [socket]);
@@ -135,7 +132,7 @@ function App() {
             PUNKTZ: data.pPunktZ,
             PUNKTR: data.pPunktR,
             KILAM: data.pKilAm,
-            KILAMACT:data.pKilAm
+            KILAMACT: data.pKilAm,
           })
         );
         notifyNewZap(userData, data);
@@ -143,8 +140,6 @@ function App() {
       });
     }
   }, [socket]);
-
-
 
   useEffect(() => {
     socket.on("logoutAllUsers", (data) => {
@@ -178,8 +173,7 @@ function App() {
             userData?.KOD === 3711 ||
             userData?.KOD === 2811 ||
             userData?.KOD === 6411 ||
-            userData?.KOD === 19011 
-            ? (
+            userData?.KOD === 19011 ? (
               <Route path={`/admin`} element={<AdminPanel />} />
             ) : null}
           </Route>

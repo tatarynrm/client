@@ -55,21 +55,16 @@ const tgCheck = async (e)=>{
       window.localStorage.setItem('token',tokenData);
     }
   } catch (error) {
-    
+    console.log(error);
   }
 }
 
 useEffect(()=>{
   
 },[token])
-
-
   if (token) {
     return navigate("/");
   }
-
-
-
   return (
 <> {
 
