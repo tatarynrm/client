@@ -84,7 +84,8 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
         <div
           className="zap__author-time"
           title="Час створення заявки"
-        >{`${moment(item.DATUPDATE).startOf("minute").fromNow()}`}</div>
+        >{`${moment(item.DATUPDATE).startOf("minute").fromNow()}`}
+        </div>
       </div>
       <div className="zap__cities">
         <div>

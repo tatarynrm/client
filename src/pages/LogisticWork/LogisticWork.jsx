@@ -49,7 +49,7 @@ const LogisticWork = () => {
   const [cinaFilter, setCinaFilter] = useState(false);
   const [krainaZakr,setKrainaZakr] = useState(false)
   const { width, height } = useWindowSize();
-  
+
   const showAddZap = () => {
     setAddZap((value) => !value);
   };
@@ -137,6 +137,12 @@ const LogisticWork = () => {
   dispatch(showEditReduxZapCarCount(data));
  })
   }, []);
+
+  useEffect(()=>{
+if (commentsClass === true) {
+  window.scrollTo(0,0)
+}
+  },[commentsClass])
   const containerProp = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
