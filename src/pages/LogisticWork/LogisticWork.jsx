@@ -33,7 +33,7 @@ const LogisticWork = () => {
   const userData = useSelector((state) => state.auth.data);
   const groups = useSelector((state) => state.zap.zap.groups);
   const zap = useSelector((state) => state.zap.zap.items);
-  const addZapSuccess = useSelector((state) => state.edit.addZapSuccess)
+  const addZapSuccess = useSelector((state) => state.edit.addZapSuccess);
   const [commentsClass, setCommentsClass] = useState(false);
   const [selectedZap, setSelectedZap] = useState(null);
   const [addZap, setAddZap] = useState(false);
@@ -47,8 +47,11 @@ const LogisticWork = () => {
   const [openManager, setOpenManager] = useState(false);
   const [choosenUsers, setChoosenUsers] = useState([]);
   const [cinaFilter, setCinaFilter] = useState(false);
-  const [krainaZakr,setKrainaZakr] = useState(false)
+  const [krainaZakr, setKrainaZakr] = useState(false);
   const { width, height } = useWindowSize();
+  const [filterByKraina, setFilterByKraina] = useState([]);
+  const [krainaFilter, setKrainaFilter] = useState(true);
+  const [choosenKraina, setChoosenKraina] = useState([]);
 
   const showAddZap = () => {
     setAddZap((value) => !value);
@@ -132,17 +135,17 @@ const LogisticWork = () => {
     });
   }, []);
   useEffect(() => {
- socket.on('showChangeCountAm',data =>{
-  console.log('DAAAAAAAAAA',data);
-  dispatch(showEditReduxZapCarCount(data));
- })
+    socket.on("showChangeCountAm", (data) => {
+      console.log("DAAAAAAAAAA", data);
+      dispatch(showEditReduxZapCarCount(data));
+    });
   }, []);
 
-  useEffect(()=>{
-if (commentsClass === true) {
-  window.scrollTo(0,0)
-}
-  },[commentsClass])
+  useEffect(() => {
+    if (commentsClass === true) {
+      window.scrollTo(0, 0);
+    }
+  }, [commentsClass]);
   const containerProp = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
@@ -174,6 +177,15 @@ if (commentsClass === true) {
       setChoosenUsers([...choosenUsers, item]);
     }
   };
+  const setKrainaToChoosen = (item) => {
+    if (choosenKraina.includes(item)) {
+      setChoosenKraina(
+        choosenUsers.filter((selectedItem) => selectedItem !== item)
+      );
+    } else {
+      setChoosenKraina([...choosenKraina, item]);
+    }
+  };
   const refreshMyZap = async () => {
     const myZap = zap.filter((item) => item.KOD_OS === userData?.KOD);
     myZap.forEach((element) => {
@@ -188,14 +200,25 @@ if (commentsClass === true) {
       console.log(error);
     }
   };
-useEffect(()=>{
+  useEffect(() => {
+    if (zap) {
+      let uniq = [];
+      for (let i = 0; i < zap.length; i++) {
+        const el = zap[i];
+        uniq.push(el.KRAINAZAV);
+        uniq.push(el.KRAINAROZV);
+        //  console.log(new Set(uniq.filter(item => item !== null)));
+        const myArray = new Set(uniq.filter((item) => item !== null));
 
-},[])
-// const onlyKrainaUsers = zap.filter(item => item.ZAKRKRAINA > 0);
+        setFilterByKraina([...myArray]);
+      }
+    }
+  }, [zap]);
+  // const onlyKrainaUsers = zap.filter(item => item.ZAKRKRAINA > 0);
   return (
     <div className="logistic logistic__work container">
-      { addZapSuccess ?<Confetti width={width} height={height} /> : null }  
-      <div className="active__users-length">
+      {addZapSuccess ? <Confetti width={width} height={height} /> : null}
+      {/* <div className="active__users-length">
         {" "}
         <button
           onClick={() => setShowActiveUsers((value) => !value)}
@@ -205,7 +228,7 @@ useEffect(()=>{
           {activeUsers?.length}
         </button>
         {showActiveUsers && <ActiveUsersList users={activeUsers} />}
-      </div>
+      </div> */}
       <div className="logistic__work-nav">
         <button onClick={() => dispatch(editZapAddSlice())} className="normal">
           {zapAddSlice ? "Приховати" : "Добавити вантаж"}
@@ -257,7 +280,22 @@ useEffect(()=>{
             Запит ціни
           </button>
         )}
-{krainaZakr ? <button onClick={()=>setKrainaZakr(val=>!val)} className="normal">Приховати фільтр </button> : <button onClick={()=>setKrainaZakr(val=>!val)} className="normal">Фільтр по закр/країнах</button> }
+        {krainaZakr ? (
+          <button
+            onClick={() => setKrainaZakr((val) => !val)}
+            className="normal"
+          >
+            Приховати фільтр{" "}
+          </button>
+        ) : (
+          <button
+            onClick={() => setKrainaZakr((val) => !val)}
+            className="normal"
+          >
+            Фільтр по закр/країнах
+          </button>
+        )}
+
         <div>
           <button
             className="normal"
@@ -283,6 +321,37 @@ useEffect(()=>{
             </div>
           )}
         </div>
+        {krainaFilter ? (
+          <button
+            onClick={() => setKrainaFilter((val) => !val)}
+            className="normal"
+          >
+            Приховати фільтр{" "}
+          </button>
+        ) : (
+          <button
+            onClick={() => setKrainaFilter((val) => !val)}
+            className="normal"
+          >
+            Фільтр Країни
+          </button>
+        )}
+        {krainaFilter && (
+          <div className="pip__filter">
+            {filterByKraina.filter(item => item !== 'UA').map((item) => {
+              return (
+                <div key={item} className="choose__user">
+                  <input
+                    type="checkbox"
+                    checked={choosenKraina.includes(item)}
+                    onChange={() => setKrainaToChoosen(item)}
+                  />
+                  <button onClick={() => setKrainaToChoosen(item)}>{item}</button>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
       <div className="zap__rules">
         <div className="zap__rules-block">
@@ -334,8 +403,14 @@ useEffect(()=>{
       {zapAddSlice ? (
         <AddZap showAddZap={showAddZap} selectedGroup={selectedGroup} />
       ) : null}
-        {krainaZakr && <h3 className="filter__title">Фільтр по закріпленими за вами країнами</h3> }
-        {cinaFilter && <h3 className="filter__title">Фільтр по заявках : ЗАПИТ ЦІНИ</h3> }
+      {krainaZakr && (
+        <h3 className="filter__title">
+          Фільтр по закріпленими за вами країнами
+        </h3>
+      )}
+      {cinaFilter && (
+        <h3 className="filter__title">Фільтр по заявках : ЗАПИТ ЦІНИ</h3>
+      )}
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -349,7 +424,6 @@ useEffect(()=>{
         // }}
         className="zap__list"
       >
-
         {myZapSelect && (
           <div className="my__func">
             <button onClick={refreshMyZap} className="reload__my-func normal">
@@ -380,8 +454,11 @@ useEffect(()=>{
             .filter((item) =>
               choosenUsers.length > 0 ? choosenUsers.includes(item.PIP) : item
             )
+            .filter((item) =>
+              choosenKraina.length > 0 ? choosenKraina.includes(item.KRAINAZAV || item.KRAINAROZV) : item
+            )
             .filter((item) => (cinaFilter ? item.ZAPCINA === 1 : item))
-            .filter((item) => (krainaZakr ?   item.ZAKRKRAINA > 0 : item ))
+            .filter((item) => (krainaZakr ? item.ZAKRKRAINA > 0 : item))
             .sort((a, b) => toTimestamp(b.DATUPDATE) - toTimestamp(a.DATUPDATE))
             .map((item, idx) => {
               return (
