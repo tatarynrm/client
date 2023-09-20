@@ -50,7 +50,7 @@ const LogisticWork = () => {
   const [krainaZakr, setKrainaZakr] = useState(false);
   const { width, height } = useWindowSize();
   const [filterByKraina, setFilterByKraina] = useState([]);
-  const [krainaFilter, setKrainaFilter] = useState(true);
+  const [krainaFilter, setKrainaFilter] = useState(false);
   const [choosenKraina, setChoosenKraina] = useState([]);
 
   const showAddZap = () => {
@@ -209,11 +209,12 @@ const LogisticWork = () => {
         uniq.push(el.KRAINAROZV);
         //  console.log(new Set(uniq.filter(item => item !== null)));
         const myArray = new Set(uniq.filter((item) => item !== null));
-
+        console.log(myArray);
         setFilterByKraina([...myArray]);
       }
     }
   }, [zap]);
+  console.log(filterByKraina);
   // const onlyKrainaUsers = zap.filter(item => item.ZAKRKRAINA > 0);
   return (
     <div className="logistic logistic__work container">
@@ -338,18 +339,22 @@ const LogisticWork = () => {
         )}
         {krainaFilter && (
           <div className="pip__filter">
-            {filterByKraina.filter(item => item !== 'UA').map((item) => {
-              return (
-                <div key={item} className="choose__user">
-                  <input
-                    type="checkbox"
-                    checked={choosenKraina.includes(item)}
-                    onChange={() => setKrainaToChoosen(item)}
-                  />
-                  <button onClick={() => setKrainaToChoosen(item)}>{item}</button>
-                </div>
-              );
-            })}
+            {filterByKraina
+              .filter((item) => item !== "UA")
+              .map((item, idx) => {
+                return (
+                  <div key={idx} className="choose__user">
+                    <input
+                      type="checkbox"
+                      checked={choosenKraina.includes(item)}
+                      onChange={() => setKrainaToChoosen(item)}
+                    />
+                    <button onClick={() => setKrainaToChoosen(item)}>
+                      {item}
+                    </button>
+                  </div>
+                );
+              })}
           </div>
         )}
       </div>
@@ -455,7 +460,9 @@ const LogisticWork = () => {
               choosenUsers.length > 0 ? choosenUsers.includes(item.PIP) : item
             )
             .filter((item) =>
-              choosenKraina.length > 0 ? choosenKraina.includes(item.KRAINAZAV || item.KRAINAROZV) : item
+              choosenKraina.length > 0
+                ? choosenKraina.includes(item.KRAINAZAV || item.KRAINAROZV)
+                : item
             )
             .filter((item) => (cinaFilter ? item.ZAPCINA === 1 : item))
             .filter((item) => (krainaZakr ? item.ZAKRKRAINA > 0 : item))

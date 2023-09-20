@@ -6,7 +6,6 @@ const HeaderLogo = () => {
   const token = window.localStorage.getItem("token");
   return (
     <Link className="header__logo" to={token ? "/" : "/login"}>
-      {/* <Button text={"ICT - Захід"} cls={"normal"} /> */}
       <img style={{width:"10vh",height:"10vh"}} src={mainLogo} alt="logo" />
     </Link>
   );
