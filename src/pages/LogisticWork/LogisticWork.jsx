@@ -205,11 +205,12 @@ const LogisticWork = () => {
       let uniq = [];
       for (let i = 0; i < zap.length; i++) {
         const el = zap[i];
-        uniq.push(el.KRAINAZAV);
-        uniq.push(el.KRAINAROZV);
-        //  console.log(new Set(uniq.filter(item => item !== null)));
+        console.log(el);
+        uniq.push(el.KRAINA);
+        // uniq.push(el.KRAINAROZV);
+        // //  console.log(new Set(uniq.filter(item => item !== null)));
         const myArray = new Set(uniq.filter((item) => item !== null));
-        console.log(myArray);
+        // console.log(myArray);
         setFilterByKraina([...myArray]);
       }
     }
@@ -461,7 +462,7 @@ const LogisticWork = () => {
             )
             .filter((item) =>
               choosenKraina.length > 0
-                ? choosenKraina.includes(item.KRAINAZAV || item.KRAINAROZV)
+                ? choosenKraina.includes(item.KRAINA)
                 : item
             )
             .filter((item) => (cinaFilter ? item.ZAPCINA === 1 : item))
