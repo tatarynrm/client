@@ -71,6 +71,8 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 40px;
+
+
 }
 .zap {
   position: relative;
@@ -84,7 +86,9 @@
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   transition: all 0.2s ease;
-
+  // width: 100px;
+  // display: flex;
+  // flex-wrap: wrap;
   &:hover {
     cursor: pointer;
     scale: 1.03;
@@ -95,6 +99,7 @@
     font-size: 13px;
     color: var(--body-color);
   }
+
 }
 .zap__author {
   display: flex;

@@ -448,6 +448,8 @@ const LogisticWork = () => {
                     item.ROZV.toLowerCase().includes(searchFilter) ||
                     item.PIP.toUpperCase().includes(searchFilter) ||
                     item.PIP.toLowerCase().includes(searchFilter) ||
+                    item.ZAM?.toLowerCase().includes(searchFilter) ||
+                    item.ZAM?.toUpperCase().includes(searchFilter) ||
                     item.KOD.toString().includes(searchFilter);
             })
             .filter((item) => {
