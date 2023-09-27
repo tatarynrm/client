@@ -6,7 +6,7 @@ const HeaderLogo = () => {
   const token = window.localStorage.getItem("token");
   return (
     <Link className="header__logo" to={token ? "/" : "/login"}>
-      <img style={{width:"10vh",height:"10vh"}} src={mainLogo} alt="logo" />
+      <img style={{width:"10vh",height:"10vh"}} src={require('../../../assets/main__logo.png')} alt="logo" />
     </Link>
   );
 };
