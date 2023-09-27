@@ -9,7 +9,6 @@ import TruckLoader from "../../components/loaders/TruckLoader";
 import toTimestamp from "../../helpers/functions";
 const Transportation = () => {
   const  cargos  = useSelector((state) => state.cargos.cargos.items);
-  console.log(cargos);
   // const [isLoading, setIsLoading] = useState(false);
   // const [searchParams, setSearchParams] = useSearchParams();
   const userData = useSelector((state) => state.auth.data);

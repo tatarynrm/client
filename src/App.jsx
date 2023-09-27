@@ -112,7 +112,6 @@ function App() {
 
     if (token) {
       socket.on("showNewZap", (data) => {
-        console.log("--------------show-new-zap", data);
         dispatch(
           addReduxZap({
             DAT: date,

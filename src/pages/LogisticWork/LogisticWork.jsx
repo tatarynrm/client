@@ -110,7 +110,7 @@ const LogisticWork = () => {
   }, [socket]);
   useEffect(() => {
     socket.on("refreshAllZap", (data) => {
-      console.log(data);
+    
       dispatch(refreshReduxZap(data));
     });
   }, [zap]);
@@ -121,7 +121,7 @@ const LogisticWork = () => {
   }, [zap]);
   useEffect(() => {
     socket.on("showEditZapText", (data) => {
-      console.log(data);
+
       dispatch(showEditReduxZapText(data));
     });
   }, [zap]);
@@ -136,7 +136,7 @@ const LogisticWork = () => {
   }, []);
   useEffect(() => {
     socket.on("showChangeCountAm", (data) => {
-      console.log("DAAAAAAAAAA", data);
+    
       dispatch(showEditReduxZapCarCount(data));
     });
   }, []);
@@ -205,18 +205,12 @@ const LogisticWork = () => {
       let uniq = [];
       for (let i = 0; i < zap.length; i++) {
         const el = zap[i];
-        console.log(el);
         uniq.push(el.KRAINA);
-        // uniq.push(el.KRAINAROZV);
-        // //  console.log(new Set(uniq.filter(item => item !== null)));
-        const myArray = new Set(uniq.filter((item) => item !== null));
-        // console.log(myArray);
+        const myArray = new Set(uniq.filter((item) => item !== null));  
         setFilterByKraina([...myArray]);
       }
     }
   }, [zap]);
-  console.log(filterByKraina);
-  // const onlyKrainaUsers = zap.filter(item => item.ZAKRKRAINA > 0);
   return (
     <div className="logistic logistic__work container">
       {addZapSuccess ? <Confetti width={width} height={height} /> : null}

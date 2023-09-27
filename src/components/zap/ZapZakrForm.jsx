@@ -18,7 +18,6 @@ const ZapZakrForm = () => {
   const [userToClose, setUserToClose] = useState(null);
   const [carCount, setCarCount] = useState(1);
   const [usersToWarn, setUsersToWarn] = useState([]);
-  console.log(usersToWarn);
   const zakrZap = async () => {
     const obj = {
       pKodAutor: userData?.KOD,

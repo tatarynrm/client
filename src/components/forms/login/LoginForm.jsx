@@ -41,7 +41,6 @@ const LoginForm = () => {
     }
     if (data.payload.token) {
       setUserKod(data.payload.rows[0].KOD)
-      // console.log(data.payload.token);
       setTokenData(data.payload.token)
     }
   };

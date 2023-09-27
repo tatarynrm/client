@@ -11,7 +11,6 @@ const ZapDeleteForm = () => {
   const [textOption, setTextOption] = useState("Не закрита нами");
   const zapDeleteData = useSelector((state) => state.edit.zapDeleteData);
   const userData = useSelector(state => state.auth.data)
-  console.log(zapDeleteData);
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
     setTextOption(e.target.selectedOptions[0].text);

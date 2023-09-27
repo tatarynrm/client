@@ -35,7 +35,7 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
   const handleCountCarsChange =(e)=>{
     setCountCar(e.target.value);
   }
-  console.log(+countCar);
+
   const handleCheckboxChange = () => {
     setZapCina((prevChecked) => !prevChecked);
   };
@@ -75,7 +75,7 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
       } else {
         const data = await axios.post("/zap/add", object);
         if (data.status === 200) {
-          console.log(data);
+
           const dataKod = data.data.outBinds.pKodZap;
           const zamName = data.data.outBinds.pZamName;
           socket.emit("newZap", {
