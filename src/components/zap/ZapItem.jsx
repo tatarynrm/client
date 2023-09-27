@@ -98,7 +98,7 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
         {item.ZAPTEXT}
       </div>
 
-      {item.KILAMACT > 1 ? (
+      {item.KILAMACT ? (
         <i className="count__car">
           <FiTruck fill="white" /> <span>{item.KILAMACT}</span>{" "}
         </i>
