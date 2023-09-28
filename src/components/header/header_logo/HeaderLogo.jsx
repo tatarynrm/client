@@ -7,6 +7,7 @@ const HeaderLogo = () => {
   return (
     <Link className="header__logo" to={token ? "/" : "/login"}>
       <img style={{width:"10vh",height:"10vh"}} src={mainLogo} alt="logo" />
+      {/*  */}
     </Link>
   );
 };
