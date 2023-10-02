@@ -81,6 +81,8 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
       editZapDeleteData({
         pKodAuthor: item.KOD_OS,
         pKodZap: item.KOD,
+        zav: item.ZAV,
+        rozv: item.ROZV
       
       })
     );
@@ -88,12 +90,13 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
   const showZakr = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-
     dispatch(editZapZakrStatus());
     dispatch(
       editZapDeleteData({
         pKodAuthor: item.KOD_OS,
         pKodZap: item.KOD,
+        zav: item.ZAV,
+        rozv: item.ROZV
        
       })
     );

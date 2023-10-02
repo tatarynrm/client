@@ -13,6 +13,7 @@ const ZapZakrForm = () => {
   const [selectedOption, setSelectedOption] = useState("3");
   const [textOption, setTextOption] = useState("Не закрита нами");
   const zapDeleteData = useSelector((state) => state.edit.zapDeleteData);
+  const zapEditData = useSelector(state =>state.edit.zapEditData )
   const userData = useSelector((state) => state.auth.data);
   const [usersToClose, setUsersToClose] = useState([]);
   const [userToClose, setUserToClose] = useState(null);
@@ -25,6 +26,7 @@ const ZapZakrForm = () => {
       pKodMen: +userToClose,
       pKilAmZakr: +carCount,
       userToWarn: usersToWarn.length > 0 ? usersToWarn : null,
+      zapDeleteData
     };
     try {
       if (userToClose == 0) {
