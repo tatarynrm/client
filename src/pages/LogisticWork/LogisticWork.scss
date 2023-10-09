@@ -324,3 +324,27 @@
 .filter__title {
   color: var(--body-color);
 }
+
+.zap__toggle-menu{
+  // position: absolute;
+  // bottom: 0;
+  // right: 0;
+}
+
+.zap__wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  .expanded__menu{
+    width: 70%;
+margin-top: 15px;
+// background-color: red;
+
+  }
+
+
+}
+
+
