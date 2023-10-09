@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./ZapEdit.scss";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { AiFillDelete, AiFillEdit, AiOutlineCopy } from "react-icons/ai";
 import { BiRefresh } from "react-icons/bi";
 import axios from "../../utils/axios";
 import {
@@ -39,8 +39,8 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
         zapKodOs: item.KOD_OS,
         zapCina: item.ZAPCINA,
         zapGroup: item.KOD_GROUP,
-        zapKodZam:item.KOD_ZAM,
-        pKilAm:item.KILAMACT,
+        zapKodZam: item.KOD_ZAM,
+        pKilAm: item.KILAMACT,
       })
     );
   };
@@ -82,8 +82,7 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
         pKodAuthor: item.KOD_OS,
         pKodZap: item.KOD,
         zav: item.ZAV,
-        rozv: item.ROZV
-      
+        rozv: item.ROZV,
       })
     );
   };
@@ -96,8 +95,7 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
         pKodAuthor: item.KOD_OS,
         pKodZap: item.KOD,
         zav: item.ZAV,
-        rozv: item.ROZV
-       
+        rozv: item.ROZV,
       })
     );
   };
@@ -121,6 +119,39 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
   //     console.log(error);
   //   }
   // };
+  const handleSubmitAddZap = async (e) => {
+    console.log(item);
+    e.preventDefault();
+    const object = {
+      pKodAutor: userData.KOD,
+      pKodZap: item.KOD,
+      pKilAm:2
+
+    };
+
+    try {
+      if (window.confirm("Створити копію ?")) {
+        const data = await axios.post("/zap/copy", object);
+        if (data.status === 200) {
+          console.log('COPY');
+          // socket.emit("newZap", {
+          //   ...object,
+          //   ZAP_KOD: dataKod,
+          //   ZAM_NAME: zamName,
+          // });
+          // dispatch(editZapAddSlice());
+          // dispatch(changeAddZapSuccess());
+          // setTimeout(() => {
+          //   dispatch(changeAddZapSuccess());
+          // }, 4000);
+        }
+      } else {
+        alert("Виникла якась помилка");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {}, [zap]);
   return (
     <>
@@ -140,6 +171,13 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
         <i onClick={showDelete} className="zap__edit-block zap__edit-delete">
           <GiCancel />
           <span>Відмінена</span>
+        </i>
+        <i
+          onClick={handleSubmitAddZap}
+          className="zap__edit-block zap__edit-delete"
+        >
+          <AiOutlineCopy />
+          <span>Стоврити копію</span>
         </i>
       </div>
     </>
