@@ -5,7 +5,7 @@ export const fetchAuth = createAsyncThunk(
   "auth/fetchUserData",
   async (params) => {
     try {
-      axios.defaults.withCredentials = true;
+      // axios.defaults.withCredentials = true;
       const { data } = await axios.post("/auth/login", params);
 
       return data;
