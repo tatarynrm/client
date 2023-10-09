@@ -5,6 +5,7 @@ export const fetchAuth = createAsyncThunk(
   "auth/fetchUserData",
   async (params) => {
     try {
+      axios.defaults.withCredentials = true;
       const { data } = await axios.post("/auth/login", params);
 
       return data;
@@ -23,8 +24,15 @@ export const fetchRegister = createAsyncThunk(
 export const fetchAuthMe = createAsyncThunk(
   "auth/fetchAuthMe",
   async (params) => {
-    const { data } = await axios.get("/auth/me", params);
-    return data;
+    try {
+      const data = await axios.get("/auth/me", params);
+      return data.data;
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.alert === 'Invalid token') {
+        window.localStorage.removeItem('token')
+      }
+    }
   }
 );
 const initialState = {

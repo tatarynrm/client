@@ -48,9 +48,11 @@ function App() {
   const location = useLocation();
   const googleMeet = window.localStorage.getItem("googleMeet");
   const events = useSelector((state) => state.events.events.items);
+
   useEffect(() => {
-    dispatch(fetchAuthMe());
+    token && dispatch(fetchAuthMe());
   }, [dispatch]);
+
   useEffect(() => {
     socket.on("showStartGoogleMeet", (data) => {
       dispatch(changeGoogleMeetOpen());
