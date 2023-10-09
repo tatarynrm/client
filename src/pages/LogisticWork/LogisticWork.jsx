@@ -141,11 +141,11 @@ const LogisticWork = () => {
     });
   }, []);
 
-  useEffect(() => {
-    if (commentsClass === true) {
-      window.scrollTo(0, 0);
-    }
-  }, [commentsClass]);
+  // useEffect(() => {
+  //   if (commentsClass === true) {
+  //     window.scrollTo(0, 0);
+  //   }
+  // }, [commentsClass]);
   const containerProp = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
