@@ -444,7 +444,8 @@ const LogisticWork = () => {
                     item.PIP.toLowerCase().includes(searchFilter) ||
                     item.ZAM?.toLowerCase().includes(searchFilter) ||
                     item.ZAM?.toUpperCase().includes(searchFilter) ||
-                    item.KOD.toString().includes(searchFilter);
+                    item.KOD.toString().includes(searchFilter) ||
+                    item.ZAPNUM.toString().includes(searchFilter) ;
             })
             .filter((item) => {
               if (myZapSelect) {
