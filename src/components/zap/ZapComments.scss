@@ -293,7 +293,26 @@
     fill: rgb(24, 52, 56);
   }
 }
+.date_create-update{
+  display: flex;
+  flex-direction: column;
+font-style: italic;
+text-align: left;
+flex-grow: unset;
+gap: 5px;
 
+  .created_at{
+    color: rgb(34, 33, 33);
+  }
+  .updated_at{
+    color: rgb(6, 109, 2);
+    margin-bottom: 5px;
+  }
+svg {
+  width: 20px;
+  height: 20px;
+}
+}
 @media screen and (max-width: 600px) {  
 
   .zap__comments-show {

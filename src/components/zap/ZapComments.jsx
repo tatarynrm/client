@@ -21,6 +21,8 @@ import toTimestamp from "../../helpers/functions";
 import CommentItem from "./CommentItem";
 import messagesGif from "../../assets/messages1gif.gif";
 import { copyTextToClipboard } from "../../helpers/navigator";
+import { MdOutlineDateRange, MdUpdate } from "react-icons/md";
+import moment from "moment";
 const ZapComments = ({ showComments, selectedZap }) => {
   const [comment, setComment] = useState("");
   const comments = useSelector((state) => state.comments.comments.items);
@@ -30,6 +32,7 @@ const ZapComments = ({ showComments, selectedZap }) => {
   const bottomRef = useRef();
   const [zapFetch, setZapFetch] = useState(null);
   const commentsToShow = [...comments];
+  console.log(selectedZap);
   const addComment = async (e) => {
     e.preventDefault();
     try {
@@ -131,6 +134,16 @@ const ZapComments = ({ showComments, selectedZap }) => {
       <div className="comments__item">
         <div className="comments__item-author" title="Автор запиту">
           <FcManager /> <span style={{ color: "blue" }}>{selectedZap.PIP}</span>
+        </div>
+        <div className="date_create-update">
+          <span className="created_at">
+            <MdOutlineDateRange/>
+            {moment(selectedZap.DAT).format('LLL')}
+          </span>
+          <span className="updated_at">
+            <MdUpdate/>
+            {moment(selectedZap.DATUPDATE).format('LLL')}
+          </span>
         </div>
         <div className="comments__item-zap-info">
           <div className="cities">
