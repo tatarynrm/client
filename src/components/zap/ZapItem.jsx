@@ -43,7 +43,7 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
     <div className="zap__wrapper">
       <div
         onClick={() => showComments(item)}
-        className={`zap zap-${item.KOD} ${
+        className={`zap zap-${item.ZAPNUM} ${
           item.ZAPCINA === 1 ? "zap-cina" : ""
         }`}
         title={item.ZAPTEXT}
@@ -65,7 +65,7 @@ const ZapItem = ({ item, showComments, showAddZap, setEditZap }) => {
         ) : null}
         <div className="zap__author">
           <div className="zap__item-kod" title="Код заявки">
-            {item.KOD}
+            {item.ZAPNUM}
           </div>
           <div className="zap__author-name" title="Автор заявки">
             {item.PIP}

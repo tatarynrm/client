@@ -20,6 +20,7 @@ import { generateUniqueRGBColors } from "../../helpers/colors";
 import { todayDate } from "../../helpers/dates";
 import { fetchEvents } from "../../redux/slices/events";
 import HomeMap from "../../components/maps/HomeMap";
+import GoogleMapZap from "../../components/map/GoogleMapZap";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 const Home = () => {
@@ -120,6 +121,7 @@ useEffect(()=>{
             }} /> : null }
         </div>
         </div>
+        <GoogleMapZap/>
       </div>
     )
   }
