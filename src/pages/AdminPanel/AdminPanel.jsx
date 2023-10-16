@@ -289,21 +289,20 @@ const AdminPanel = () => {
               </button>
             </div>
           )}
-          {userData?.KOD === 24011 ||
-            userData?.KOD === 38231 && (
-              <>
-                <Link
-                  to={"/printers"}
-                  onClick={getAllTgUsers}
-                  className="normal google__meet-button"
-                >
-                  <i>
-                    <AiOutlinePrinter />
-                  </i>
-                  Принтери
-                </Link>
-              </>
-            )}
+          {userData?.KOD === 24011 || userData?.KOD === 38231 ? (
+            <Link
+              to={"/printers"}
+              onClick={getAllTgUsers}
+              className="google__meet-button"
+            >
+              <button className="normal">
+                <i>
+                  <AiOutlinePrinter />
+                </i>
+                Принтери
+              </button>
+            </Link>
+          ) : null}
         </div>
 
         <div className="admin__container">
