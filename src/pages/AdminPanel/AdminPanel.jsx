@@ -238,6 +238,7 @@ const AdminPanel = () => {
   };
   useEffect(() => {}, [events]);
   useEffect(() => {}, [activeUsersCompare]);
+  useEffect(() => {}, [userData?.KOD]);
 
   return (
     <div className="admin container">
@@ -286,22 +287,23 @@ const AdminPanel = () => {
                 </i>
                 Розпочати нараду
               </button>
-              {userData?.KOD === 24011 ||
-                (38231 && (
-                  <>
-                    <Link to={"/printers"}
-                      onClick={getAllTgUsers}
-                      className="normal google__meet-button"
-                    >
-                      <i>
-                        <AiOutlinePrinter />
-                      </i>
-                      Принтери
-                    </Link>
-                  </>
-                ))}
             </div>
           )}
+          {userData?.KOD === 24011 ||
+            userData?.KOD === 38231 && (
+              <>
+                <Link
+                  to={"/printers"}
+                  onClick={getAllTgUsers}
+                  className="normal google__meet-button"
+                >
+                  <i>
+                    <AiOutlinePrinter />
+                  </i>
+                  Принтери
+                </Link>
+              </>
+            )}
         </div>
 
         <div className="admin__container">

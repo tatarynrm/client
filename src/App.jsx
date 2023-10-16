@@ -168,7 +168,9 @@ function App() {
             <Route path={`/ict-files`} element={<CompanyFiles />} />
             <Route path={`/statistic`} element={<ClosedCargos />} />
             {userData?.KOD === 24011 ||
-              (38231 && <Route path={`/printers`} element={<Printers />} />)}
+              (userData?.KOD === 38231 && (
+                <Route path={`/printers`} element={<Printers />} />
+              ))}
             {/* <Route path={`/meeting`} element={<MeetingPage />} /> */}
             {userData?.ISDIR === 1 ||
             userData?.KOD === 38231 ||
