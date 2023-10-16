@@ -1,0 +1,18 @@
+.printers{
+    margin-top: 20px;
+    color: var(--body-color);
+    display: flex;
+}
+
+.printer{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    // justify-content: space-between;
+    background-color: rgba(255,255,255,0.1);
+    div {
+        width: 100px;
+        // background-color: blue;
+        margin-left: 20px;
+    }
+}

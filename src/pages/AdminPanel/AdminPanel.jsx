@@ -13,6 +13,8 @@ import uk from "date-fns/locale/uk";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import "moment/locale/uk";
+import { AiOutlinePrinter } from "react-icons/ai";
+import { Link } from "react-router-dom";
 registerLocale("uk", uk);
 const AdminPanel = () => {
   const dispatch = useDispatch();
@@ -25,12 +27,11 @@ const AdminPanel = () => {
   const events = useSelector((state) => state.events.events.items);
   const [choosenUsers, setChoosenUsers] = useState([]);
   const [activeUsersCompare, setActiveUsersCompare] = useState([]);
-  const [googleMeetLink,setGoogleMeetLink] = useState([])
-  const [nachVid,setNachVid] = useState([])
+  const [googleMeetLink, setGoogleMeetLink] = useState([]);
+  const [nachVid, setNachVid] = useState([]);
   const [dateTime, setDateTime] = useState("");
   const [meetTitle, setMeetTitle] = useState("");
   console.log(choosenUsers);
-
 
   const showActiveUsersAtList = () => {
     socket.emit("activeUsersToCompare");
@@ -68,21 +69,25 @@ const AdminPanel = () => {
           socket.emit("startGoogleMeet", {
             GOOGLEMEET: googleMeetLink,
             status: 1,
-            users:allTgUsers
+            users: allTgUsers,
           });
         }
         break;
       case 2:
-        if (window.confirm("Розпочати миттєву нараду з обраними менеджерами?")) {
+        if (
+          window.confirm("Розпочати миттєву нараду з обраними менеджерами?")
+        ) {
           socket.emit("startGoogleMeet", {
             GOOGLEMEET: googleMeetLink,
             status: 2,
-            users:choosenUsers
+            users: choosenUsers,
           });
         }
         break;
       case 3:
-        if (window.confirm("Розпочати миттєву нараду з активними менеджерами?")) {
+        if (
+          window.confirm("Розпочати миттєву нараду з активними менеджерами?")
+        ) {
           socket.emit("startGoogleMeet", {
             GOOGLEMEET: googleMeetLink,
             status: 3,
@@ -90,60 +95,68 @@ const AdminPanel = () => {
         }
         break;
       case 4:
-        if (window.confirm("Розпочати  нараду за розкладом з усіма користувачами?")) {
+        if (
+          window.confirm(
+            "Розпочати  нараду за розкладом з усіма користувачами?"
+          )
+        ) {
           if (!dateTime & !meetTitle) {
-            alert('Заповніть дату та тему наради')
-          }else {
+            alert("Заповніть дату та тему наради");
+          } else {
             socket.emit("startGoogleMeet", {
               GOOGLEMEET: googleMeetLink,
               status: 4,
-              users:allTgUsers,
-              date:moment(dateTime).format('LLL'),
-              dateToRemind:dateTime,
-              title:meetTitle
+              users: allTgUsers,
+              date: moment(dateTime).format("LLL"),
+              dateToRemind: dateTime,
+              title: meetTitle,
             });
           }
-   
         }
         break;
       case 5:
-        if (window.confirm("Розпочати  нараду за розкладом з обраними користувачами?")) {
+        if (
+          window.confirm(
+            "Розпочати  нараду за розкладом з обраними користувачами?"
+          )
+        ) {
           if (!dateTime & !meetTitle) {
-            alert('Заповніть дату та тему наради')
-          }else {
+            alert("Заповніть дату та тему наради");
+          } else {
             socket.emit("startGoogleMeet", {
               GOOGLEMEET: googleMeetLink,
               status: 5,
-              users:choosenUsers,
-              date:moment(dateTime).format('LLL'),
-              dateToRemind:dateTime,
-              title:meetTitle
+              users: choosenUsers,
+              date: moment(dateTime).format("LLL"),
+              dateToRemind: dateTime,
+              title: meetTitle,
             });
           }
-   
         }
         break;
       case 6:
-        if (window.confirm("Розпочати  нараду за розкладом з активними користувачами?")) {
+        if (
+          window.confirm(
+            "Розпочати  нараду за розкладом з активними користувачами?"
+          )
+        ) {
           if (!dateTime & !meetTitle) {
-            alert('Заповніть дату та тему наради')
-          }else {
+            alert("Заповніть дату та тему наради");
+          } else {
             socket.emit("startGoogleMeet", {
               GOOGLEMEET: googleMeetLink,
               status: 6,
-              date:moment(dateTime).format('LLL'),
-              dateToRemind:dateTime,
-              title:meetTitle
+              date: moment(dateTime).format("LLL"),
+              dateToRemind: dateTime,
+              title: meetTitle,
             });
           }
-   
         }
         break;
 
       default:
         break;
     }
-
   };
   const fetchActiveUsers = () => {
     if (activeUsers === null) {
@@ -273,6 +286,20 @@ const AdminPanel = () => {
                 </i>
                 Розпочати нараду
               </button>
+              {userData?.KOD === 24011 ||
+                (38231 && (
+                  <>
+                    <Link to={"/printers"}
+                      onClick={getAllTgUsers}
+                      className="normal google__meet-button"
+                    >
+                      <i>
+                        <AiOutlinePrinter />
+                      </i>
+                      Принтери
+                    </Link>
+                  </>
+                ))}
             </div>
           )}
         </div>
@@ -343,13 +370,17 @@ const AdminPanel = () => {
                       ? "Зняти виділення"
                       : "Вибрати усіх"}
                   </button>
-                  <button className="normal" onClick={()=>{
-                    setNachVid(allTgUsers.filter(item=> item.ISNV === 1))
-                    selectAllChoosenUsers(
-                      nachVid.filter((item) => item.ISNV === 1).map(val => val.TELEGRAMID)
-                    )
-                    
-                  }}>
+                  <button
+                    className="normal"
+                    onClick={() => {
+                      setNachVid(allTgUsers.filter((item) => item.ISNV === 1));
+                      selectAllChoosenUsers(
+                        nachVid
+                          .filter((item) => item.ISNV === 1)
+                          .map((val) => val.TELEGRAMID)
+                      );
+                    }}
+                  >
                     Начальники відділів
                   </button>
                   <button className="normal" onClick={showActiveUsersAtList}>
@@ -372,9 +403,12 @@ const AdminPanel = () => {
                             )
                               ? "tg__user-online"
                               : "tg__user-offline"
-                          } ${nachVid.length > 0  && nachVid.find( 
-                            val => val.ISNV === item.ISNV
-                          )? "tg__user-nach-vid" : "" }`}
+                          } ${
+                            nachVid.length > 0 &&
+                            nachVid.find((val) => val.ISNV === item.ISNV)
+                              ? "tg__user-nach-vid"
+                              : ""
+                          }`}
                           key={idx}
                         >
                           <input
@@ -398,7 +432,7 @@ const AdminPanel = () => {
                     type="text"
                     placeholder="Посилання на нараду"
                     value={googleMeetLink}
-                    onChange={e=> setGoogleMeetLink(e.target.value)}
+                    onChange={(e) => setGoogleMeetLink(e.target.value)}
                   />
                 </div>
                 <div className="tg__users-select">
@@ -423,7 +457,7 @@ const AdminPanel = () => {
                     type="text"
                     placeholder="Посилання на нараду"
                     value={googleMeetLink}
-                    onChange={e=> setGoogleMeetLink(e.target.value)}
+                    onChange={(e) => setGoogleMeetLink(e.target.value)}
                   />
                 </div>
                 <div className="form__control">
@@ -444,7 +478,9 @@ const AdminPanel = () => {
                   />
                 </div>
                 <div className="tg__users-select">
-                  <button onClick={() => startGoogleMeet(4)} className="normal">Розпочати нараду з усіма</button>
+                  <button onClick={() => startGoogleMeet(4)} className="normal">
+                    Розпочати нараду з усіма
+                  </button>
                   <button onClick={() => startGoogleMeet(5)} className="normal">
                     Розпочати нараду з обраними користувачами
                   </button>

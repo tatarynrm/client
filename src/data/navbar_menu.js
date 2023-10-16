@@ -13,6 +13,7 @@ import {RiGroup2Fill} from 'react-icons/ri'
 import { FaCarCrash } from "react-icons/fa";
 import { MdCarCrash } from "react-icons/md";
 import { SiAdminer } from "react-icons/si";
+import { AiFillPrinter } from "react-icons/ai";
 
 
 export const navbar_menu = [

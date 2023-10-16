@@ -8,6 +8,7 @@ import { editReducer } from "./slices/edit";
 import { eventsReducer } from "./slices/events";
 import { urReducer } from "./slices/ur";
 import { cargosReducer } from "./slices/cargos";
+import { cartReducer } from "./slices/cartriges";
 const store = configureStore({
   reducer: {
     users: userReducer,
@@ -17,7 +18,8 @@ const store = configureStore({
     edit: editReducer,
     events:eventsReducer,
     ur:urReducer,
-    cargos:cargosReducer
+    cargos:cargosReducer,
+    cart:cartReducer
   },
 });
 
