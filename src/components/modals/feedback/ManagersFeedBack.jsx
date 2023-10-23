@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import socket from "../../../utils/socket";
-import axios from '../../../utils/axios'
+import axios from "../../../utils/axios";
 
 const ManagersFeedBack = () => {
   const [open, setOpen] = useState(false);
@@ -14,38 +14,47 @@ const ManagersFeedBack = () => {
   const userData = useSelector((state) => state.auth.data);
   useEffect(() => {
     socket.on("show_msg_feedback", (data) => {
-      setOpen(true);
+        window.localStorage.setItem('feedback',true)
+        setOpen(true);
     });
   }, [socket, userData]);
-//   useEffect(() => {
-//     socket.on("feedback_create", () => {
-//       setFeedback("");
-//       setConfirmation("ok");
-//       setTimeout(() => {
-//         setOpen(false);
-//       }, 1000);
-//     });
-//   }, [socket, userData]);
-
-  const sendFeedBack = async() => {
-try {
-    const data = await axios.post('/feedback/create',{
-        text:feedback,
-        user:userData?.PIP
-    })
-  if (data.status === 200) {
-    setConfirmation('ok')
-    setFeedback('')
-    setTimeout(()=>{
-        setOpen(false)
-        setConfirmation('')
-     
-    },1000)
-
-  }
-} catch (error) {
-    console.log(error);
+  //   useEffect(() => {
+  //     socket.on("feedback_create", () => {
+  //       setFeedback("");
+  //       setConfirmation("ok");
+  //       setTimeout(() => {
+  //         setOpen(false);
+  //       }, 1000);
+  //     });
+  //   }, [socket, userData]);
+useEffect(()=>{
+const condition = JSON.parse(window.localStorage.getItem('feedback'));
+if (condition === true) {
+    setOpen(true);
+}else {
+    window.localStorage.removeItem('feedback')
+    setOpen(false);
 }
+
+},[])
+  const sendFeedBack = async () => {
+    try {
+      const data = await axios.post("/feedback/create", {
+        text: feedback,
+        user: userData?.PIP,
+      });
+      if (data.status === 200) {
+        setConfirmation("ok");
+        setFeedback("");
+        window.localStorage.removeItem('feedback')
+        setTimeout(() => {
+          setOpen(false);
+          setConfirmation("");
+        }, 1000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -88,10 +97,7 @@ try {
           "Надіслати відгук".
         </h3>
         <textarea
-          style={{ resize: "none", padding: "1rem" }}
-          id=""
-          cols="100"
-          rows="10"
+          style={{ resize: "none", padding: "1rem",width:"70%" }}
           value={feedback}
           onChange={(e) => setFeedback(e.target.value)}
         ></textarea>
