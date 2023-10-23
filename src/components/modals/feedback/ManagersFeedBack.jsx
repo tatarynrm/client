@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import socket from "../../../utils/socket";
+import axios from '../../../utils/axios'
 
 const ManagersFeedBack = () => {
   const [open, setOpen] = useState(false);
@@ -16,21 +17,31 @@ const ManagersFeedBack = () => {
       setOpen(true);
     });
   }, [socket, userData]);
-  useEffect(() => {
-    socket.on("feedback_create", () => {
-      setFeedback("");
-      setConfirmation("ok");
-      setTimeout(() => {
-        setOpen(false);
-      }, 1000);
-    });
-  }, [socket, userData]);
+//   useEffect(() => {
+//     socket.on("feedback_create", () => {
+//       setFeedback("");
+//       setConfirmation("ok");
+//       setTimeout(() => {
+//         setOpen(false);
+//       }, 1000);
+//     });
+//   }, [socket, userData]);
 
-  const sendFeedBack = () => {
-    socket.emit("create_feedback", {
-      text: feedback,
-      user: userData?.PIP,
-    });
+  const sendFeedBack = async() => {
+try {
+    const data = await axios.post('/feedback/create',{
+        text:feedback,
+        user:userData?.PIP
+    })
+  if (data.status === 200) {
+    setConfirmation('ok')
+    setTimeout(()=>{
+        setOpen(false)
+    },1000)
+  }
+} catch (error) {
+    console.log(error);
+}
   };
 
   useEffect(() => {
