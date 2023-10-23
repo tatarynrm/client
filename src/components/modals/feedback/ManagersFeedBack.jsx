@@ -35,9 +35,13 @@ try {
     })
   if (data.status === 200) {
     setConfirmation('ok')
+    setFeedback('')
     setTimeout(()=>{
         setOpen(false)
+        setConfirmation('')
+     
     },1000)
+
   }
 } catch (error) {
     console.log(error);
