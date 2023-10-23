@@ -20,10 +20,14 @@ import { generateUniqueRGBColors } from "../../helpers/colors";
 import { todayDate } from "../../helpers/dates";
 import { fetchEvents } from "../../redux/slices/events";
 import HomeMap from "../../components/maps/HomeMap";
-import GoogleMapZap from "../../components/map/GoogleMapZap";
+import ExampleDirections from "../../components/map/Map";
+import Map from "../../components/map/Map";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 const Home = () => {
+
+  const origin = { lat: 37.7749, lng: -122.4194 }; // Replace with your origin coordinates
+  const destination = { lat: 37.7893, lng: -122.4083 };
   const startOfMonth = moment().startOf("month").format("DD.MM.YYYY");
   const endOfMonth = moment().endOf("month").format("DD.MM.YYYY");
   const userData = useSelector((state) => state.auth.data);
@@ -121,14 +125,15 @@ useEffect(()=>{
             }} /> : null }
         </div>
         </div>
-        <GoogleMapZap/>
+        {/* <GoogleMapZap/> */}
       </div>
     )
   }
     return (
       <div className="home container">
         <p>Перейдіть на вкладку завантаження</p>
-        {/* <HomeMap/> */}
+
+        <Map/>
       </div>
 
     )

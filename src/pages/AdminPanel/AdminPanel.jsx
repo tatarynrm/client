@@ -61,7 +61,9 @@ const AdminPanel = () => {
     setChoosenUsers([]);
     setChoosenUsers(item);
   };
-
+const sendFeedback = ()=> {
+socket.emit('start_feedback')
+}
   const startGoogleMeet = (statusGoogleMeet) => {
     switch (statusGoogleMeet) {
       case 1:
@@ -261,6 +263,9 @@ const AdminPanel = () => {
             </button>
             <button onClick={logoutAll} className="danger">
               Вийти усім з аккаунтів!!!
+            </button>
+            <button onClick={sendFeedback} className="danger">
+                Відкрити меню фідбеків
             </button>
           </div>
           <div className="admin__messages-to-users">

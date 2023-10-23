@@ -35,6 +35,7 @@ import { changeGoogleMeetOpen } from "./redux/slices/edit";
 import { addGoogleMeetEvent } from "./redux/slices/events";
 import ZapZakrForm from "./components/zap/ZapZakrForm";
 import Printers from "./pages/Printers/Printers";
+import ManagersFeedBack from "./components/modals/feedback/ManagersFeedBack";
 function App() {
   const dispatch = useDispatch();
   const token = window.localStorage.getItem("token");
@@ -192,6 +193,7 @@ function App() {
         <ToastContainer />
         <MessageFromAdmin />
         <ZapReminder />
+        <ManagersFeedBack/>
 
         {location.pathname === "/logistic-work" && (
           <div title="Технічна підтримка" className="telegram__chat">

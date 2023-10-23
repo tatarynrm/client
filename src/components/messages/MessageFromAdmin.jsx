@@ -10,10 +10,10 @@ const MessageFromAdmin = () => {
   const userData = useSelector((state) => state.auth.data);
   useEffect(() => {
     socket.on("show_msg_from_admin", (data) => {
-        console.log(data);
+      console.log(data);
       if (userData?.KOD === data.kod) {
         setData({
-          ...data
+          ...data,
         });
         setOpen((value) => !value);
       }
