@@ -36,6 +36,7 @@ import { addGoogleMeetEvent } from "./redux/slices/events";
 import ZapZakrForm from "./components/zap/ZapZakrForm";
 import Printers from "./pages/Printers/Printers";
 import ManagersFeedBack from "./components/modals/feedback/ManagersFeedBack";
+import Feedback from "./pages/Feedback/Feedback";
 function App() {
   const dispatch = useDispatch();
   const token = window.localStorage.getItem("token");
@@ -168,6 +169,7 @@ function App() {
             <Route path={`/logistic-work`} element={<LogisticWork />} />
             <Route path={`/ict-files`} element={<CompanyFiles />} />
             <Route path={`/statistic`} element={<ClosedCargos />} />
+            <Route path={`/feedback`} element={<Feedback />} />
             {userData?.KOD === 24011 || userData?.KOD === 38231 ? (
               <Route path={`/printers`} element={<Printers />} />
             ) : null}

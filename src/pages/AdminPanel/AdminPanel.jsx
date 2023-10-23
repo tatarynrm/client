@@ -308,6 +308,18 @@ socket.emit('start_feedback')
               </button>
             </Link>
           ) : null}
+                      <Link
+              to={"/feedback"}
+              onClick={getAllTgUsers}
+              className="google__meet-button"
+            >
+              <button className="normal">
+                <i>
+                  <AiOutlinePrinter />
+                </i>
+                Відгуки менеджерів
+              </button>
+            </Link>
         </div>
 
         <div className="admin__container">
