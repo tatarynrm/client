@@ -23,7 +23,6 @@ const ZapDeleteForm = () => {
       alert("Оберіть причину видалення");
     } else {
       try {
-        if (window.confirm("Ви впевнені що хочете видалити дану заявку?")) {
           const data = await axios.post("/zap/delete", {
             pKodAuthor: userData?.KOD,
             pStatus: selectedOption,
@@ -34,8 +33,7 @@ const ZapDeleteForm = () => {
             socket.emit("deleteZap", zapDeleteData.pKodZap);
             dispatch(editZapDeleteStatus())
           }
-        } else {
-        }
+
       } catch (error) {
         console.log(error);
       }

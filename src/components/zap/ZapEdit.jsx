@@ -48,7 +48,7 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
     e.preventDefault();
     e.stopPropagation();
     try {
-      if (window.confirm("Оновити заявку?")) {
+
         if (refreshAccessTime < 1800000) {
           alert("Заявку можна оновити після 30хв");
           setZapMenu(false);
@@ -63,7 +63,7 @@ const ZapEdit = ({ item, showAddZap, setZapMenu, setEditZap, openZapMenu }) => {
             socket.emit("refreshZap", item.KOD);
           }
         }
-      }
+   
     } catch (error) {
       console.log(error);
     }
