@@ -14,6 +14,7 @@ const ZapEditForm = () => {
   const [rozv, setRozv] = useState("");
   const [zapText, setZapText] = useState("");
   const zapEditData = useSelector((state) => state.edit.zapEditData);
+  console.log(zapEditData);
   const [zapPrice, setZapPrice] = useState(
     zapEditData?.zapCina === 1 ? true : false
   );
@@ -41,15 +42,15 @@ const ZapEditForm = () => {
     if (e === true) {
       setZapPriceValue(1);
       handleEditZapCina();
-      setTimeout(()=>{
-        dispatch(editZapRedux());
-      },1000)
+      // setTimeout(()=>{
+      //   dispatch(editZapRedux());
+      // },1000)
     } else {
       setZapPriceValue(0);
       handleEditZapCina();
-      setTimeout(()=>{
-        dispatch(editZapRedux());
-      },1000)
+      // setTimeout(()=>{
+      //   dispatch(editZapRedux());
+      // },1000)
     }
   };
   console.log(zapPriceValue);

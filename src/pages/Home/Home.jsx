@@ -133,7 +133,6 @@ useEffect(()=>{
       <div className="home container">
         <p>Перейдіть на вкладку завантаження</p>
 
-        <Map/>
       </div>
 
     )
