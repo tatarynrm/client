@@ -22,6 +22,7 @@ const getAllFeedbacks = async ()=>{
     useEffect(()=>{
         getAllFeedbacks()
     },[])
+
   return (
     <div className='feedback container page'>
        <div className="feedback__inner">
@@ -29,7 +30,7 @@ const getAllFeedbacks = async ()=>{
          sort((a, b) => toTimestamp(b.created) - toTimestamp(a.created))
         .map((item,idx)=>{
             return <div key={idx} className='feedback'>
-                <div className='date'>{moment(item.created).format('lll')}</div>
+                <div className='date'>{moment(item.create_at).format("LL")}</div>
                 <div className='date'>{item.manager}</div>
                 <div className='date'>{item.feedback}</div>
             </div>

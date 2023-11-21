@@ -116,6 +116,7 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
       }, 500);
     }
   }, [search]);
+ console.log(carriers);
   return (
     <form onSubmit={handleSubmitAddZap} className="add__zap">
       {zam ? (
@@ -133,7 +134,7 @@ const AddZap = ({ selectedGroup, showAddZap, setAddZap }) => {
             onChange={(e) => setSearch(e.target.value)}
           />
           <div className="carriers__items">
-            {carriers.length > 1
+            {carriers.length > 0
               ? carriers.map((item, idx) => {
                   return (
                     <div className="carriers__item" key={idx}>

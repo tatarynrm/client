@@ -73,7 +73,7 @@ const ZapZakrForm = () => {
     };
     userToWarn();
   }, []);
-
+  console.log(userToClose);
   return (
     <div className="zap__delete-form zap__edit-form">
       <div className="form__delete-zap">

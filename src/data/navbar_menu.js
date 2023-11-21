@@ -52,6 +52,17 @@ export const navbar_menu = [
     // ],
   },
   {
+    label: "Архів заявок",
+    link: "/archive-logistic-work",
+    icon: <FcShipped />,
+    // submenu: [
+    //   { label: "Актуальні завантаження", link: "/current-transportation" },
+    //   { label: "Тендери", link: "/tenders" },
+    //   { label: "Закриті завантаження", link: "/closed-transportation" },
+    //   { label: "Запит ціни", link: "/transportation-price" },
+    // ],
+  },
+  {
     label: "Експедиція",
     icon: <FcSalesPerformance />,
     link: "/transportation",

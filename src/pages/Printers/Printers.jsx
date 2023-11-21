@@ -5,14 +5,33 @@ import "react-tabs/style/react-tabs.css";
 import { useSelector } from "react-redux";
 import { fetchCart, fetchCartModels, fetchCartriges, fetchPrinters } from "../../redux/slices/cartriges";
 import { useEffect } from "react";
+import axios from '.././../utils/axios'
+import { useState } from "react";
 const Printers = () => {
   const cart = useSelector((state) => state.cart.cart.items);
   const dispatch = useDispatch();
-
+  const [imageBlob, setImageBlob] = useState(null);
   useEffect(() => {
     dispatch(fetchCart());
   }, []);
-
+// const getPhoto = async (req,res) =>{
+//   try {
+//     const data =await axios.get('/photo')
+//     console.log(data.data);
+//     setImageBuffer(data.data)
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+useEffect(() => {
+  axios.get('/photo', { responseType: 'arraybuffer' })
+    .then(response => {
+      setImageBlob(new Blob([response.data], { type: 'image/jpeg' }));
+    })
+    .catch(error => {
+      console.error('Error fetching LOB data:', error);
+    });
+}, []);
   return (
     <div className="printers container">
       <Tabs>
@@ -23,7 +42,12 @@ const Printers = () => {
           <Tab onClick={() => dispatch(fetchCartriges())}>Картриджі</Tab>
           <Tab>Заміна картриджів</Tab>
         </TabList>
-
+        {imageBlob && (
+        <img
+          src={URL.createObjectURL(imageBlob)}
+          alt="LOB Image"
+        />
+      )}
         <TabPanel>
           {cart &&
             cart.map((item, idx) => {

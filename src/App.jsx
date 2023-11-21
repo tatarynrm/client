@@ -37,6 +37,7 @@ import ZapZakrForm from "./components/zap/ZapZakrForm";
 import Printers from "./pages/Printers/Printers";
 import ManagersFeedBack from "./components/modals/feedback/ManagersFeedBack";
 import Feedback from "./pages/Feedback/Feedback";
+import ArchiveLogisticWork from "./pages/ArchiveLogisticWork/ArchiveLogisticWork";
 function App() {
   const dispatch = useDispatch();
   const token = window.localStorage.getItem("token");
@@ -167,6 +168,7 @@ function App() {
             <Route path={`/carriers`} element={<Carriers />} />
             <Route path={`/carriers/:id`} element={<Carrier />} />
             <Route path={`/logistic-work`} element={<LogisticWork />} />
+            <Route path={`/archive-logistic-work`} element={<ArchiveLogisticWork/>} />
             <Route path={`/ict-files`} element={<CompanyFiles />} />
             <Route path={`/statistic`} element={<ClosedCargos />} />
             <Route path={`/feedback`} element={<Feedback />} />
