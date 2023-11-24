@@ -1,4 +1,37 @@
 .archive{
     margin-top: 20px;
     color: var(--body-color);
+
+
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+     
+        gap: 10px;
+        margin: 0 auto;
+        
+.archive__item{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: 0 auto;
+
+
+    .managers__who_close {
+        background-color: rgba(130, 158, 89,0.4);
+        padding: 0.4rem;
+        border-radius: 10px;
+    }
+}
+        .info {
+            background-color: rgba(29, 103, 133, 0.4);
+            padding: 0.4rem;
+            border-radius: 10px;
+        }
+    }
+
+
+ 
+    
 }
