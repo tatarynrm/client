@@ -38,6 +38,7 @@ import Printers from "./pages/Printers/Printers";
 import ManagersFeedBack from "./components/modals/feedback/ManagersFeedBack";
 import Feedback from "./pages/Feedback/Feedback";
 import ArchiveLogisticWork from "./pages/ArchiveLogisticWork/ArchiveLogisticWork";
+import Snowfall from 'react-snowfall'
 function App() {
   const dispatch = useDispatch();
   const token = window.localStorage.getItem("token");
@@ -152,12 +153,24 @@ function App() {
       navigate("/");
     });
   }, [socket, token]);
+  const snowShow = window.localStorage.getItem('snow');
   useEffect(() => {}, [zapDeleteStatus]);
   useEffect(() => {}, [events]);
+  useEffect(() => {}, [snowShow]);
+
+  
   return (
     <div className="main__app">
-      <Header />
+      <Header  snowShow={snowShow}/>
       <div className="main__content">
+ {snowShow === 'yes' ?      <Snowfall 
+       style={{
+        position: 'fixed',
+        width: '100vw',
+        height: '100vh',
+      }}
+      snowflakeCount={200}
+      /> : null}
         <Routes>
           <Route exact path="/login" element={<Login />} />
           <Route element={<PrivateRoute />}>

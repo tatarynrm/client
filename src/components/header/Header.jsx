@@ -10,13 +10,30 @@ import HeaderLogo from "./header_logo/HeaderLogo";
 import HeaderTime from "./header_time/HeaderTime";
 import HeaderNotifications from "./header_push/HeaderNotifications";
 import HeaderBurger from "./header_burger/HeaderBurger";
-const Header = () => {
+import snow from '../../assets/snow.png'
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
+const Header = ({snowShow}) => {
   const isAuth = useSelector(selectIsAuth);
   const userData = useSelector((state) => state.auth.data);
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 const [openBurger,setOpenBurger] = useState(false)
+const [snowActive,setSnowActive] = useState(false)
+const snowStorage = window.localStorage.getItem('snow');
+const snowAppear = ()=>{
+
+  if (snowShow === 'yes') {
+    setSnowActive(false)
+    window.localStorage.removeItem('snow')
+    window.location.reload()
+  }else {
+    setSnowActive(true)
+    window.localStorage.setItem('snow',"yes")
+    window.location.reload()
+  }
+}
   const onClickLogout = () => {
     if (window.confirm("Ви впенені що хочете вийти?")) {
       window.localStorage.removeItem("token");
@@ -24,6 +41,10 @@ const [openBurger,setOpenBurger] = useState(false)
       return navigate("/login");
     }
   };
+  useEffect(()=>{
+
+  },[snowShow])
+
   return (
     <header className="header">
       <div className="header__wrapper container">
@@ -31,6 +52,13 @@ const [openBurger,setOpenBurger] = useState(false)
         {token ? <HeaderTime /> : null}
         {token ? <HeaderNav openBurger={openBurger} setOpenBurger={setOpenBurger} /> : null}
         {token ? <HeaderNotifications /> : null}
+        {token ? 
+        
+        <div  data-tooltip-id="my-tooltip" data-tooltip-content={`Включити снігопад`} onClick={snowAppear} style={{position:"relative",cursor:"pointer"}}>
+          <img src={snow} alt="snow" style={{width:"40px",position:"absolute",right:"0px",top:"0px"}} />
+          <Tooltip  id="my-tooltip" />
+        </div>
+        : null}
         {token ? <HeaderAvatar /> : null}
         {token ? <HeaderBurger openBurger={openBurger} setOpenBurger={setOpenBurger}/> : null}
        
