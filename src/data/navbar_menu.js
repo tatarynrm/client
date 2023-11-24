@@ -7,7 +7,8 @@ import {
   FcShipped,
   FcDocument,
   FcNews,
-  FcStatistics
+  FcStatistics,
+  FcList
 } from "react-icons/fc";
 import {RiGroup2Fill} from 'react-icons/ri'
 import { FaCarCrash } from "react-icons/fa";
@@ -54,7 +55,7 @@ export const navbar_menu = [
   {
     label: "Архів заявок",
     link: "/archive-logistic-work",
-    icon: <FcShipped />,
+    icon: <FcList />,
     // submenu: [
     //   { label: "Актуальні завантаження", link: "/current-transportation" },
     //   { label: "Тендери", link: "/tenders" },
